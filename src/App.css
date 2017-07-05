@@ -22,3 +22,14 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.texts {
+  display: flex;
+}
+
+.texts p {
+  width: 45%;
+  border: 1px solid #ccc;
+  margin: 1%;
+  padding: 1%;
+}
