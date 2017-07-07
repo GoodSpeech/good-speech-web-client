@@ -1,0 +1,15 @@
+.texts {
+  display: flex;
+  justify-content: space-around;
+}
+
+.texts .card {
+  width: 45%;
+  border: 1px solid #ccc;
+  margin: 1%;
+  padding: 1%;
+}
+
+.texts .card .interimText {
+  color: #888;
+}
