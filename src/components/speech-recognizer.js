@@ -28,6 +28,7 @@ class SpeechRecognizer extends Component {
   }
 
   handleSpeech(transcriptions) {
+    clearTimeout(this.readingTimeout);
     this.readingTimeout = setTimeout(this.stopReading, 5000);
     this.props.onSpeech(transcriptions);
   }
