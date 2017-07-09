@@ -1,7 +1,16 @@
-import '../styles/text-feedback.css';
-
 import React, { Component } from 'react';
 import {diffChars} from 'diff';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+
+
+const styleSheet = createStyleSheet('TextFeedback', theme => ({
+  added: {
+    color: 'green'
+  },
+  removed: {
+      color: 'red'
+  }
+}));
 
 
 class TextFeedback extends Component {
@@ -41,11 +50,13 @@ class TextFeedback extends Component {
   }
 
   render() {
+    const classes = this.props.classes;
+
     return (
       <p>
         {this.state.diff.map((part, index) => {
-          let feedback = part.added ? 'added' :
-            part.removed ? 'removed' : 'default';
+          let feedback = part.added ? classes.added :
+            part.removed ? classes.removed : 'default';
 
           return <span key={index} className={feedback}>{part.value}</span>
         })}
@@ -54,4 +65,4 @@ class TextFeedback extends Component {
   }
 }
 
-export default TextFeedback;
+export default withStyles(styleSheet)(TextFeedback);

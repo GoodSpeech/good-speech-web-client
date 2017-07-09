@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import Button from 'material-ui/Button';
 import speechRecognition from '../services/speech-recognition';
-import '../styles/speech-recognizer.css';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+
+
+const styleSheet = createStyleSheet('SpeechRecognizer', theme => ({
+  button: {
+    textAlign: 'center'
+  }
+}));
+
 
 class SpeechRecognizer extends Component {
 
   readingTimeout: null;
 
   propTypes: {
-    onSpeech: React.PropTypes.func.isRequired
+    onSpeech: React.PropTypes.func.isRequired,
+    classes: React.PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -48,8 +57,10 @@ class SpeechRecognizer extends Component {
   }
 
   render() {
+    const classes = this.props.classes;
+
     return (
-      <div className='speech-recognizer'>
+      <div className={classes.button}>
         {this.state.reading ?
           <Button raised color='accent' onClick={this.stopReading}>Stop reading</Button> :
           <Button raised color='primary' onClick={this.startReading}>Start reading</Button>}
@@ -58,4 +69,5 @@ class SpeechRecognizer extends Component {
   }
 }
 
-export default SpeechRecognizer;
+
+export default withStyles(styleSheet)(SpeechRecognizer);
