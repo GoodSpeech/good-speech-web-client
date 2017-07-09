@@ -2,10 +2,11 @@ import { diffWords } from 'diff';
 import _ from 'lodash';
 import log from 'loglevel';
 import { compareTwoTexts } from 'text-sound-similarity';
+import words from 'voca/words';
 
 
 function cleanText(text) {
-  return text.toLowerCase().replace(/[.,]/g, "").trim();
+  return words(text.toLowerCase()).join(' ');
 }
 
 

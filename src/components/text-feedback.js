@@ -30,7 +30,6 @@ class TextFeedback extends Component {
     this.compareStrings = this.compareStrings.bind(this);
     this.redToGreen = new Rainbow();
     this.redToGreen.setSpectrum('red', 'green');
-    // this.redToGreen.setNumberRange(0, 1);
   }
 
   componentWillReceiveProps(nextProps) {
