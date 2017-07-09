@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SpeechRecognizer from './speech-recognizer';
+import TextFeedback from './text-feedback';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -31,6 +32,10 @@ const styleSheet = createStyleSheet('App', theme => ({
 }));
 
 
+
+const textToRead = "The cat is under the table. The table has a strange colour, he said.";
+
+
 class App extends Component {
 
   propTypes: {
@@ -41,13 +46,15 @@ class App extends Component {
     super(props);
     this.state = {
       text: '',
-      interimText: ''
+      interimText: '',
+      textToRead: textToRead
     }
     this.handleSpeech = this.handleSpeech.bind(this);
   }
 
   handleSpeech(transcriptions) {
     const text = transcriptions.text[0].text;
+
     if (transcriptions.final) {
       this.setState({
         text: `${this.state.text} ${text}`,
@@ -76,14 +83,14 @@ class App extends Component {
           </Toolbar>
         </AppBar>
         <Grid container gutter={8} >
-          <Grid item xs={6} md={4} className={classes.texts}>
+          <Grid item xs={6} md={6} className={classes.texts}>
             <Card className={classes.card}>
               <CardContent>
                 <p>Geppetto, a poor old wood carver, was making a puppet from a tree branch. 'You shall be my little boy,' he said to the puppet, 'and I shall call you 'Pinocchio'.' He worked for hours, carefully carving each detail. When he reached the mouth, the puppet started making faces at Geppetto. 'Stop that, you naughty boy,' Geppetto scolded, 'Stop that at once !' 'I won't stop !' cried Pinocchio.</p>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={6} md={4} className={classes.texts}>
+          <Grid item xs={6} md={6} className={classes.texts}>
             <Card className={classes.card}>
               <CardContent>
                 <p>
@@ -94,6 +101,13 @@ class App extends Component {
             </Card>
           </Grid>
         </Grid>
+        <div className='texts'>
+          <Card className='card'>
+            <CardContent>
+              <TextFeedback textToRead={this.state.textToRead} textReaded={this.state.text}></TextFeedback>
+            </CardContent>
+          </Card>
+        </div>
         <SpeechRecognizer onSpeech={this.handleSpeech} />
       </div>
     );
