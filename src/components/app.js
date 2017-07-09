@@ -33,7 +33,7 @@ const styleSheet = createStyleSheet('App', theme => ({
 
 
 
-const textToRead = "The cat is under the table. The table has a strange colour, he said.";
+const textToRead = "The mouse is under the table. The table has a strange colour, he said.";
 
 
 class App extends Component {
