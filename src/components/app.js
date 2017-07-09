@@ -83,14 +83,16 @@ class App extends Component {
           </Toolbar>
         </AppBar>
         <Grid container gutter={8} >
-          <Grid item xs={6} md={6} className={classes.texts}>
+          <Grid item xs={12} sm={6} className={classes.texts}>
             <Card className={classes.card}>
               <CardContent>
-                <p>Geppetto, a poor old wood carver, was making a puppet from a tree branch. 'You shall be my little boy,' he said to the puppet, 'and I shall call you 'Pinocchio'.' He worked for hours, carefully carving each detail. When he reached the mouth, the puppet started making faces at Geppetto. 'Stop that, you naughty boy,' Geppetto scolded, 'Stop that at once !' 'I won't stop !' cried Pinocchio.</p>
+                <p contentEditable suppressContentEditableWarning>
+                {this.state.textToRead}
+              </p>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={6} md={6} className={classes.texts}>
+          <Grid item xs={12} sm={6} className={classes.texts}>
             <Card className={classes.card}>
               <CardContent>
                 <p>
@@ -101,13 +103,16 @@ class App extends Component {
             </Card>
           </Grid>
         </Grid>
-        <div className='texts'>
-          <Card className='card'>
-            <CardContent>
-              <TextFeedback textToRead={this.state.textToRead} textReaded={this.state.text}></TextFeedback>
-            </CardContent>
-          </Card>
-        </div>
+        <Grid container gutter={8} >
+          <Grid item sm={3}></Grid> {/* offset */}
+          <Grid item xs={12} sm={6} className={classes.texts}>
+            <Card className={classes.card}>
+              <CardContent>
+                <TextFeedback textToRead={this.state.textToRead} textReaded={this.state.text}></TextFeedback>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
         <SpeechRecognizer onSpeech={this.handleSpeech} />
       </div>
     );
