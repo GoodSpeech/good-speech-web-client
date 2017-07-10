@@ -6,7 +6,7 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-import Card, { CardContent, CardActions } from 'material-ui/Card';
+import Card, { CardContent, CardActions, CardHeader } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import languages from '../services/supported-languages';
@@ -40,7 +40,7 @@ const styleSheet = createStyleSheet('App', theme => ({
     textAlign: 'left',
     minWidth: '90%'
   },
-  textToRead: {
+  text: {
     height: '4em',
     margin: 0
   }
@@ -59,14 +59,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
+      textReaded: '',
       interimText: '',
       textToRead: textToRead,
       lang: languages.find(lang => lang.code === 'en-US')
     }
     this.handleSpeech = this.handleSpeech.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
-    this.onTextToReadChange = this.onTextToReadChange.bind(this);
+    this.onTextChange = this.onTextChange.bind(this);
   }
 
   handleSpeech(transcriptions) {
@@ -74,7 +74,7 @@ class App extends Component {
 
     if (transcriptions.final) {
       this.setState({
-        text: `${this.state.text} ${text}`,
+        textReaded: `${this.state.textReaded} ${text}`,
         interimText: ''
       });
     } else {
@@ -88,14 +88,14 @@ class App extends Component {
     this.setState({
       lang,
       textToRead: 'Introduce the text you want to read',
-      text: '',
+      textReaded: '',
       interimText: ''
     });
   }
 
-  onTextToReadChange(event) {
+  onTextChange(event, fieldName) {
     this.setState({
-      textToRead: event.currentTarget.innerText
+      [fieldName]: event.currentTarget.innerText
     });
   }
 
@@ -124,8 +124,8 @@ class App extends Component {
                 <p
                   contentEditable
                   suppressContentEditableWarning
-                  onBlur={this.onTextToReadChange}
-                  className={classes.textToRead}>
+                  onBlur={(e) => this.onTextChange(e, 'textToRead')}
+                  className={classes.text}>
                   {this.state.textToRead}
                 </p>
               </CardContent>
@@ -133,11 +133,15 @@ class App extends Component {
           </Grid>
           <Grid item xs={12} sm={6} className={classes.texts}>
             <Card className={classes.card}>
+              <CardHeader title='Debugger'></CardHeader>
               <CardContent>
-                <p>
-                  <span>{this.state.text}</span>
-                  <span className={classes.interimText}>{this.state.interimText}</span>
+                <p contentEditable
+                    suppressContentEditableWarning
+                    onBlur={(e) => this.onTextChange(e, 'textReaded')}
+                    className={classes.text}>
+                    {this.state.textReaded}
                 </p>
+                <p><span className={classes.interimText}>{this.state.interimText}</span></p>
               </CardContent>
             </Card>
           </Grid>
@@ -147,7 +151,7 @@ class App extends Component {
           <Grid item xs={12} sm={6} className={classes.texts}>
             <Card className={classes.card}>
               <CardContent>
-                <TextFeedback textToRead={this.state.textToRead} textReaded={this.state.text}></TextFeedback>
+                <TextFeedback textToRead={this.state.textToRead} textReaded={this.state.textReaded}></TextFeedback>
               </CardContent>
             </Card>
           </Grid>
