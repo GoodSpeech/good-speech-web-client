@@ -11,9 +11,12 @@
     "loglevel": "^1.4.1",
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-alpha.19",
+    "rainbowvis.js": "^1.0.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "text-sound-similarity": "^1.0.1",
+    "voca": "^1.3.0"
   },
   "scripts": {
     "start": "yarn && react-scripts start",

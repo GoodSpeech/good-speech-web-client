@@ -37,8 +37,7 @@ const styleSheet = createStyleSheet('App', theme => ({
 }));
 
 
-
-const textToRead = "El Decreto de Graciano representa un paso importante para la consolidación del Derecho de la Iglesia católica en la Alta y Baja Edad Media.";
+const textToRead = "The mouse is under the table. The table has a strange colour, he said.";
 
 
 class App extends Component {
@@ -100,7 +99,7 @@ class App extends Component {
           </Toolbar>
         </AppBar>
         <Grid container gutter={8} >
-          <Grid item xs={12} sm={6} className={classes.texts}>              
+          <Grid item xs={12} sm={6} className={classes.texts}>
             <Card className={classes.card}>
               <CardActions>
                 <LanguagePicker lang={this.state.lang} onChange={this.onLanguageChange} />

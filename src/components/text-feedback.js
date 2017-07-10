@@ -1,6 +1,8 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
-import {diffChars} from 'diff';
+import Rainbow from 'rainbowvis.js';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
+import Feedback from '../services/feedback';
 
 
 const styleSheet = createStyleSheet('TextFeedback', theme => ({
@@ -23,10 +25,11 @@ class TextFeedback extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      diff: []
+      feedback: []
     };
     this.compareStrings = this.compareStrings.bind(this);
-    this.cleanTextToRead = this.cleanTextToRead.bind(this);
+    this.redToGreen = new Rainbow();
+    this.redToGreen.setSpectrum('red', 'green');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,28 +40,28 @@ class TextFeedback extends Component {
     }
   }
 
-  cleanTextToRead(textToRead) {
-    return textToRead.toLowerCase().replace(/[.,]/g, "");
-  }
-
   compareStrings(textReaded) {
-    const textToRead = this.cleanTextToRead(this.props.textToRead);
+    const textToRead = this.props.textToRead;
+    let feedback = Feedback.compute(textToRead, textReaded);
 
     this.setState({
-      diff: diffChars(textToRead, textReaded)
+      feedback: feedback
     })
   }
 
   render() {
-    const classes = this.props.classes;
-
     return (
       <p>
-        {this.state.diff.map((part, index) => {
-          let feedback = part.added ? classes.added :
-            part.removed ? classes.removed : 'default';
+        {this.state.feedback.map((part, index) => {
+          if (!_.has(part, 'similarity')) {
+            part.similarity = 1
+          }
+          let color = this.redToGreen.colourAt(part.similarity * 100);
+          const style = {
+            color: `#${color}`
+          };
 
-          return <span key={index} className={feedback}>{part.value}</span>
+          return <span key={index} style={style}>{part.value}</span>
         })}
       </p>
     );
