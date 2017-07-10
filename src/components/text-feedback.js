@@ -53,12 +53,13 @@ class TextFeedback extends Component {
     return (
       <p>
         {this.state.feedback.map((part, index) => {
-          let style = {};
           if (!_.has(part, 'similarity')) {
             part.similarity = 1
           }
           let color = this.redToGreen.colourAt(part.similarity * 100);
-            style['color'] = `#${color}`;
+          const style = {
+            color: `#${color}`
+          };
 
           return <span key={index} style={style}>{part.value}</span>
         })}

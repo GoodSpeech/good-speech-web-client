@@ -25,17 +25,14 @@ function zip(arr, arrr) {
 
 
 function categorizeAndSequenceDiff(diffed){
-  let added = [],
-    removed = [],
-    unchanged= [];
-
-  diffed.forEach((part, index) => {
-    let item = {
+  return diffed.reduce((result, part, index) => {
+    const [unchanged, added, removed] = result;
+    const item = {
       value: part.value,
       position: index
     };
 
-    // The diff library is poorly designed so this check is necesary
+    // The diff library is poorly designed so this check is necessary
     if (!_.has(part, 'added') && !_.has(part, 'removed')) {
       unchanged.push(item);
     } else if (part.added) {
@@ -43,9 +40,8 @@ function categorizeAndSequenceDiff(diffed){
     } else if (part.removed) {
       removed.push(item);
     }
-  });
-
-  return [unchanged, added, removed];
+    return result;
+  }, [[], [], []]);
 }
 
 
@@ -73,7 +69,7 @@ function serializeSimilarityArray(items) {
       value: textToReadItem.value,
       position: textToReadItem.position,
       similarity: item[1],
-      _backup: item
+      __backup: item
     }
   });
 }
