@@ -7,10 +7,9 @@ import 'flag-icon-css/css/flag-icon.min.css';
 
 const styleSheet = createStyleSheet('LanguagePicker', theme => ({
   root: {
-    textAlign: 'left',
+    textAlign: 'right',
     borderBottom: '1px solid #ddd',
-    width: '100%',
-    marginTop: '-1.0em'
+    width: '100%'
   },
   flag: {
     marginRight: '0.5em'
@@ -67,6 +66,7 @@ class LanguagePicker extends Component {
           onClick={this.openLanguageMenu}>
           {this.getFlag(this.props.lang)}
           {this.props.lang.name}
+          <i className='material-icons'>keyboard_arrow_down</i>
         </Button>
         <Menu
           id='pick-language'

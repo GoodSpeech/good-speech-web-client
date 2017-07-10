@@ -27,12 +27,22 @@ const styleSheet = createStyleSheet('App', theme => ({
     textAlign: 'left',
     minWidth: '90%'
   },
+  cardActions: {
+    padding: 0,
+    margin: 0
+  },
   interimText: {
     color: theme.palette.text.secondary
   },
+  textToReadCard: {
+    padding: '0 5px 5px 5px',
+    margin: 15,
+    textAlign: 'left',
+    minWidth: '90%'
+  },
   textToRead: {
     height: '4em',
-    margin: '-1em 0 0 0',
+    margin: 0
   }
 }));
 
@@ -106,8 +116,8 @@ class App extends Component {
         </AppBar>
         <Grid container gutter={8} >
           <Grid item xs={12} sm={6} className={classes.texts}>
-            <Card className={classes.card}>
-              <CardActions>
+            <Card className={classes.textToReadCard}>
+              <CardActions className={classes.cardActions}>
                 <LanguagePicker lang={this.state.lang} onChange={this.onLanguageChange} />
               </CardActions>
               <CardContent>
