@@ -6,10 +6,11 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-import Card, { CardContent } from 'material-ui/Card';
+import Card, { CardContent, CardActions } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-
+import languages from '../services/supported-languages';
+import LanguagePicker from './language-picker';
 
 const styleSheet = createStyleSheet('App', theme => ({
   root: {
@@ -28,12 +29,16 @@ const styleSheet = createStyleSheet('App', theme => ({
   },
   interimText: {
     color: theme.palette.text.secondary
+  },
+  textToRead: {
+    height: '4em',
+    margin: '-1em 0 0 0',
   }
 }));
 
 
 
-const textToRead = "The cat is under the table. The table has a strange colour, he said.";
+const textToRead = "El Decreto de Graciano representa un paso importante para la consolidación del Derecho de la Iglesia católica en la Alta y Baja Edad Media.";
 
 
 class App extends Component {
@@ -47,9 +52,11 @@ class App extends Component {
     this.state = {
       text: '',
       interimText: '',
-      textToRead: textToRead
+      textToRead: textToRead,
+      lang: languages.find(lang => lang.code === 'es-AR')
     }
     this.handleSpeech = this.handleSpeech.bind(this);
+    this.onLanguageChange = this.onLanguageChange.bind(this);
   }
 
   handleSpeech(transcriptions) {
@@ -65,6 +72,16 @@ class App extends Component {
         interimText: text
       });
     }
+  }
+
+  onLanguageChange(lang) {
+    this.setState({lang, textToRead: 'Introduce the text you want to read'});
+  }
+
+  onTextToReadChange(event) {
+    this.setState({
+      textToRead: event.currentTarget.innerText
+    });
   }
 
   render() {
@@ -83,12 +100,19 @@ class App extends Component {
           </Toolbar>
         </AppBar>
         <Grid container gutter={8} >
-          <Grid item xs={12} sm={6} className={classes.texts}>
+          <Grid item xs={12} sm={6} className={classes.texts}>              
             <Card className={classes.card}>
+              <CardActions>
+                <LanguagePicker lang={this.state.lang} onChange={this.onLanguageChange} />
+              </CardActions>
               <CardContent>
-                <p contentEditable suppressContentEditableWarning>
-                {this.state.textToRead}
-              </p>
+                <p
+                  contentEditable
+                  suppressContentEditableWarning
+                  onChange={this.onTextToReadChange}
+                  className={classes.textToRead}>
+                  {this.state.textToRead}
+                </p>
               </CardContent>
             </Card>
           </Grid>
@@ -113,7 +137,7 @@ class App extends Component {
             </Card>
           </Grid>
         </Grid>
-        <SpeechRecognizer onSpeech={this.handleSpeech} />
+        <SpeechRecognizer onSpeech={this.handleSpeech} langCode={this.state.lang.code} />
       </div>
     );
   }
