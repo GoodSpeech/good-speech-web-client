@@ -3,13 +3,11 @@ import Button from 'material-ui/Button';
 import speechRecognition from '../services/speech-recognition';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-
 const styleSheet = createStyleSheet('SpeechRecognizer', theme => ({
   button: {
     textAlign: 'center'
   }
 }));
-
 
 class SpeechRecognizer extends Component {
 
@@ -17,7 +15,8 @@ class SpeechRecognizer extends Component {
 
   propTypes: {
     onSpeech: React.PropTypes.func.isRequired,
-    classes: React.PropTypes.object.isRequired
+    classes: React.PropTypes.object.isRequired,
+    langCode: React.PropTypes.String.isRequired
   };
 
   constructor(props) {
@@ -25,15 +24,23 @@ class SpeechRecognizer extends Component {
     this.state = {
       reading: false
     }
+    this.initSpeechRecognition(props);
     this.startReading = this.startReading.bind(this);
     this.stopReading = this.stopReading.bind(this);
   }
 
-  componentWillMount() {
+  initSpeechRecognition(props) {
     speechRecognition.init({
       interimResults: true,
+      lang: props.langCode,
       onSpeech: this.handleSpeech.bind(this)
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.langCode !== this.props.langCode) {
+      this.initSpeechRecognition(nextProps);
+    }
   }
 
   handleSpeech(transcriptions) {

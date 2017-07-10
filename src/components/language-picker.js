@@ -1,0 +1,83 @@
+import React, { Component } from 'react';
+import Menu, { MenuItem } from 'material-ui/Menu';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+import languages from '../services/supported-languages';
+import Button from 'material-ui/Button';
+import 'flag-icon-css/css/flag-icon.min.css';
+
+const styleSheet = createStyleSheet('LanguagePicker', theme => ({
+  root: {
+    textAlign: 'left',
+    borderBottom: '1px solid #ddd',
+    width: '100%',
+    marginTop: '-1.0em'
+  },
+  flag: {
+    marginRight: '0.5em'
+  }
+}));
+
+class LanguagePicker extends Component {
+
+  propTypes: {
+    classes: React.PropTypes.object.isRequired,
+    lang: React.PropTypes.object.isRequired,
+    onChange: React.PropTypes.func.isRequired
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      openMenu: false
+    }
+    this.openLanguageMenu = this.openLanguageMenu.bind(this);
+    this.closeLanguageMenu = this.closeLanguageMenu.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  openLanguageMenu(event) {
+    this.setState({
+      openMenu: true,
+      buttonEl: event.currentTarget
+    });
+  }
+
+  closeLanguageMenu() {
+    this.setState({
+      openMenu: false
+    });
+  }
+
+  onChange(lang) {
+    this.closeLanguageMenu();
+    this.props.onChange(lang);
+  }
+
+  getFlag(lang) {
+    const countryCode = lang.code.split('-')[1].toLowerCase();
+    return <span className={`${this.props.classes.flag} flag-icon flag-icon-${countryCode}`}></span>;
+  }
+
+  render() {
+    const classes = this.props.classes;
+    return (
+      <div className={classes.root}>
+        <Button 
+          aria-owns='pick-language'
+          onClick={this.openLanguageMenu}>
+          {this.getFlag(this.props.lang)}
+          {this.props.lang.name}
+        </Button>
+        <Menu
+          id='pick-language'
+          open={this.state.openMenu}
+          anchorEl={this.state.buttonEl}
+          onRequestClose={this.closeLanguageMenu}
+        >{languages.map(lang => <MenuItem key={lang.code} onClick={() => this.onChange(lang)}>{lang.name}</MenuItem>)}
+        </Menu>
+      </div>
+    );
+  }
+}
+
+export default withStyles(styleSheet)(LanguagePicker);
