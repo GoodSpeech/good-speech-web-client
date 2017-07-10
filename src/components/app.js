@@ -52,10 +52,11 @@ class App extends Component {
       text: '',
       interimText: '',
       textToRead: textToRead,
-      lang: languages.find(lang => lang.code === 'es-AR')
+      lang: languages.find(lang => lang.code === 'en-US')
     }
     this.handleSpeech = this.handleSpeech.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
+    this.onTextToReadChange = this.onTextToReadChange.bind(this);
   }
 
   handleSpeech(transcriptions) {
@@ -74,7 +75,12 @@ class App extends Component {
   }
 
   onLanguageChange(lang) {
-    this.setState({lang, textToRead: 'Introduce the text you want to read'});
+    this.setState({
+      lang,
+      textToRead: 'Introduce the text you want to read',
+      text: '',
+      interimText: ''
+    });
   }
 
   onTextToReadChange(event) {
@@ -108,7 +114,7 @@ class App extends Component {
                 <p
                   contentEditable
                   suppressContentEditableWarning
-                  onChange={this.onTextToReadChange}
+                  onBlur={this.onTextToReadChange}
                   className={classes.textToRead}>
                   {this.state.textToRead}
                 </p>

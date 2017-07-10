@@ -18,9 +18,7 @@ function cleanText(text) {
  * @return {[array]}      [[1, 3] [2, 4]]
  */
 function zip(arr, arrr) {
-  return arr.map((e, i) => {
-    return [e, arrr[i]];
-  });
+  return _.compact(arr.map((e, i) => arrr[i] && [e, arrr[i]]));
 }
 
 
