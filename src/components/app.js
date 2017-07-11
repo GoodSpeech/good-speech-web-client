@@ -9,7 +9,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 import Card, { CardContent, CardActions, CardHeader } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import languages from '../services/supported-languages';
+import { supportedLanguages, defaultTexts } from '../services/supported-languages';
 import LanguagePicker from './language-picker';
 
 const styleSheet = createStyleSheet('App', theme => ({
@@ -41,13 +41,15 @@ const styleSheet = createStyleSheet('App', theme => ({
     minWidth: '90%'
   },
   text: {
-    height: '4em',
-    margin: 0
+    minHeight: '4em',
+    margin: 0,
+    lineHeight: '1.4em'
   }
 }));
 
 
-const textToRead = "The mouse is under the table. The table has a strange colour, he said.";
+const defaultLanguage = 'en-US';
+const defaultTextToRead = 'The mouse is under the table. The table has a strange colour, he said.';
 
 
 class App extends Component {
@@ -61,12 +63,22 @@ class App extends Component {
     this.state = {
       textReaded: '',
       interimText: '',
-      textToRead: textToRead,
-      lang: languages.find(lang => lang.code === 'en-US')
+      textToRead: this.getDefaultTextToRead(),
+      lang: this.getDefaultLanguage()
     }
     this.handleSpeech = this.handleSpeech.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
-    this.onTextChange = this.onTextChange.bind(this);
+    this.onTextToReadChange = this.onTextToReadChange.bind(this);
+    this.onTextReadedChange = this.onTextReadedChange.bind(this);
+  }
+
+  getDefaultLanguage() {
+    const code = localStorage.getItem('lang') || defaultLanguage;
+    return supportedLanguages.find(lang => lang.code === code);
+  }
+
+  getDefaultTextToRead() {
+    return localStorage.getItem('textToRead') || defaultTextToRead;
   }
 
   handleSpeech(transcriptions) {
@@ -85,18 +97,21 @@ class App extends Component {
   }
 
   onLanguageChange(lang) {
-    this.setState({
-      lang,
-      textToRead: 'Introduce the text you want to read',
-      textReaded: '',
-      interimText: ''
-    });
+    const langPrefix = lang.code.split('-')[0];
+    const textToRead = defaultTexts[langPrefix] || 'Introduce the text you want to read';
+    localStorage.setItem('lang', lang.code);
+    localStorage.setItem('textToRead', textToRead);
+    this.setState({lang, textToRead, textReaded: '', interimText: ''});
   }
 
-  onTextChange(event, fieldName) {
-    this.setState({
-      [fieldName]: event.currentTarget.innerText
-    });
+  onTextToReadChange(event) {
+    const textToRead = event.currentTarget.innerText;
+    localStorage.setItem('textToRead', textToRead);
+    this.setState({textToRead});
+  }
+
+  onTextReadedChange(event) {
+    this.setState({textReaded: event.currentTarget.innerText});
   }
 
   render() {
@@ -124,7 +139,7 @@ class App extends Component {
                 <p
                   contentEditable
                   suppressContentEditableWarning
-                  onBlur={(e) => this.onTextChange(e, 'textToRead')}
+                  onBlur={this.onTextToReadChange}
                   className={classes.text}>
                   {this.state.textToRead}
                 </p>
@@ -137,7 +152,7 @@ class App extends Component {
               <CardContent>
                 <p contentEditable
                     suppressContentEditableWarning
-                    onBlur={(e) => this.onTextChange(e, 'textReaded')}
+                    onBlur={this.onTextReadedChange}
                     className={classes.text}>
                     {this.state.textReaded}
                 </p>
