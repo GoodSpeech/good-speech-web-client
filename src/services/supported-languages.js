@@ -22,7 +22,64 @@
 */
 
 
-const supportedLanguages = [{
+/*
+  Get the default texts from https://[lang].wikipedia.org/wiki/Wikipedia i.e. https://es.wikipedia.org/wiki/Wikipedia
+*/
+export const defaultTexts = {
+  af: `Wikipedia is 'n veeltalige "kopielinkse" ensiklopedie ontwerp om deur enigiemand gelees en gewysig te word. Dit berus op samewerkende verandering en onderhoud deur duisende gebruikers deur middel van wiki-sagteware, en word verskaf en ondersteun deur die nie-winsgewende Wikimedia Stigting. Waarnemers beskou die tweeledige bestuur, waarin 'n informele gemeenskap van aktiewe gebruikers die gesag oor 'n globale digitale projek met 'n stigting deel en sodoende formele met informele organisasiestrukture verbind word, as 'n eksperiment wat steeds aan die gang is.`,
+  id: `Wikipedia adalah proyek ensiklopedia multibahasa dalam jaringan yang bebas dan terbuka, yang dijalankan oleh Wikimedia Foundation, sebuah organisasi nirlaba yang berbasis di Amerika Serikat. Nama Wikipedia berasal dari gabungan kata wiki dan encyclopedia. Wikipedia dirilis pada tahun 2001 oleh Jimmy Wales dan Larry Sanger, dan kini merupakan karya referensi paling besar, cepat berkembang, dan populer di Internet. Proyek Wikipedia bertujuan untuk memberikan ilmu pengetahuan manusia.`,
+  ms: `Wikipedia ialah sebuah ensiklopedia yang boleh diubah suai dan dibina secara kerjasama dengan menggunakan perisian wiki. Wikipedia dikendalikan oleh Yayasan Wikimedia yang tidak mengambil apa-apa keuntungan daripada khidmat yang diberikan. Sebagai tambahan kepada matlamat ensiklopedia iaitu untuk memberikan pengetahuan, Wikipedia juga memasukkan maklumat yang lebih kerap dikaitkan dengan almanak dan jurnal, dan juga perkara semasa.`,
+  ca: `La Viquipèdia és una enciclopèdia lliure mantinguda per la Fundació Wikimedia, una organització sense ànim de lucre. Els més de 38 milions d'articles han estat escrits col·laborativament per usuaris d'arreu del món, i la majoria dels seus articles poden ser editats per qualsevol persona que pugui accedir a la web.`,
+  cs: `Wikipedie je mnohojazyčná webová encyklopedie se svobodným (otevřeným) obsahem, na jejíž tvorbě spolupracují dobrovolní přispěvatelé z celého světa. Jejím cílem je tvorba a celosvětové šíření volně přístupných encyklopedických informací. Wikipedie existuje ve více než 270 jazykových verzích různého rozsahu, přičemž rozsah zhruba třetiny z nich je spíše symbolický.`,
+  da: `Wikipedia er en encyklopædi med åbent indhold, skrevet i samarbejde mellem sine brugere. Navnet er en sammentrækning af ordene wiki, der betyder hurtig på hawaiiansk og encyclopedia der betyder encyklopædi på engelsk. Wikipedia styres af Wikimedia, en non-profit fond oprettet specielt til formålet.`,
+  de: `Wikipedia ist ein am 15. Januar 2001 gegründetes Projekt zur Erstellung einer Enzyklopädie in zahlreichen Sprachen mit Hilfe des Wiki­prinzips. Es bietet freie, also kostenlose und zur Weiterverbreitung gedachte, unter lexikalischen Einträgen (Lemmata) zu findende Artikel. Das Ziel ist gemäß dem Gründer Jimmy Wales, „eine frei lizenzierte und hochwertige Enzyklopädie zu schaffen und damit lexikalisches Wissen zu verbreiten“.`,
+  en: `Wikipedia is a free online encyclopedia with the aim to allow anyone to edit articles. Wikipedia is the largest and most popular general reference work on the Internet and is ranked among the ten most popular websites. Wikipedia is owned by the nonprofit Wikimedia Foundation. Wikipedia was launched on January 15, 2001, by Jimmy Wales and Larry Sanger. Sanger coined its name, a portmanteau of wiki and encyclopedia.`,
+  es: `Wikipedia es una enciclopedia libre, políglota y editada de manera colaborativa. Es administrada por la Fundación Wikimedia, una organización sin ánimo de lucro cuya financiación está basada en donaciones. Sus más de 45 millones de artículos en 287 idiomas han sido redactados conjuntamente por voluntarios de todo el mundo,​ lo que hace un total de más de 2000 millones de ediciones, y prácticamente cualquier persona con acceso al proyecto​ puede editarlos, salvo que la página esté protegida contra el vandalismo para evitar problemas y/o trifulcas.`,
+  eu: `Wikipedia eduki askeko entziklopedia bat da, lankidetzaz editatua, eleanitza, Interneten argitaratua, Wikimedia Fundazioa irabazi asmorik gabeko erakundeak sustengatua. Wikipedia mundu osoko boluntarioek idazten dute. Internetera konektatutako edonork parte har dezake Wikipediako artikuluetan, aldatu lotura sakatuz. 2015ko azaroaren bostean, 291 hizkuntzatako edizioak zituen, eta horietatik 275 zeuden aktibo.`,
+  /*
+  fil,
+  */
+  fr: `Wikipédia Prononciation du titre dans sa version originale Écouter est un projet d'encyclopédie universelle, multilingue, créé par Jimmy Wales et Larry Sanger le 15 janvier 20011 en wiki sous le nom de domaine wikipedia.org. Les versions des différentes langues utilisent le même logiciel de publication, MediaWiki, et ont la même apparence, mais elles comportent des variations dans leurs contenus, leurs structures et leurs modalités d'édition et de gestion.`,
+  /*
+  gl,
+  hr,
+  zu,
+  is,
+  */
+  it: `Wikipedia è un'enciclopedia online a contenuto libero, collaborativa, multilingue e gratuita, nata nel 2001, sostenuta e ospitata dalla Wikimedia Foundation, un'organizzazione non a scopo di lucro statunitense. Lanciata da Jimmy Wales e Larry Sanger il 15 gennaio 2001, inizialmente nell'edizione in lingua inglese, nei mesi successivi ha aggiunto edizioni in numerose altre lingue. Sanger ne suggerì il nome, una parola macedonia nata dall'unione della radice wiki al suffisso pedia (da enciclopedia).`,
+  /*
+  hu,
+  nl,
+  nb,
+  pl,
+  */
+  pt: `A Wikipédia é um projeto de enciclopédia multilíngue de licença livre, baseado na web e escrito de maneira colaborativa; encontra-se, atualmente, sob administração da Fundação Wikimedia, uma organização sem fins lucrativos cuja missão é "empoderar e engajar pessoas pelo mundo para coletar e desenvolver conteúdo educacional sob uma licença livre ou no domínio público, e para disseminá-lo efetivamente e globalmente.`,
+  /*
+  ro,
+  sk,
+  sl,
+  fi,
+  sv,
+  vi,
+  tr,
+  el,
+  bg,
+  ru,
+  sr,
+  uk,
+  he,
+  ar: 
+  fa,
+  hi,
+  th,
+  ko,
+  cmn,
+  yue,
+  */
+  ja: `ウィキペディア（英: Wikipedia）は、ウィキメディア財団が運営しているインターネット百科事典である[4]。コピーレフトなライセンスのもと、サイトにアクセス可能な誰もが無料で自由に編集に参加できる[4]。世界の各言語で展開されている。ウィキペディア（Wikipedia）」という名前は、ウェブブラウザ上でウェブページを編集することができる「ウィキ（Wiki）」というシステムを使用した「百科事 であることに由来する造語である。設立者の1人であるラリー・サンガーにより命名された。`
+};
+
+export const supportedLanguages = [{
   'name': 'Afrikaans (Suid-Afrika)',
   'code': 'af-ZA',
   'englishName': 'Afrikaans (South Africa)'
