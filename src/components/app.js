@@ -9,7 +9,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 import Card, { CardContent, CardActions, CardHeader } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import languages from '../services/supported-languages';
+import { supportedLanguages, defaultTexts } from '../services/supported-languages';
 import LanguagePicker from './language-picker';
 
 const styleSheet = createStyleSheet('App', theme => ({
@@ -41,13 +41,15 @@ const styleSheet = createStyleSheet('App', theme => ({
     minWidth: '90%'
   },
   text: {
-    height: '4em',
-    margin: 0
+    minHeight: '4em',
+    margin: 0,
+    lineHeight: '1.4em'
   }
 }));
 
 
-const textToRead = "The mouse is under the table. The table has a strange colour, he said.";
+const defaultLanguage = 'en-US';
+const defaultTextToRead = 'The mouse is under the table. The table has a strange colour, he said.';
 
 
 class App extends Component {
@@ -71,12 +73,12 @@ class App extends Component {
   }
 
   getDefaultLanguage() {
-    const code = localStorage.getItem('lang') || 'en-US';
-    return languages.find(lang => lang.code === code);
+    const code = localStorage.getItem('lang') || defaultLanguage;
+    return supportedLanguages.find(lang => lang.code === code);
   }
 
   getDefaultTextToRead() {
-    return localStorage.getItem('textToRead') || textToRead;
+    return localStorage.getItem('textToRead') || defaultTextToRead;
   }
 
   handleSpeech(transcriptions) {
@@ -95,13 +97,11 @@ class App extends Component {
   }
 
   onLanguageChange(lang) {
-    localStorage.setItem('lang', lang.code)
-    this.setState({
-      lang,
-      textToRead: 'Introduce the text you want to read',
-      textReaded: '',
-      interimText: ''
-    });
+    const langPrefix = lang.code.split('-')[0];
+    const textToRead = defaultTexts[langPrefix] || 'Introduce the text you want to read';
+    localStorage.setItem('lang', lang.code);
+    localStorage.setItem('textToRead', textToRead);
+    this.setState({lang, textToRead, textReaded: '', interimText: ''});
   }
 
   onTextToReadChange(event) {
