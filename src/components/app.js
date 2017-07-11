@@ -61,12 +61,22 @@ class App extends Component {
     this.state = {
       textReaded: '',
       interimText: '',
-      textToRead: textToRead,
-      lang: languages.find(lang => lang.code === 'en-US')
+      textToRead: this.getDefaultTextToRead(),
+      lang: this.getDefaultLanguage()
     }
     this.handleSpeech = this.handleSpeech.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
-    this.onTextChange = this.onTextChange.bind(this);
+    this.onTextToReadChange = this.onTextToReadChange.bind(this);
+    this.onTextReadedChange = this.onTextReadedChange.bind(this);
+  }
+
+  getDefaultLanguage() {
+    const code = localStorage.getItem('lang') || 'en-US';
+    return languages.find(lang => lang.code === code);
+  }
+
+  getDefaultTextToRead() {
+    return localStorage.getItem('textToRead') || textToRead;
   }
 
   handleSpeech(transcriptions) {
@@ -85,6 +95,7 @@ class App extends Component {
   }
 
   onLanguageChange(lang) {
+    localStorage.setItem('lang', lang.code)
     this.setState({
       lang,
       textToRead: 'Introduce the text you want to read',
@@ -93,10 +104,14 @@ class App extends Component {
     });
   }
 
-  onTextChange(event, fieldName) {
-    this.setState({
-      [fieldName]: event.currentTarget.innerText
-    });
+  onTextToReadChange(event) {
+    const textToRead = event.currentTarget.innerText;
+    localStorage.setItem('textToRead', textToRead);
+    this.setState({textToRead});
+  }
+
+  onTextReadedChange(event) {
+    this.setState({textReaded: event.currentTarget.innerText});
   }
 
   render() {
@@ -124,7 +139,7 @@ class App extends Component {
                 <p
                   contentEditable
                   suppressContentEditableWarning
-                  onBlur={(e) => this.onTextChange(e, 'textToRead')}
+                  onBlur={this.onTextToReadChange}
                   className={classes.text}>
                   {this.state.textToRead}
                 </p>
@@ -137,7 +152,7 @@ class App extends Component {
               <CardContent>
                 <p contentEditable
                     suppressContentEditableWarning
-                    onBlur={(e) => this.onTextChange(e, 'textReaded')}
+                    onBlur={this.onTextReadedChange}
                     className={classes.text}>
                     {this.state.textReaded}
                 </p>
