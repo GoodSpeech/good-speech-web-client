@@ -161,16 +161,17 @@ class App extends Component {
             </Card>
           </Grid>
         </Grid>
-        <Grid container gutter={8} >
-          <Grid item sm={3}></Grid> {/* offset */}
-          <Grid item xs={12} sm={6} className={classes.texts}>
-            <Card className={classes.card}>
-              <CardContent>
-                <TextFeedback textToRead={this.state.textToRead} textReaded={this.state.textReaded}></TextFeedback>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
+        {this.state.textToRead.length > 0 && this.state.textReaded.length > 0 ? (
+          <Grid container gutter={8} >
+            <Grid item sm={3}></Grid> {/* offset */}
+            <Grid item xs={12} sm={6} className={classes.texts}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <TextFeedback textToRead={this.state.textToRead} textReaded={this.state.textReaded}></TextFeedback>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>) : null }
         <SpeechRecognizer onSpeech={this.handleSpeech} langCode={this.state.lang.code} />
       </div>
     );

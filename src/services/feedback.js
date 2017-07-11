@@ -9,19 +9,6 @@ function cleanText(text) {
   return words(text.toLowerCase()).join(' ');
 }
 
-
-/**
- * Make an array that aggregates elements from each of the arrays.
- *
- * @param  {[array]} arr  [1, 2]
- * @param  {[array]} arrr [3, 4]
- * @return {[array]}      [[1, 3] [2, 4]]
- */
-function zip(arr, arrr) {
-  return _.compact(arr.map((e, i) => arrr[i] && [e, arrr[i]]));
-}
-
-
 function categorizeAndSequenceDiff(diffed){
   return diffed.reduce((result, part, index) => {
     const [unchanged, added, removed] = result;
@@ -45,8 +32,8 @@ function categorizeAndSequenceDiff(diffed){
 
 function getSimilarity(pairs) {
   return pairs.map((item) => {
-    let firstWord = item[0].value,
-      secondWord = item[1].value;
+    let firstWord = _.get(item, [0, 'value'], ''),
+      secondWord = _.get(item, [1, 'value'], '');
     let similarity = compareTwoTexts(firstWord, secondWord);
     log.info(`similarity(${firstWord}, ${secondWord}) = ${similarity}`);
     return [item, similarity];
@@ -85,7 +72,7 @@ function compute(original, readed) {
   readed = cleanText(readed);
   diff = diffWords(original, readed);
   [unchanged, added, removed] = categorizeAndSequenceDiff(diff);
-  similarity = getSimilarity(zip(added, removed));
+  similarity = getSimilarity(_.zip(added, removed));
   serializedSimilarity = serializeSimilarityArray(similarity);
   merged = _.concat(unchanged, serializedSimilarity)
   sortByPosition = _.sortBy(merged, ['position']);

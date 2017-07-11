@@ -24,35 +24,16 @@ class TextFeedback extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      feedback: []
-    };
-    this.compareStrings = this.compareStrings.bind(this);
     this.redToGreen = new Rainbow();
     this.redToGreen.setSpectrum('red', 'green');
   }
 
-  componentWillReceiveProps(nextProps) {
-    let textReaded = nextProps.textReaded;
-
-    if (textReaded.length > 0) {
-      this.compareStrings(textReaded);
-    }
-  }
-
-  compareStrings(textReaded) {
-    const textToRead = this.props.textToRead;
-    let feedback = Feedback.compute(textToRead, textReaded);
-
-    this.setState({
-      feedback: feedback
-    })
-  }
-
   render() {
+    const feedback = Feedback.compute(this.props.textToRead, this.props.textReaded);
+
     return (
       <p>
-        {this.state.feedback.map((part, index) => {
+        {feedback.map((part, index) => {
           if (!_.has(part, 'similarity')) {
             part.similarity = 1
           }
