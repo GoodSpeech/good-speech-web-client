@@ -14,7 +14,10 @@ const styleSheet = createStyleSheet('TextFeedback', theme => ({
   text: {
     minHeight: '4em',
     margin: 0,
-    lineHeight: '1.4em'
+    lineHeight: '1.4em',
+    border: '1px solid #ccc',
+    padding: '1em',
+    boxShadow: 'inset 0 0 3px 0px #ddd'
   }
 }));
 
