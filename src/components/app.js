@@ -46,9 +46,12 @@ const styleSheet = createStyleSheet('App', theme => ({
     minWidth: '90%'
   },
   text: {
-    minHeight: '4em',
+    minHeight: '2em',
     margin: 0,
-    lineHeight: '1.4em'
+    lineHeight: '1.4em',
+    border: '1px solid #ccc',
+    padding: '1em',
+    boxShadow: 'inset 0 0 3px 0px #ddd'
   },
   showTextReadedButton: {
     paddingTop: 13
@@ -81,6 +84,7 @@ class App extends Component {
     this.onTextReadedChange = this.onTextReadedChange.bind(this);
     this.onEditTextToRead = this.onEditTextToRead.bind(this);
     this.toggleShowTextReaded = this.toggleShowTextReaded.bind(this);
+    this.onInterimTextReadedChange = this.onInterimTextReadedChange.bind(this);
   }
 
   getDefaultLanguage() {
@@ -126,6 +130,10 @@ class App extends Component {
 
   onTextReadedChange(event) {
     this.setState({textReaded: event.currentTarget.innerText});
+  }
+
+  onInterimTextReadedChange(event) {
+    this.setState({interimText: event.currentTarget.innerText}); 
   }
 
   onEditTextToRead() {
@@ -179,15 +187,24 @@ class App extends Component {
           {this.state.displayTextReadedBox ? 
             (<Grid item xs={12} sm={12} lg={6}>
               <Card className={classes.card}>
-                <CardHeader title='Debugger'></CardHeader>
+                <CardHeader title='Text read'></CardHeader>
                 <CardContent>
-                  <p contentEditable
-                      suppressContentEditableWarning
-                      onBlur={this.onTextReadedChange}
-                      className={classes.text}>
-                      {this.state.textReaded}
+                  <h5>Final text</h5>
+                  <p
+                    contentEditable
+                    suppressContentEditableWarning
+                    onBlur={this.onTextReadedChange}
+                    className={classes.text}>
+                    {this.state.textReaded}
                   </p>
-                  <p><span className={classes.interimText}>{this.state.interimText}</span></p>
+                  <h5>Interim text</h5>
+                  <p
+                    contentEditable
+                    suppressContentEditableWarning
+                    onBlur={this.onInterimTextReadedChange}
+                    className={classes.text}>
+                    {this.state.interimText}
+                  </p>
                 </CardContent>
               </Card>
             </Grid>) : null
