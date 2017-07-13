@@ -69,8 +69,12 @@ class SpeechRecognizer extends Component {
     return (
       <div className={classes.button}>
         {this.state.reading ?
-          <Button raised color='accent' onClick={this.stopReading}>Stop reading</Button> :
-          <Button raised color='primary' onClick={this.startReading}>Start reading</Button>}
+          <Button raised color='accent' onClick={this.stopReading}>
+            <i className='material-icons'>mic_off</i> Stop reading
+          </Button> :
+          <Button raised color='primary' onClick={this.startReading}>
+            <i className='material-icons'>mic</i> Start reading
+          </Button>}
       </div>
     );
   }

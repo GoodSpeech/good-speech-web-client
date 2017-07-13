@@ -5,8 +5,6 @@ import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
 import Card, { CardContent, CardActions, CardHeader } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
@@ -18,6 +16,10 @@ const styleSheet = createStyleSheet('App', theme => ({
   root: {
     flexGrow: 1,
     alignItems: 'center'
+  },
+  logo: {
+    marginRight: '0.5em',
+    verticalAlign: 'bottom'
   },
   grid: {
     justifyContent: 'center',
@@ -151,12 +153,10 @@ class App extends Component {
     return (
       <div className={classes.root}>
         <AppBar position='static'>
-          <Toolbar>
-            <IconButton color='contrast' aria-label='Menu'>
-              <MenuIcon />
-            </IconButton>
+          <Toolbar>          
             <Typography type='title' color='inherit'>
-              Good Talk
+              <i className={`material-icons ${classes.logo}`}>record_voice_over</i>
+              Good Speech
             </Typography>
           </Toolbar>
         </AppBar>
