@@ -41,13 +41,23 @@ function categorizeAndSequenceDiff(diffed){
 }
 
 
-function getSimilarity(pairs) {
-  return pairs.map((item) => {
-    let firstWord = cleanText(_.get(item, [0, 'value'], '')),
-      secondWord = cleanText(_.get(item, [1, 'value'], ''));
-    let similarity = compareTwoTexts(firstWord, secondWord);
-    log.info(`similarity(${firstWord}, ${secondWord}) = ${similarity}`);
-    return [item, similarity];
+function getSimilarity(removed, added) {
+  return removed.map((itemRemoved) => {
+    const firstWord = cleanText(itemRemoved.value  || '');
+    let similarity = 1;
+    if (firstWord.length > 1) {
+      similarity = added.reduce((similarity, itemAdded) => {
+        const secondWord = cleanText(itemAdded.value || '');
+        let newSimilarity = 0;
+        if (secondWord.length >= 1) {
+          newSimilarity = compareTwoTexts(firstWord, secondWord);
+          log.info(`similarity(${firstWord}, ${secondWord}) = ${newSimilarity}`);
+        }
+        return _.max([newSimilarity, similarity]);
+      }, 0);
+    }
+    
+    return [itemRemoved, similarity];
   });
 }
 
@@ -60,7 +70,7 @@ function getSimilarity(pairs) {
  */
 function serializeSimilarityArray(items) {
   return items.map((item) => {
-    let textToReadItem = item[0][1];
+    let textToReadItem = item[0];
     return {
       value: textToReadItem.value,
       position: textToReadItem.position,
@@ -71,6 +81,10 @@ function serializeSimilarityArray(items) {
 }
 
 function getTextReadedDiff(original, readed) {
+  if (readed.length > 0) {
+    //this hack improve the diff results
+    readed = `${readed} `;
+  }
   const diff = diffWords(original, readed);
   let lastPartMentioned = _.findLastIndex(diff, part => isAddedPart(part) || isUnchangedPart(part));
 
@@ -92,7 +106,7 @@ function compute(original, readed) {
 
   diff = getTextReadedDiff(original, readed);
   [unchanged, added, removed] = categorizeAndSequenceDiff(diff);
-  similarity = getSimilarity(_.zip(added, removed));
+  similarity = getSimilarity(removed, added);
   serializedSimilarity = serializeSimilarityArray(similarity);
   merged = _.concat(unchanged, serializedSimilarity)
   sortByPosition = _.sortBy(merged, ['position']);
