@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SpeechRecognizer from './speech-recognizer';
 import TextFeedback from './text-feedback';
 import AppBar from 'material-ui/AppBar';
+import Button from 'material-ui/Button';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
@@ -17,9 +18,8 @@ const styleSheet = createStyleSheet('App', theme => ({
     flexGrow: 1,
     alignItems: 'center'
   },
-  texts: {
-    display: 'flex',
-    justifyContent: 'space-around'
+  grid: {
+    justifyContent: 'center'
   },
   card: {
     padding: 5,
@@ -29,7 +29,10 @@ const styleSheet = createStyleSheet('App', theme => ({
   },
   cardActions: {
     padding: 0,
-    margin: 0
+    margin: 0,
+    borderBottom: '1px solid #ddd',
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   interimText: {
     color: theme.palette.text.secondary
@@ -44,13 +47,16 @@ const styleSheet = createStyleSheet('App', theme => ({
     minHeight: '4em',
     margin: 0,
     lineHeight: '1.4em'
+  },
+  showTextReadedButton: {
+    paddingTop: 13
   }
 }));
 
 
 const defaultLanguage = 'en-US';
 const defaultTextToRead = 'The mouse is under the table. The table has a strange color, he said.';
-
+const defaultDisplayTextReadedBox = false;
 
 class App extends Component {
 
@@ -64,13 +70,15 @@ class App extends Component {
       textReaded: '',
       interimText: '',
       textToRead: this.getDefaultTextToRead(),
-      lang: this.getDefaultLanguage()
+      lang: this.getDefaultLanguage(),
+      displayTextReadedBox: this.getDefaultDisplayTextReadedBox()
     }
     this.handleSpeech = this.handleSpeech.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
     this.onTextToReadChange = this.onTextToReadChange.bind(this);
     this.onTextReadedChange = this.onTextReadedChange.bind(this);
     this.onEditTextToRead = this.onEditTextToRead.bind(this);
+    this.toggleShowTextReaded = this.toggleShowTextReaded.bind(this);
   }
 
   getDefaultLanguage() {
@@ -80,6 +88,10 @@ class App extends Component {
 
   getDefaultTextToRead() {
     return localStorage.getItem('textToRead') || defaultTextToRead;
+  }
+
+  getDefaultDisplayTextReadedBox() {
+    return localStorage.getItem('displayTextReadedBox') === 'true' || defaultDisplayTextReadedBox;
   }
 
   handleSpeech(transcriptions) {
@@ -118,6 +130,11 @@ class App extends Component {
     this.setState({textReaded: '', interimText: ''});
   }
 
+  toggleShowTextReaded() {
+    localStorage.setItem('displayTextReadedBox', !this.state.displayTextReadedBox);
+    this.setState({displayTextReadedBox: !this.state.displayTextReadedBox}); 
+  }
+
   render() {
     const classes = this.props.classes;
 
@@ -133,10 +150,16 @@ class App extends Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Grid container gutter={8} >
-          <Grid item xs={12} sm={6} className={classes.texts}>
+        <Grid container gutter={8} className={classes.grid} >
+          <Grid item xs={12} sm={12} lg={6}>
             <Card className={classes.textToReadCard}>
               <CardActions className={classes.cardActions}>
+                <Button
+                  className={classes.showTextReadedButton}
+                  onClick={this.toggleShowTextReaded}>
+                  {this.state.displayTextReadedBox ? 'Hide ' : 'Show '}
+                  text read
+                </Button>
                 <LanguagePicker lang={this.state.lang} onChange={this.onLanguageChange} />
               </CardActions>
               <CardContent>
@@ -149,23 +172,26 @@ class App extends Component {
                 </TextFeedback>
               </CardContent>
             </Card>
+            <SpeechRecognizer onSpeech={this.handleSpeech} langCode={this.state.lang.code} />
           </Grid>
-          <Grid item xs={12} sm={6} className={classes.texts}>
-            <Card className={classes.card}>
-              <CardHeader title='Debugger'></CardHeader>
-              <CardContent>
-                <p contentEditable
-                    suppressContentEditableWarning
-                    onBlur={this.onTextReadedChange}
-                    className={classes.text}>
-                    {this.state.textReaded}
-                </p>
-                <p><span className={classes.interimText}>{this.state.interimText}</span></p>
-              </CardContent>
-            </Card>
-          </Grid>
+          {this.state.displayTextReadedBox ? 
+            (<Grid item xs={12} sm={12} lg={6}>
+              <Card className={classes.card}>
+                <CardHeader title='Debugger'></CardHeader>
+                <CardContent>
+                  <p contentEditable
+                      suppressContentEditableWarning
+                      onBlur={this.onTextReadedChange}
+                      className={classes.text}>
+                      {this.state.textReaded}
+                  </p>
+                  <p><span className={classes.interimText}>{this.state.interimText}</span></p>
+                </CardContent>
+              </Card>
+            </Grid>) : null
+          }
         </Grid>
-        <SpeechRecognizer onSpeech={this.handleSpeech} langCode={this.state.lang.code} />
+        
       </div>
     );
   }

@@ -6,11 +6,6 @@ import Button from 'material-ui/Button';
 import 'flag-icon-css/css/flag-icon.min.css';
 
 const styleSheet = createStyleSheet('LanguagePicker', theme => ({
-  root: {
-    textAlign: 'right',
-    borderBottom: '1px solid #ddd',
-    width: '100%'
-  },
   flag: {
     marginRight: '0.5em'
   }
@@ -58,9 +53,8 @@ class LanguagePicker extends Component {
   }
 
   render() {
-    const classes = this.props.classes;
     return (
-      <div className={classes.root}>
+      <span>
         <Button 
           aria-owns='pick-language'
           onClick={this.openLanguageMenu}>
@@ -75,7 +69,7 @@ class LanguagePicker extends Component {
           onRequestClose={this.closeLanguageMenu}
         >{languages.map(lang => <MenuItem key={lang.code} onClick={() => this.onChange(lang)}>{lang.name}</MenuItem>)}
         </Menu>
-      </div>
+      </span>
     );
   }
 }
