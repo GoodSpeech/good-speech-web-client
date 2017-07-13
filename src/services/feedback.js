@@ -4,9 +4,20 @@ import log from 'loglevel';
 import { compareTwoTexts } from 'text-sound-similarity';
 import words from 'voca/words';
 
-
 function cleanText(text) {
   return words(text.toLowerCase()).join(' ');
+}
+
+function isRemovedPart(part) {
+  return part.removed;
+}
+
+function isAddedPart(part) {
+  return part.added;
+}
+
+function isUnchangedPart(part) {
+  return !isRemovedPart(part) && !isAddedPart(part);
 }
 
 function categorizeAndSequenceDiff(diffed){
@@ -18,11 +29,11 @@ function categorizeAndSequenceDiff(diffed){
     };
 
     // The diff library is poorly designed so this check is necessary
-    if (!_.has(part, 'added') && !_.has(part, 'removed')) {
+    if (isUnchangedPart(part)) {
       unchanged.push(item);
-    } else if (part.added) {
+    } else if (isAddedPart(part)) {
       added.push(item);
-    } else if (part.removed) {
+    } else if (isRemovedPart(part)) {
       removed.push(item);
     }
     return result;
@@ -32,8 +43,8 @@ function categorizeAndSequenceDiff(diffed){
 
 function getSimilarity(pairs) {
   return pairs.map((item) => {
-    let firstWord = _.get(item, [0, 'value'], ''),
-      secondWord = _.get(item, [1, 'value'], '');
+    let firstWord = cleanText(_.get(item, [0, 'value'], '')),
+      secondWord = cleanText(_.get(item, [1, 'value'], ''));
     let similarity = compareTwoTexts(firstWord, secondWord);
     log.info(`similarity(${firstWord}, ${secondWord}) = ${similarity}`);
     return [item, similarity];
@@ -59,18 +70,27 @@ function serializeSimilarityArray(items) {
   });
 }
 
+function getTextReadedDiff(original, readed) {
+  const diff = diffWords(original, readed);
+  let lastPartMentioned = _.findLastIndex(diff, part => isAddedPart(part) || isUnchangedPart(part));
+
+  const isNextPartPunctuation = diff[lastPartMentioned + 1] && diff[lastPartMentioned + 1].value.length <= 2;
+  if (isNextPartPunctuation) {
+    lastPartMentioned = lastPartMentioned + 1;
+  }
+  return diff.slice(0, lastPartMentioned + 1);
+}
+
 
 /**
  * @param  {string} original
  * @param  {string} readed
- * @return {collection}
+ * @return {array}
  */
 function compute(original, readed) {
   let diff, unchanged, added, removed, similarity, merged, serializedSimilarity, sortByPosition;
 
-  original = cleanText(original);
-  readed = cleanText(readed);
-  diff = diffWords(original, readed);
+  diff = getTextReadedDiff(original, readed);
   [unchanged, added, removed] = categorizeAndSequenceDiff(diff);
   similarity = getSimilarity(_.zip(added, removed));
   serializedSimilarity = serializeSimilarityArray(similarity);

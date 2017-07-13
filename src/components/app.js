@@ -49,7 +49,7 @@ const styleSheet = createStyleSheet('App', theme => ({
 
 
 const defaultLanguage = 'en-US';
-const defaultTextToRead = 'The mouse is under the table. The table has a strange colour, he said.';
+const defaultTextToRead = 'The mouse is under the table. The table has a strange color, he said.';
 
 
 class App extends Component {
@@ -70,6 +70,7 @@ class App extends Component {
     this.onLanguageChange = this.onLanguageChange.bind(this);
     this.onTextToReadChange = this.onTextToReadChange.bind(this);
     this.onTextReadedChange = this.onTextReadedChange.bind(this);
+    this.onEditTextToRead = this.onEditTextToRead.bind(this);
   }
 
   getDefaultLanguage() {
@@ -104,14 +105,17 @@ class App extends Component {
     this.setState({lang, textToRead, textReaded: '', interimText: ''});
   }
 
-  onTextToReadChange(event) {
-    const textToRead = event.currentTarget.innerText;
+  onTextToReadChange(textToRead) {
     localStorage.setItem('textToRead', textToRead);
     this.setState({textToRead});
   }
 
   onTextReadedChange(event) {
     this.setState({textReaded: event.currentTarget.innerText});
+  }
+
+  onEditTextToRead() {
+    this.setState({textReaded: '', interimText: ''});
   }
 
   render() {
@@ -136,13 +140,13 @@ class App extends Component {
                 <LanguagePicker lang={this.state.lang} onChange={this.onLanguageChange} />
               </CardActions>
               <CardContent>
-                <p
-                  contentEditable
-                  suppressContentEditableWarning
-                  onBlur={this.onTextToReadChange}
-                  className={classes.text}>
-                  {this.state.textToRead}
-                </p>
+                <TextFeedback
+                  textToRead={this.state.textToRead}
+                  textReaded={this.state.textReaded}
+                  interimText={this.state.interimText}
+                  onTextToReadChange={this.onTextToReadChange}
+                  onEditTextToRead={this.onEditTextToRead}>
+                </TextFeedback>
               </CardContent>
             </Card>
           </Grid>
@@ -161,17 +165,6 @@ class App extends Component {
             </Card>
           </Grid>
         </Grid>
-        {this.state.textToRead.length > 0 && this.state.textReaded.length > 0 ? (
-          <Grid container gutter={8} >
-            <Grid item sm={3}></Grid> {/* offset */}
-            <Grid item xs={12} sm={6} className={classes.texts}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <TextFeedback textToRead={this.state.textToRead} textReaded={this.state.textReaded}></TextFeedback>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>) : null }
         <SpeechRecognizer onSpeech={this.handleSpeech} langCode={this.state.lang.code} />
       </div>
     );

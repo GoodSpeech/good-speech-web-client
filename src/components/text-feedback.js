@@ -4,13 +4,17 @@ import Rainbow from 'rainbowvis.js';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Feedback from '../services/feedback';
 
-
 const styleSheet = createStyleSheet('TextFeedback', theme => ({
-  added: {
-    color: 'green'
+  readed: {
+    color: '#000'
   },
-  removed: {
-      color: 'red'
+  unreaded: {
+    color: '#777'
+  },
+  text: {
+    minHeight: '4em',
+    margin: 0,
+    lineHeight: '1.4em'
   }
 }));
 
@@ -19,7 +23,10 @@ class TextFeedback extends Component {
 
   propTypes: {
     textToRead: React.PropTypes.string.isRequired,
-    textReaded: React.PropTypes.string.isRequired
+    textReaded: React.PropTypes.string.isRequired,
+    interimText: React.PropTypes.string.isRequired,
+    onEditTextToRead: React.PropTypes.func.isRequired,
+    onTextToReadChange: React.PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -28,22 +35,52 @@ class TextFeedback extends Component {
     this.redToGreen.setSpectrum('red', 'green');
   }
 
+  getInterimTextRange(textReadedFeedback) {
+    const start = textReadedFeedback.reduce((charCount, part) => {
+      return charCount + part.value.length;
+    }, 0);
+
+    let interimTextEnd = start;
+    if (this.props.interimText) {
+      interimTextEnd = this.props.textToRead.indexOf(' ', start + this.props.interimText.length);
+    }
+    return {
+      start,
+      end: interimTextEnd
+    };
+  }
+
+  renderTextReadedFeedback(textReadedFeedback) {
+    return textReadedFeedback
+      .map((part, index) => {
+        if (!_.has(part, 'similarity')) {
+          part.similarity = 1
+        }
+        let color = this.redToGreen.colourAt(part.similarity * 100);
+        const style = {
+          color: `#${color}`
+        };
+
+        return <span key={index} style={style}>{part.value}</span>
+      });
+  }
+
   render() {
-    const feedback = Feedback.compute(this.props.textToRead, this.props.textReaded);
-
+    const classes = this.props.classes;
+    const textReadedFeedback = Feedback.compute(this.props.textToRead, this.props.textReaded);
+    const interimTextRange = this.getInterimTextRange(textReadedFeedback);    
     return (
-      <p>
-        {feedback.map((part, index) => {
-          if (!_.has(part, 'similarity')) {
-            part.similarity = 1
-          }
-          let color = this.redToGreen.colourAt(part.similarity * 100);
-          const style = {
-            color: `#${color}`
-          };
-
-          return <span key={index} style={style}>{part.value}</span>
-        })}
+      <p
+        contentEditable
+        suppressContentEditableWarning
+        onFocus={this.props.onEditTextToRead}
+        onBlur={el => this.props.onTextToReadChange(el.currentTarget.innerText)}
+        className={classes.text}>
+        {this.renderTextReadedFeedback(textReadedFeedback)}
+        <span className={classes.readed}>
+          {this.props.textToRead.slice(interimTextRange.start, interimTextRange.end)}
+        </span>
+        <span className={classes.unreaded}>{this.props.textToRead.slice(interimTextRange.end)}</span>
       </p>
     );
   }
