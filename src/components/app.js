@@ -12,6 +12,7 @@ import Grid from 'material-ui/Grid';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import { supportedLanguages, defaultTexts } from '../services/supported-languages';
 import LanguagePicker from './language-picker';
+import Footer from './footer';
 
 const styleSheet = createStyleSheet('App', theme => ({
   root: {
@@ -19,7 +20,8 @@ const styleSheet = createStyleSheet('App', theme => ({
     alignItems: 'center'
   },
   grid: {
-    justifyContent: 'center'
+    justifyContent: 'center',
+    minHeight: 'calc(100vh - 115px)'
   },
   card: {
     padding: 5,
@@ -191,7 +193,7 @@ class App extends Component {
             </Grid>) : null
           }
         </Grid>
-        
+        <Footer/>
       </div>
     );
   }
