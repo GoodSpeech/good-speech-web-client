@@ -5,11 +5,6 @@ import Card, { CardContent } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
 
 const styleSheet = createStyleSheet('Footer', theme => ({
-  avatar: {
-    margin: 10,
-    width: 60,
-    height: 60
-  },
   chip: {
     margin: '0 0.5em'
   },
@@ -45,7 +40,6 @@ class Footer extends Component {
               <Avatar
                 alt='Javier Perez'
                 src='https://www.gravatar.com/avatar/90fd523a31015aaa143278948e4729d1?s=200'
-                className={classes.bigAvatar}
               />
             }
             label='Javier Perez'
@@ -57,7 +51,6 @@ class Footer extends Component {
               <Avatar
                 alt='Santiago Fraire Willemoës'
                 src='https://www.gravatar.com/avatar/7ff595c207c9b935811a691d2f3d2551?s=200'
-                className={classes.bigAvatar}
               />
             }
             label='Santiago Fraire Willemoës'
