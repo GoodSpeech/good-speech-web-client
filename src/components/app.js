@@ -179,7 +179,7 @@ class App extends Component {
                   textToRead={this.state.textToRead}
                   textReaded={this.state.textReaded}
                   interimText={this.state.interimText}
-                  lang={this.state.lang}
+                  lang={this.state.lang.code}
                   onTextToReadChange={this.onTextToReadChange}
                   onEditTextToRead={this.onEditTextToRead}>
                 </TextFeedback>

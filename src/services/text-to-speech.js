@@ -1,80 +1,49 @@
-import _ from 'lodash';
 import log from 'loglevel';
-import words from 'voca/words';
 
+const speechSynthesis = window.speechSynthesis;
+const SpeechSynthesisUtterance = window.SpeechSynthesisUtterance
 
-const MAX_WORDS_LENGTH = 29;
-const SENTENCE_REGEX = /[^.!,?]*[.!,?]*/g;
+function pause() {
+  speechSynthesis.pause();
+}
 
+function resume() {
+  speechSynthesis.resume();
+}
 
-let SpeechSynthesis = ((speechSynthesis, SpeechSynthesisUtterance) => {
+function cancel() {
+  speechSynthesis.cancel();
+}
 
-    function getSentences(text) {
-        text = text.replace(/\n/g, '');
-        let wordsLength = words(text).length;
+/**
+ * @param  {string} text - Must have at least one word.
+ * @return {string} Speech result
+ */
+function speak(text, langCode='en-US') {
+  cancel();
+  const msg = new SpeechSynthesisUtterance();
+  msg.text = text;
+  msg.lang = langCode;
+  msg.voiceURI = 'native';
+  msg.volume = 1;
+  msg.rate = 1;
+  msg.pitch = 1;
 
-        if (wordsLength >= MAX_WORDS_LENGTH) {
-            log.info(`Phrase longer than ${MAX_WORDS_LENGTH} words, creating sentences...`);
-            let sentences = text.match(SENTENCE_REGEX);
-            return sentences;
-        }
-        return [text]
-    }
+  msg.onstart = (evt) => {
+    log.info('Speaking...', text);
+  };
+  msg.onend = (evt) => {
+    log.info(`Finised in ${evt.elapsedTime} seconds.`);
+  };
+  msg.onerror = (evt) => {
+    log.error(evt);
+  };
+  speechSynthesis.speak(msg);
+}
 
-    function pause() {
-        speechSynthesis.pause();
-    }
-
-    function resume() {
-        speechSynthesis.resume();
-    }
-
-    function cancel() {
-        speechSynthesis.cancel();
-    }
-
-    /**
-     * @param  {string} text - Must have at least one word.
-     * @return {string} Speech result
-     */
-    function speak(text, langCode='en-US') {
-        if (!_.isString(text)) {
-            let textType = typeof text;
-            log.error(`Expected string, instead received ${textType}`);
-            return;
-        }
-        cancel();
-
-        let sentences = getSentences(text);
-        let msg = new SpeechSynthesisUtterance();
-        sentences.forEach((sentence) => {
-            msg.text = sentence;
-            msg.lang = langCode;
-            msg.voiceURI = 'native';
-            msg.volume = 1;
-            msg.rate = 1;
-            msg.pitch = 1;
-            msg.onstart = (evt) => {
-                log.info('Speaking...', sentence);
-            };
-            msg.onend = (evt) => {
-                log.info(`Finised in ${evt.elapsedTime} seconds.`);
-            };
-            msg.onerror = (evt) => {
-                log.error(evt);
-            };
-
-            speechSynthesis.speak(msg);
-        });
-    }
-
-    return {
-        speak,
-        pause,
-        cancel,
-        resume
-    };
-
-})(window.speechSynthesis, window.SpeechSynthesisUtterance);
-
-export default SpeechSynthesis;
+export default {
+  speak,
+  pause,
+  cancel,
+  resume
+};

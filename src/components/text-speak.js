@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import SpeechSynthesis from '../services/text-to-speech';
-
+import _ from 'lodash';
 
 class TextSpeak extends Component {
   propTypes: {
     text: React.PropTypes.string.isRequired,
-    lang: React.PropTypes.string.isRequired
+    style: React.PropTypes.object,
+    langCode: React.PropTypes.string.isRequired
   };
 
   defaultProps: {
@@ -15,49 +16,69 @@ class TextSpeak extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hover: false
+      hover: null
     };
     this.speak = this.speak.bind(this);
-    this._onMouseEnter = this._onMouseEnter.bind(this);
-    this._onMouseLeave = this._onMouseLeave.bind(this);
-    this._onMouseDown = this._onMouseDown.bind(this);
+    this.onMouseEnter = this.onMouseEnter.bind(this);
+    this.onMouseLeave = this.onMouseLeave.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
   }
 
-  speak(event) {
-    const text = this.props.text,
-      langCode = this.props.lang.code;
-
-    SpeechSynthesis.speak(text, langCode);
+  speak(phrase) {
+    SpeechSynthesis.speak(phrase, this.props.lang);
   }
 
-  _onMouseEnter(event) {
+  onMouseEnter(index) {
     this.setState({
-      hover: true
+      hover: index
     });
   }
 
-  _onMouseLeave(event) {
+  onMouseLeave(event) {
     this.setState({
-      hover: false
+      hover: null
     });
   }
 
-  _onMouseDown(event) {
+  onMouseDown(event) {
     event.stopPropagation();
     event.preventDefault();
   }
 
+  getSentences(text) {
+    const sentences = [];
+    let charIndex = 0;
+    while(charIndex < text.length) {
+      const updatedCharIndex = _.min(_.without([text.indexOf('.', charIndex), text.indexOf(',', charIndex), text.indexOf(';', charIndex), text.length], -1, 0)) + 1;
+      sentences.push(text.slice(charIndex, updatedCharIndex));
+      charIndex = updatedCharIndex;
+    }
+    return sentences;
+  }
+
   render() {
-    const hoverStyle = this.state.hover ? {boxShadow: 'inset 0 0 2px 2px #ccc', cursor: 'pointer'} : {};
     return (
-      <span onClick={this.speak}
-            className={this.props.className}
-            style={{...hoverStyle, ...this.props.style}}
-            onMouseDown={this._onMouseDown}
-            onMouseEnter={this._onMouseEnter}
-            onMouseLeave={this._onMouseLeave}>
-        {this.props.text}
-      </span>
+      <span>{
+        this.getSentences(this.props.text).map((phrase, index) => {
+          const hoverStyle = this.state.hover === index ? {
+            boxShadow: 'inset 0 0 2px 2px #ccc',
+            borderRadius: 3,
+            cursor: 'pointer'
+          } : {};
+          return (
+            <span
+              key={index}
+              onClick={() => this.speak(phrase)}
+              className={this.props.className}
+              style={{...hoverStyle, ...this.props.style}}
+              onMouseDown={this.onMouseDown}
+              onMouseEnter={() => this.onMouseEnter(index)}
+              onMouseLeave={this.onMouseLeave}>
+              {phrase}
+            </span>
+          )
+        })
+      }</span>
     );
   }
 }

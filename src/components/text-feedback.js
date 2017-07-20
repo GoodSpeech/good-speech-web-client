@@ -38,7 +38,7 @@ class TextFeedback extends Component {
   constructor(props) {
     super(props);
     this.redToGreen = new Rainbow();
-    this.redToGreen.setSpectrum('red', 'yellow', 'green');
+    this.redToGreen.setSpectrum('red', 'orange', 'green');
   }
 
   getInterimTextRange(textReadedFeedback) {
