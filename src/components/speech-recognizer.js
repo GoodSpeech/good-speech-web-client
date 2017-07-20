@@ -17,7 +17,7 @@ const styleSheet = createStyleSheet('SpeechRecognizer', theme => ({
   }
 }));
 
-const isChrome = window.chrome.webstore;
+const isChrome = window.chrome && window.chrome.webstore;
 
 class SpeechRecognizer extends Component {
 
