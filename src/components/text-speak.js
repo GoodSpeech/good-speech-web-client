@@ -16,6 +16,7 @@ class TextSpeak extends Component {
     this.speak = this.speak.bind(this);
     this._onMouseEnter = this._onMouseEnter.bind(this);
     this._onMouseLeave = this._onMouseLeave.bind(this);
+    this._onMouseDown = this._onMouseDown.bind(this);
   }
 
   speak(event) {
@@ -37,12 +38,18 @@ class TextSpeak extends Component {
     });
   }
 
+  _onMouseDown(event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
   render() {
-    const hoverStyle = this.state.hover ? {boxShadow: 'inset 0 0 2px 2px #ccc'} : {};
+    const hoverStyle = this.state.hover ? {boxShadow: 'inset 0 0 2px 2px #ccc', cursor: 'pointer'} : {};
     return (
       <span onClick={this.speak}
             className={this.props.className}
-            style={hoverStyle}
+            style={{...hoverStyle, ...this.props.style}}
+            onMouseDown={this._onMouseDown}
             onMouseEnter={this._onMouseEnter}
             onMouseLeave={this._onMouseLeave}>
         {this.props.text}
@@ -50,5 +57,7 @@ class TextSpeak extends Component {
     );
   }
 }
+
+TextSpeak.defaultProps = { style: {} };
 
 export default TextSpeak;

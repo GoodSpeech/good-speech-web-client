@@ -80,7 +80,7 @@ class TextFeedback extends Component {
 
     return (
       <p
-
+        contentEditable
         suppressContentEditableWarning
         onFocus={this.props.onEditTextToRead}
         onBlur={el => this.props.onTextToReadChange(el.currentTarget.innerText)}

@@ -51,8 +51,8 @@ let SpeechSynthesis = ((speechSynthesis) => {
             msg.lang = langCode;
             msg.voiceURI = 'native';
             msg.volume = 1;
-            msg.rate = 1.15;
-            msg.pitch = 0.7;
+            msg.rate = 1;
+            msg.pitch = 1;
             msg.onstart = (evt) => {
                 log.info('Speaking...', sentence);
             };
