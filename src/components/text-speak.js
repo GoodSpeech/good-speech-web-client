@@ -8,6 +8,10 @@ class TextSpeak extends Component {
     lang: React.PropTypes.string.isRequired
   };
 
+  defaultProps: {
+    style: {}
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -57,7 +61,5 @@ class TextSpeak extends Component {
     );
   }
 }
-
-TextSpeak.defaultProps = { style: {} };
 
 export default TextSpeak;
