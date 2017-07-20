@@ -12,6 +12,7 @@ import { supportedLanguages, defaultTexts } from '../services/supported-language
 import LanguagePicker from './language-picker';
 import Footer from './footer';
 
+
 const styleSheet = createStyleSheet('App', theme => ({
   root: {
     flexGrow: 1,
@@ -64,6 +65,7 @@ const styleSheet = createStyleSheet('App', theme => ({
 const defaultLanguage = 'en-US';
 const defaultTextToRead = 'The mouse is under the table. The table has a strange color, he said.';
 const defaultDisplayTextReadedBox = false;
+
 
 class App extends Component {
 
@@ -135,7 +137,7 @@ class App extends Component {
   }
 
   onInterimTextReadedChange(event) {
-    this.setState({interimText: event.currentTarget.innerText}); 
+    this.setState({interimText: event.currentTarget.innerText});
   }
 
   onEditTextToRead() {
@@ -144,7 +146,7 @@ class App extends Component {
 
   toggleShowTextReaded() {
     localStorage.setItem('displayTextReadedBox', !this.state.displayTextReadedBox);
-    this.setState({displayTextReadedBox: !this.state.displayTextReadedBox}); 
+    this.setState({displayTextReadedBox: !this.state.displayTextReadedBox});
   }
 
   render() {
@@ -153,7 +155,7 @@ class App extends Component {
     return (
       <div className={classes.root}>
         <AppBar position='static'>
-          <Toolbar>          
+          <Toolbar>
             <Typography type='title' color='inherit'>
               <i className={`material-icons ${classes.logo}`}>record_voice_over</i>
               Good Speech
@@ -177,6 +179,7 @@ class App extends Component {
                   textToRead={this.state.textToRead}
                   textReaded={this.state.textReaded}
                   interimText={this.state.interimText}
+                  lang={this.state.lang.code}
                   onTextToReadChange={this.onTextToReadChange}
                   onEditTextToRead={this.onEditTextToRead}>
                 </TextFeedback>
@@ -184,7 +187,7 @@ class App extends Component {
             </Card>
             <SpeechRecognizer onSpeech={this.handleSpeech} langCode={this.state.lang.code} />
           </Grid>
-          {this.state.displayTextReadedBox ? 
+          {this.state.displayTextReadedBox ?
             (<Grid item xs={12} sm={12} lg={6}>
               <Card className={classes.card}>
                 <CardHeader title='Text read'></CardHeader>

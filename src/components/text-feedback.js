@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Rainbow from 'rainbowvis.js';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Feedback from '../services/feedback';
+import TextSpeak from './text-speak';
+
 
 const styleSheet = createStyleSheet('TextFeedback', theme => ({
   readed: {
@@ -28,6 +30,7 @@ class TextFeedback extends Component {
     textToRead: React.PropTypes.string.isRequired,
     textReaded: React.PropTypes.string.isRequired,
     interimText: React.PropTypes.string.isRequired,
+    lang: React.PropTypes.string.isRequired,
     onEditTextToRead: React.PropTypes.func.isRequired,
     onTextToReadChange: React.PropTypes.func.isRequired
   };
@@ -35,7 +38,7 @@ class TextFeedback extends Component {
   constructor(props) {
     super(props);
     this.redToGreen = new Rainbow();
-    this.redToGreen.setSpectrum('red', 'green');
+    this.redToGreen.setSpectrum('red', 'orange', 'green');
   }
 
   getInterimTextRange(textReadedFeedback) {
@@ -54,6 +57,8 @@ class TextFeedback extends Component {
   }
 
   renderTextReadedFeedback(textReadedFeedback) {
+    const lang = this.props.lang;
+
     return textReadedFeedback
       .map((part, index) => {
         if (!_.has(part, 'similarity')) {
@@ -64,14 +69,15 @@ class TextFeedback extends Component {
           color: `#${color}`
         };
 
-        return <span key={index} style={style}>{part.value}</span>
+        return <TextSpeak key={index} style={style} text={part.value} lang={lang}/>
       });
   }
 
   render() {
     const classes = this.props.classes;
     const textReadedFeedback = Feedback.compute(this.props.textToRead, this.props.textReaded);
-    const interimTextRange = this.getInterimTextRange(textReadedFeedback);    
+    const interimTextRange = this.getInterimTextRange(textReadedFeedback);
+
     return (
       <p
         contentEditable
@@ -80,10 +86,12 @@ class TextFeedback extends Component {
         onBlur={el => this.props.onTextToReadChange(el.currentTarget.innerText)}
         className={classes.text}>
         {this.renderTextReadedFeedback(textReadedFeedback)}
-        <span className={classes.readed}>
-          {this.props.textToRead.slice(interimTextRange.start, interimTextRange.end)}
-        </span>
-        <span className={classes.unreaded}>{this.props.textToRead.slice(interimTextRange.end)}</span>
+        <TextSpeak className={classes.readed}
+                   text={this.props.textToRead.slice(interimTextRange.start, interimTextRange.end)}
+                   lang={this.props.lang}/>
+        <TextSpeak className={classes.unreaded}
+                   text={this.props.textToRead.slice(interimTextRange.end)}
+                   lang={this.props.lang}/>
       </p>
     );
   }
