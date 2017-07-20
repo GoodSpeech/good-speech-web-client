@@ -7,7 +7,7 @@ const MAX_WORDS_LENGTH = 29;
 const SENTENCE_REGEX = /[^.!,?]*[.!,?]*/g;
 
 
-let SpeechSynthesis = ((speechSynthesis) => {
+let SpeechSynthesis = ((speechSynthesis, SpeechSynthesisUtterance) => {
 
     function getSentences(text) {
         text = text.replace(/\n/g, '');
@@ -46,8 +46,9 @@ let SpeechSynthesis = ((speechSynthesis) => {
         cancel();
 
         let sentences = getSentences(text);
+        let msg = new SpeechSynthesisUtterance();
         sentences.forEach((sentence) => {
-            let msg = new window.SpeechSynthesisUtterance(sentence);
+            msg.text = sentence;
             msg.lang = langCode;
             msg.voiceURI = 'native';
             msg.volume = 1;
@@ -74,6 +75,6 @@ let SpeechSynthesis = ((speechSynthesis) => {
         resume
     };
 
-})(window.speechSynthesis);
+})(window.speechSynthesis, window.SpeechSynthesisUtterance);
 
 export default SpeechSynthesis;
