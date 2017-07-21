@@ -6,8 +6,18 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 const styleSheet = createStyleSheet('SpeechRecognizer', theme => ({
   button: {
     textAlign: 'center'
+  },
+  chrome: {
+    width: '3em',
+    verticalAlign: 'middle',
+    marginRight: '1em'
+  },
+  chromeLegend: {
+    paddingTop: '0.3em'
   }
 }));
+
+const isChrome = window.chrome && window.chrome.webstore;
 
 class SpeechRecognizer extends Component {
 
@@ -43,6 +53,10 @@ class SpeechRecognizer extends Component {
     }
   }
 
+  openGoogleChrome() {
+    window.open('https://www.google.com/chrome/index.html', '_blank').focus();
+  }
+
   handleSpeech(transcriptions) {
     clearTimeout(this.readingTimeout);
     this.readingTimeout = setTimeout(this.stopReading, 5000);
@@ -68,13 +82,20 @@ class SpeechRecognizer extends Component {
 
     return (
       <div className={classes.button}>
-        {this.state.reading ?
-          <Button raised color='accent' onClick={this.stopReading}>
-            <i className='material-icons'>mic_off</i> Stop reading
-          </Button> :
-          <Button raised color='primary' onClick={this.startReading}>
-            <i className='material-icons'>mic</i> Start reading
-          </Button>}
+        {!isChrome ?
+          <Button raised color='accent' onClick={this.openGoogleChrome}>
+            <img alt='Google Chrome' src='/chrome.svg' className={classes.chrome}/>
+            <span className={classes.chromeLegend}>Speech recognition is only supported by Google Chrome</span>
+          </Button>
+          :
+          this.state.reading ?
+            <Button raised color='accent' onClick={this.stopReading}>
+              <i className='material-icons'>mic_off</i> Stop reading
+            </Button> :
+            <Button raised color='primary' onClick={this.startReading}>
+              <i className='material-icons'>mic</i> Start reading
+            </Button>
+        }
       </div>
     );
   }

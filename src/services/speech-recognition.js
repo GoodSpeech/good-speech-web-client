@@ -157,16 +157,18 @@ function startSpeechRecognizer() {
 
 function initSpeechRecognition({lang, continuous, interimResults, maxAlternatives}) {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  speechRecognizer = new SpeechRecognition();
-  speechRecognizer.continuous = continuous;
-  speechRecognizer.lang = lang;
-  speechRecognizer.interimResults = interimResults;
-  speechRecognizer.maxAlternatives = maxAlternatives;
+  if (SpeechRecognition) {
+    speechRecognizer = new SpeechRecognition();
+    speechRecognizer.continuous = continuous;
+    speechRecognizer.lang = lang;
+    speechRecognizer.interimResults = interimResults;
+    speechRecognizer.maxAlternatives = maxAlternatives;
 
-  speechRecognizer.onstart = handleOnStart;
-  speechRecognizer.onresult = handleResult;
-  speechRecognizer.onerror = handleError;
-  speechRecognizer.onend = handleOnEnd;
+    speechRecognizer.onstart = handleOnStart;
+    speechRecognizer.onresult = handleResult;
+    speechRecognizer.onerror = handleError;
+    speechRecognizer.onend = handleOnEnd;  
+  }
 }
 
 function init(config) {
