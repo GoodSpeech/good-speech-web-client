@@ -4,6 +4,7 @@ import log from 'loglevel';
 import { compareTwoTexts } from 'text-sound-similarity';
 import words from 'voca/words';
 
+
 function cleanText(text) {
   return words(text.toLowerCase()).join(' ');
 }
@@ -68,7 +69,7 @@ function getSimilarity(removedItems, addedItems) {
         return _.max([newSimilarity, similarity]);
       }, 0);
     }
-    
+
     return [itemRemoved, similarity];
   });
 }
@@ -115,16 +116,16 @@ function getTextReadedDiff(original, readed) {
  * @return {array}
  */
 function compute(original, readed) {
-  let diff, unchanged, added, removed, similarity, merged, serializedSimilarity, sortByPosition;
+  let diff, unchanged, added, removed, similarity, merged, serializedSimilarity, sorted;
 
   diff = getTextReadedDiff(original, readed);
   [unchanged, added, removed] = categorizeAndSequenceDiff(diff);
   similarity = getSimilarity(removed, added);
   serializedSimilarity = serializeSimilarityArray(similarity);
   merged = _.concat(unchanged, serializedSimilarity)
-  sortByPosition = _.sortBy(merged, ['position']);
+  sorted = _.sortBy(merged, ['position']);
 
-  return sortByPosition;
+  return sorted;
 }
 
 export default {

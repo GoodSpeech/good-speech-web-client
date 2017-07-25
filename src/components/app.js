@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import SpeechRecognizer from './speech-recognizer';
-import TextFeedback from './text-feedback';
+import _ from 'lodash';
+import React from 'react';
+import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
 import Toolbar from 'material-ui/Toolbar';
@@ -8,9 +8,14 @@ import Typography from 'material-ui/Typography';
 import Card, { CardContent, CardActions, CardHeader } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import { supportedLanguages, defaultTexts } from '../services/supported-languages';
+
+import SpeechRecognizer from './speech-recognizer';
+import TextFeedback from './text-feedback';
+import Score from './score';
 import LanguagePicker from './language-picker';
 import Footer from './footer';
+import { supportedLanguages, defaultTexts } from '../services/supported-languages';
+import Feedback from '../services/feedback';
 
 
 const styleSheet = createStyleSheet('App', theme => ({
@@ -66,10 +71,10 @@ const defaultLanguage = 'en-US';
 const defaultTextToRead = 'The mouse is under the table. The table has a strange color, he said.';
 const defaultDisplayTextReadedBox = false;
 
-class App extends Component {
+class App extends React.Component {
 
-  static propTypes: {
-    classes: React.PropTypes.object.isRequired
+  static propTypes = {
+    classes: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -77,6 +82,7 @@ class App extends Component {
     this.state = {
       textReaded: '',
       interimText: '',
+      textReadedFeedback: [],
       textToRead: this.getDefaultTextToRead(),
       lang: this.getDefaultLanguage(),
       displayTextReadedBox: this.getDefaultDisplayTextReadedBox()
@@ -88,6 +94,21 @@ class App extends Component {
     this.toggleShowTextReaded = this.toggleShowTextReaded.bind(this);
     this.onInterimTextReadedChange = this.onInterimTextReadedChange.bind(this);
     this.resetSpeech = this.resetSpeech.bind(this);
+    this.updateState = this.updateState.bind(this);
+    console.log(this);
+  }
+
+  updateState(updater) {
+    if (_.has(updater, 'textReaded') || _.has(updater, 'textToRead')) {
+      const textReaded =  _.has(updater, 'textReaded') ? updater.textReaded : this.state.textReaded;
+      const textToRead =  _.has(updater, 'textToRead') ? updater.textToRead : this.state.textToRead;
+      let textReadedFeedback = [];
+      if (textReaded) {
+        textReadedFeedback = Feedback.compute(textReaded, textToRead);
+      }
+      updater.textReadedFeedback = textReadedFeedback;
+    }
+    this.setState(updater);
   }
 
   getDefaultLanguage() {
@@ -107,7 +128,7 @@ class App extends Component {
     const text = transcriptions.text[0].text;
 
     if (transcriptions.final) {
-      this.setState({
+      this.updateState({
         textReaded: `${this.state.textReaded} ${text.trim()}`,
         interimText: ''
       });
@@ -119,7 +140,7 @@ class App extends Component {
   }
 
   resetSpeech() {
-    this.setState({textReaded: '', interimText: ''});
+    this.updateState({textReaded: '', interimText: ''});
   }
 
   onLanguageChange(lang) {
@@ -127,16 +148,16 @@ class App extends Component {
     const textToRead = defaultTexts[langPrefix] || 'Introduce the text you want to read';
     localStorage.setItem('lang', lang.code);
     localStorage.setItem('textToRead', textToRead);
-    this.setState({lang, textToRead, textReaded: '', interimText: ''});
+    this.updateState({lang, textToRead, textReaded: '', interimText: ''});
   }
 
   onTextToReadChange(textToRead) {
     localStorage.setItem('textToRead', textToRead);
-    this.setState({textToRead});
+    this.updateState({textToRead});
   }
 
   onTextReadedChange(event) {
-    this.setState({textReaded: event.currentTarget.innerText});
+    this.updateState({textReaded: event.currentTarget.innerText});
   }
 
   onInterimTextReadedChange(event) {
@@ -175,20 +196,21 @@ class App extends Component {
               </CardActions>
               <CardContent>
                 <TextFeedback
+                  textReadedFeedback={this.state.textReadedFeedback}
                   textToRead={this.state.textToRead}
                   textReaded={this.state.textReaded}
                   interimText={this.state.interimText}
                   lang={this.state.lang.code}
                   onTextToReadChange={this.onTextToReadChange}
-                  onEditTextToRead={this.resetSpeech}>
-                </TextFeedback>
+                  onEditTextToRead={this.resetSpeech} />
               </CardContent>
             </Card>
             <SpeechRecognizer
               onSpeech={this.handleSpeech}
               onReset={this.resetSpeech}
-              displayResetButton={this.state.textReaded || this.state.interimText}
+              displayResetButton={!!this.state.textReaded || !!this.state.interimText}
               langCode={this.state.lang.code} />
+            <Score textReadedFeedback={this.state.textReadedFeedback}/>
           </Grid>
           {this.state.displayTextReadedBox ?
             (<Grid item xs={12} sm={12} lg={6}>

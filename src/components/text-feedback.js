@@ -1,8 +1,9 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Rainbow from 'rainbowvis.js';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import Feedback from '../services/feedback';
+
 import TextSpeak from './text-speak';
 
 
@@ -24,15 +25,16 @@ const styleSheet = createStyleSheet('TextFeedback', theme => ({
 }));
 
 
-class TextFeedback extends Component {
+class TextFeedback extends React.Component {
 
-  static propTypes: {
-    textToRead: React.PropTypes.string.isRequired,
-    textReaded: React.PropTypes.string.isRequired,
-    interimText: React.PropTypes.string.isRequired,
-    lang: React.PropTypes.string.isRequired,
-    onEditTextToRead: React.PropTypes.func.isRequired,
-    onTextToReadChange: React.PropTypes.func.isRequired
+  static propTypes = {
+    textReadedFeedback: PropTypes.array.isRequired,
+    textToRead: PropTypes.string.isRequired,
+    textReaded: PropTypes.string.isRequired,
+    interimText: PropTypes.string.isRequired,
+    lang: PropTypes.string.isRequired,
+    onEditTextToRead: PropTypes.func.isRequired,
+    onTextToReadChange: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -56,7 +58,6 @@ class TextFeedback extends Component {
 
   renderTextReadedFeedback(textReadedFeedback) {
     const lang = this.props.lang;
-
     return textReadedFeedback
       .map((part, index) => {
         if (!_.has(part, 'similarity')) {
@@ -73,7 +74,7 @@ class TextFeedback extends Component {
 
   render() {
     const classes = this.props.classes;
-    const textReadedFeedback = Feedback.compute(this.props.textToRead, this.props.textReaded);
+    const textReadedFeedback = this.props.textReadedFeedback;
     const interimTextRange = this.getInterimTextRange(textReadedFeedback);
 
     return (
