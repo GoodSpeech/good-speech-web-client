@@ -66,10 +66,9 @@ const defaultLanguage = 'en-US';
 const defaultTextToRead = 'The mouse is under the table. The table has a strange color, he said.';
 const defaultDisplayTextReadedBox = false;
 
-
 class App extends Component {
 
-  propTypes: {
+  static propTypes: {
     classes: React.PropTypes.object.isRequired
   };
 
@@ -86,9 +85,9 @@ class App extends Component {
     this.onLanguageChange = this.onLanguageChange.bind(this);
     this.onTextToReadChange = this.onTextToReadChange.bind(this);
     this.onTextReadedChange = this.onTextReadedChange.bind(this);
-    this.onEditTextToRead = this.onEditTextToRead.bind(this);
     this.toggleShowTextReaded = this.toggleShowTextReaded.bind(this);
     this.onInterimTextReadedChange = this.onInterimTextReadedChange.bind(this);
+    this.resetSpeech = this.resetSpeech.bind(this);
   }
 
   getDefaultLanguage() {
@@ -119,6 +118,10 @@ class App extends Component {
     }
   }
 
+  resetSpeech() {
+    this.setState({textReaded: '', interimText: ''});
+  }
+
   onLanguageChange(lang) {
     const langPrefix = lang.code.split('-')[0];
     const textToRead = defaultTexts[langPrefix] || 'Introduce the text you want to read';
@@ -138,10 +141,6 @@ class App extends Component {
 
   onInterimTextReadedChange(event) {
     this.setState({interimText: event.currentTarget.innerText});
-  }
-
-  onEditTextToRead() {
-    this.setState({textReaded: '', interimText: ''});
   }
 
   toggleShowTextReaded() {
@@ -181,11 +180,15 @@ class App extends Component {
                   interimText={this.state.interimText}
                   lang={this.state.lang.code}
                   onTextToReadChange={this.onTextToReadChange}
-                  onEditTextToRead={this.onEditTextToRead}>
+                  onEditTextToRead={this.resetSpeech}>
                 </TextFeedback>
               </CardContent>
             </Card>
-            <SpeechRecognizer onSpeech={this.handleSpeech} langCode={this.state.lang.code} />
+            <SpeechRecognizer
+              onSpeech={this.handleSpeech}
+              onReset={this.resetSpeech}
+              displayResetButton={this.state.textReaded || this.state.interimText}
+              langCode={this.state.lang.code} />
           </Grid>
           {this.state.displayTextReadedBox ?
             (<Grid item xs={12} sm={12} lg={6}>

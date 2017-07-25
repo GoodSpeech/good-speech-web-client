@@ -4,8 +4,13 @@ import speechRecognition from '../services/speech-recognition';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('SpeechRecognizer', theme => ({
-  button: {
+  center: {
     textAlign: 'center'
+  },
+  twoColumns: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '0 2.3em'
   },
   chrome: {
     width: '3em',
@@ -23,10 +28,12 @@ class SpeechRecognizer extends Component {
 
   readingTimeout: null;
 
-  propTypes: {
+  static propTypes: {
     onSpeech: React.PropTypes.func.isRequired,
     classes: React.PropTypes.object.isRequired,
-    langCode: React.PropTypes.String.isRequired
+    langCode: React.PropTypes.String.isRequired,
+    onReset: React.PropTypes.func.isRequired,
+    displayResetButton: React.PropTypes.bool.isRequired
   };
 
   constructor(props) {
@@ -80,22 +87,45 @@ class SpeechRecognizer extends Component {
   render() {
     const classes = this.props.classes;
 
-    return (
-      <div className={classes.button}>
-        {!isChrome ?
+    if (!isChrome) {
+      return (
+        <div className={classes.center}>
           <Button raised color='accent' onClick={this.openGoogleChrome}>
             <img alt='Google Chrome' src='/chrome.svg' className={classes.chrome}/>
             <span className={classes.chromeLegend}>Speech recognition is only supported by Google Chrome</span>
           </Button>
-          :
-          this.state.reading ?
-            <Button raised color='accent' onClick={this.stopReading}>
-              <i className='material-icons'>mic_off</i> Stop reading
-            </Button> :
-            <Button raised color='primary' onClick={this.startReading}>
-              <i className='material-icons'>mic</i> Start reading
-            </Button>
-        }
+        </div>
+      );
+    }
+
+    if (this.state.reading) {
+      return (
+        <div className={classes.center}>
+          <Button raised color='accent' onClick={this.stopReading}>
+            <i className='material-icons'>mic_off</i> Stop reading
+          </Button>
+        </div>
+      );
+    }
+
+    if (this.props.displayResetButton) {
+      return (
+        <div className={classes.twoColumns}>
+          <Button onClick={this.props.onReset}>
+            <i className='material-icons'>replay</i> Reset
+          </Button>
+          <Button raised color='primary' onClick={this.startReading}>
+            <i className='material-icons'>mic</i> Continue reading
+          </Button>
+        </div>
+      );
+    }
+
+    return (
+      <div className={classes.center}>
+        <Button raised color='primary' onClick={this.startReading}>
+          <i className='material-icons'>mic</i> Start reading
+        </Button>
       </div>
     );
   }
