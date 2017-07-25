@@ -108,7 +108,7 @@ class App extends Component {
 
     if (transcriptions.final) {
       this.setState({
-        textReaded: `${this.state.textReaded} ${text}`,
+        textReaded: `${this.state.textReaded} ${text.trim()}`,
         interimText: ''
       });
     } else {

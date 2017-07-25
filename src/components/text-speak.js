@@ -67,7 +67,7 @@ class TextSpeak extends Component {
           } : {};
           return (
             <span
-              key={index}
+              key={`${phrase}${index}`}
               onClick={() => this.speak(phrase)}
               className={this.props.className}
               style={{...hoverStyle, ...this.props.style}}

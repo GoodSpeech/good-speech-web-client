@@ -26,7 +26,7 @@ const styleSheet = createStyleSheet('TextFeedback', theme => ({
 
 class TextFeedback extends Component {
 
-  propTypes: {
+  static propTypes: {
     textToRead: React.PropTypes.string.isRequired,
     textReaded: React.PropTypes.string.isRequired,
     interimText: React.PropTypes.string.isRequired,
@@ -42,9 +42,7 @@ class TextFeedback extends Component {
   }
 
   getInterimTextRange(textReadedFeedback) {
-    const start = textReadedFeedback.reduce((charCount, part) => {
-      return charCount + part.value.length;
-    }, 0);
+    const start = textReadedFeedback.map(item => item.value).join('').length;
 
     let interimTextEnd = start;
     if (this.props.interimText) {
@@ -69,7 +67,7 @@ class TextFeedback extends Component {
           color: `#${color}`
         };
 
-        return <TextSpeak key={index} style={style} text={part.value} lang={lang}/>
+        return <TextSpeak key={`${part.value}${index}`} style={style} text={part.value} lang={lang}/>
       });
   }
 

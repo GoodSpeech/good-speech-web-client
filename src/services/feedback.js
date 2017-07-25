@@ -41,12 +41,24 @@ function categorizeAndSequenceDiff(diffed){
 }
 
 
-function getSimilarity(removed, added) {
-  return removed.map((itemRemoved) => {
+function getAddedItemsWindow(addedItems, basePoint, size) {
+  let start = Math.floor(addedItems.length * basePoint);
+  if (start - 1 >= 0) {
+    start = start - 1;
+  }
+  let end = start + size;
+  if (end > addedItems.length) {
+    end = addedItems.length;
+  }
+  return addedItems.slice(start, end);
+}
+
+function getSimilarity(removedItems, addedItems) {
+  return removedItems.map((itemRemoved, index) => {
     const firstWord = cleanText(itemRemoved.value  || '');
     let similarity = 1;
     if (firstWord.length > 1) {
-      similarity = added.reduce((similarity, itemAdded) => {
+      similarity = getAddedItemsWindow(addedItems, index/removedItems.length, 3).reduce((similarity, itemAdded) => {
         const secondWord = cleanText(itemAdded.value || '');
         let newSimilarity = 0;
         if (secondWord.length >= 1) {
@@ -83,8 +95,9 @@ function serializeSimilarityArray(items) {
 function getTextReadedDiff(original, readed) {
   if (readed.length > 0) {
     //this hack improve the diff results
-    readed = `${readed} `;
+    readed = `${readed.trim()} `;
   }
+
   const diff = diffWords(original, readed);
   let lastPartMentioned = _.findLastIndex(diff, part => isAddedPart(part) || isUnchangedPart(part));
 
