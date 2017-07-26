@@ -95,7 +95,6 @@ class App extends React.Component {
     this.onInterimTextReadedChange = this.onInterimTextReadedChange.bind(this);
     this.resetSpeech = this.resetSpeech.bind(this);
     this.updateState = this.updateState.bind(this);
-    console.log(this);
   }
 
   updateState(updater) {
@@ -103,7 +102,7 @@ class App extends React.Component {
       const textReaded =  _.has(updater, 'textReaded') ? updater.textReaded : this.state.textReaded;
       const textToRead =  _.has(updater, 'textToRead') ? updater.textToRead : this.state.textToRead;
       let textReadedFeedback = [];
-      if (textReaded) {
+      if (textReaded && textToRead) {
         textReadedFeedback = Feedback.compute(textReaded, textToRead);
       }
       updater.textReadedFeedback = textReadedFeedback;
@@ -210,7 +209,10 @@ class App extends React.Component {
               onReset={this.resetSpeech}
               displayResetButton={!!this.state.textReaded || !!this.state.interimText}
               langCode={this.state.lang.code} />
-            <Score textReadedFeedback={this.state.textReadedFeedback}/>
+
+            <Score textReadedFeedback={this.state.textReadedFeedback}
+                   displayScore={!!this.state.textReaded && !this.state.interimText} />
+
           </Grid>
           {this.state.displayTextReadedBox ?
             (<Grid item xs={12} sm={12} lg={6}>

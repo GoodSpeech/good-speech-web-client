@@ -44,41 +44,28 @@ const styleSheet = createStyleSheet('Score', theme => ({
 
 class Score extends React.Component {
   static propTypes = {
-    textReadedFeedback: PropTypes.array.isRequired
+    textReadedFeedback: PropTypes.array.isRequired,
+    displayScore: PropTypes.bool.isRequired
   };
 
   constructor(props) {
     super(props);
-    this.state = {
-      verboseScore: '',
-      score: null,
-      color: ''
-    };
     this.redToGreen = new Rainbow();
     this.redToGreen.setSpectrum('red', '#ffac0a', '#bbc60c', '#76c60c', '#05b515');
     this.calculateScores = this.calculateScores.bind(this);
-    this.setColor = this.setColor.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const [verboseScore, score] = this.calculateScores(nextProps.textReadedFeedback);
-    const color = this.setColor(score);
-    this.setState({verboseScore, score, color});
+    this.getColor = this.getColor.bind(this);
   }
 
   calculateScores(textReadedFeedback) {
     const score = _.sum(textReadedFeedback.map(phrase => phrase.similarity)) / textReadedFeedback.length;
-
-    const verboseScore = RATES.reduce((result, rate)=>{
-      if (between(score, rate.min, rate.max)) {
-        return rate.result;
-      }
-      return result;
-    }, '');
+    const rate = RATES.find((rate, index) => {
+      return between(score, rate.min, rate.max);
+    }) || {};
+    const verboseScore = rate.result;
     return [verboseScore, score];
   }
 
-  setColor(score) {
+  getColor(score) {
     score = score || null;
     if (!_.isNumber(score)) {
       return '';
@@ -89,14 +76,22 @@ class Score extends React.Component {
 
   render() {
     const classes = this.props.classes;
-    // const color = this.redToGreen.colourAt(this.state.score * 100);
+    const [verboseScore, score] = this.calculateScores(this.props.textReadedFeedback);
+    const color = this.getColor(score);
     const style = {
-      color: `#${this.state.color}`
+      color: `#${color}`
     };
+
+    if (!this.props.displayScore) {
+      return null;
+    }
 
     return (
       <div className={classes.score}>
-        <span style={style} className={classes.scoreResult}>{this.state.verboseScore}</span>
+        <span style={style} className=
+          {classes.scoreResult}>{verboseScore}
+          {` (${score * 100} %)`}
+        </span>
       </div>
 
     );
