@@ -16,6 +16,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.10",
+    "react-share": "^1.15.0",
     "text-sound-similarity": "^1.0.1",
     "voca": "^1.3.0"
   },

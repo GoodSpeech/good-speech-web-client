@@ -17,7 +17,6 @@ import Footer from './footer';
 import { supportedLanguages, defaultTexts } from '../services/supported-languages';
 import Feedback from '../services/feedback';
 
-
 const styleSheet = createStyleSheet('App', theme => ({
   root: {
     flexGrow: 1,
@@ -29,7 +28,7 @@ const styleSheet = createStyleSheet('App', theme => ({
   },
   grid: {
     justifyContent: 'center',
-    minHeight: 'calc(100vh - 115px)'
+    minHeight: 'calc(100vh - 195px)'
   },
   card: {
     padding: 5,
