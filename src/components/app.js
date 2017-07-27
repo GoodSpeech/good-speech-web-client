@@ -103,7 +103,7 @@ class App extends React.Component {
       const textToRead =  _.has(updater, 'textToRead') ? updater.textToRead : this.state.textToRead;
       let textReadedFeedback = [];
       if (textReaded && textToRead) {
-        textReadedFeedback = Feedback.compute(textReaded, textToRead);
+        textReadedFeedback = Feedback.compute(textToRead, textReaded);
       }
       updater.textReadedFeedback = textReadedFeedback;
     }

@@ -31,16 +31,20 @@ class TextSpeak extends React.Component {
     SpeechSynthesis.speak(phrase, this.props.lang);
   }
 
-  onMouseEnter(index) {
+  onMouseEnter(index, event) {
     this.setState({
       hover: index
     });
+    event.stopPropagation();
+    event.preventDefault();
   }
 
   onMouseLeave(event) {
     this.setState({
       hover: null
     });
+    event.stopPropagation();
+    event.preventDefault();
   }
 
   onMouseDown(event) {
@@ -75,7 +79,7 @@ class TextSpeak extends React.Component {
               className={this.props.className}
               style={{...hoverStyle, ...this.props.style}}
               onMouseDown={this.onMouseDown}
-              onMouseEnter={() => this.onMouseEnter(index)}
+              onMouseEnter={event => this.onMouseEnter(index, event)}
               onMouseLeave={this.onMouseLeave}>
               {phrase}
             </span>

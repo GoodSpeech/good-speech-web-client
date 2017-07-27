@@ -106,6 +106,17 @@ function getTextReadedDiff(original, readed) {
   if (isNextPartPunctuation) {
     lastPartMentioned = lastPartMentioned + 1;
   }
+
+  const lastPartMentionedIsBeforeLast = lastPartMentioned + 1 === diff.length - 1;
+  const lastPart = diff[diff.length - 1];
+  
+  if (lastPartMentionedIsBeforeLast && lastPart.removed) {
+    const lastPartSpacesCount = lastPart.value.split(' ').length;
+    if (lastPartSpacesCount <= 4) {
+      lastPartMentioned = lastPartMentioned + 1;
+    }
+  }
+
   return diff.slice(0, lastPartMentioned + 1);
 }
 
