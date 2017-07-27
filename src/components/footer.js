@@ -1,8 +1,9 @@
+import React from 'react';
 import Avatar from 'material-ui/Avatar';
-import React, { Component } from 'react';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
+
 
 const styleSheet = createStyleSheet('Footer', theme => ({
   chip: {
@@ -20,7 +21,7 @@ const styleSheet = createStyleSheet('Footer', theme => ({
   }
 }));
 
-class Footer extends Component {
+class Footer extends React.Component {
 
   openJaviTwiter() {
     window.open('https://twitter.com/javipzv', '_blank').focus();

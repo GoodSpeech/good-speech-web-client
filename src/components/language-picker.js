@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import languages from '../services/supported-languages';
 import Button from 'material-ui/Button';
 import 'flag-icon-css/css/flag-icon.min.css';
+
+import languages from '../services/supported-languages';
+
 
 const styleSheet = createStyleSheet('LanguagePicker', theme => ({
   flag: {
@@ -11,12 +14,12 @@ const styleSheet = createStyleSheet('LanguagePicker', theme => ({
   }
 }));
 
-class LanguagePicker extends Component {
+class LanguagePicker extends React.Component {
 
-  propTypes: {
-    classes: React.PropTypes.object.isRequired,
-    lang: React.PropTypes.object.isRequired,
-    onChange: React.PropTypes.func.isRequired
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    lang: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -55,7 +58,7 @@ class LanguagePicker extends Component {
   render() {
     return (
       <span>
-        <Button 
+        <Button
           aria-owns='pick-language'
           onClick={this.openLanguageMenu}>
           {this.getFlag(this.props.lang)}

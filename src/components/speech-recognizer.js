@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
-import speechRecognition from '../services/speech-recognition';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
+
+import speechRecognition from '../services/speech-recognition';
+
 
 const styleSheet = createStyleSheet('SpeechRecognizer', theme => ({
   center: {
@@ -24,16 +27,16 @@ const styleSheet = createStyleSheet('SpeechRecognizer', theme => ({
 
 const isChrome = window.chrome && window.chrome.webstore;
 
-class SpeechRecognizer extends Component {
+class SpeechRecognizer extends React.Component {
 
   readingTimeout: null;
 
-  static propTypes: {
-    onSpeech: React.PropTypes.func.isRequired,
-    classes: React.PropTypes.object.isRequired,
-    langCode: React.PropTypes.String.isRequired,
-    onReset: React.PropTypes.func.isRequired,
-    displayResetButton: React.PropTypes.bool.isRequired
+  static propTypes = {
+    onSpeech: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
+    langCode: PropTypes.string.isRequired,
+    onReset: PropTypes.func.isRequired,
+    displayResetButton: PropTypes.bool.isRequired
   };
 
   constructor(props) {

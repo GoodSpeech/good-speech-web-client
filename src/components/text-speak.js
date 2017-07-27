@@ -1,15 +1,18 @@
-import React, { Component } from 'react';
-import SpeechSynthesis from '../services/text-to-speech';
 import _ from 'lodash';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class TextSpeak extends Component {
-  propTypes: {
-    text: React.PropTypes.string.isRequired,
-    style: React.PropTypes.object,
-    langCode: React.PropTypes.string.isRequired
+import SpeechSynthesis from '../services/text-to-speech';
+
+
+class TextSpeak extends React.Component {
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    style: PropTypes.object,
+    lang: PropTypes.string.isRequired
   };
 
-  defaultProps: {
+  static defaultProps = {
     style: {}
   };
 
