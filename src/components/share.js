@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ShareButtons,  generateShareIcon } from 'react-share';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
+import PropTypes from 'prop-types';
 
 const {
   FacebookShareButton,
@@ -41,18 +42,21 @@ const styleSheet = createStyleSheet('Share', theme => ({
 
 
 class Share extends Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    classes: PropTypes.object.isRequired
+  };
+
   render() {
     const classes = this.props.classes;
-    //TODO: set these variable values using props
     const shareUrl = window.location.href;
-    const title = 'Good Speech';
-    const picture = `${String(window.location)}/chrome.svg`;
+    const picture = `${String(window.location)}/good-speech.com.png`;
 
     return (
       <div className={classes.buttons}>
         <FacebookShareButton
           url={shareUrl}
-          title={title}
+          title={this.props.title}
           picture={picture}
           className={`shareButton ${classes.button}`}>
           <FacebookIcon
@@ -62,7 +66,7 @@ class Share extends Component {
 
         <TwitterShareButton
           url={shareUrl}
-          title={title}
+          title={this.props.title}
           className={`shareButton ${classes.button}`}>
           <TwitterIcon
             size={32}
@@ -71,15 +75,15 @@ class Share extends Component {
 
         <TelegramShareButton
           url={shareUrl}
-          title={title}
+          title={this.props.title}
           className={`shareButton ${classes.button}`}>
           <TelegramIcon size={32} round />
         </TelegramShareButton>
 
         <WhatsappShareButton
           url={shareUrl}
-          title={title}
-          separator=':: '
+          title={this.props.title}
+          separator=' :: '
           className={`shareButton ${classes.button}`}>
           <WhatsappIcon size={32} round />
         </WhatsappShareButton>
@@ -94,7 +98,7 @@ class Share extends Component {
 
         <LinkedinShareButton
           url={shareUrl}
-          title={title}
+          title={this.props.title}
           windowWidth={750}
           windowHeight={600}
           className={`shareButton ${classes.button}`}>
@@ -136,7 +140,7 @@ class Share extends Component {
 
         <RedditShareButton
           url={shareUrl}
-          title={title}
+          title={this.props.title}
           windowWidth={660}
           windowHeight={460}
           className={`shareButton ${classes.button}`}>
