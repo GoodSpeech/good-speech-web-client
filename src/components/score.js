@@ -3,7 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Rainbow from 'rainbowvis.js';
-
+import { CirclePie } from 'salad-ui.chart'
+import Typography from 'material-ui/Typography';
+import Share from './share';
 
 const between = (x, min, max) => {
   return x >= min && x <= max;
@@ -33,19 +35,43 @@ const RATES = [
 ];
 
 const styleSheet = createStyleSheet('Score', theme => ({
-  score: {
-    textAlign: 'center'
+  scoreContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    padding: '2em 1em 0 1em'
   },
-  scoreResult: {
-    fontSize: '4em'
+  scoreTitle: {
+    marginTop: '0.5em'
+  },
+  circleContainer: {
+    width: 140,
+    height: 140,
+    background: '#05b515',
+    borderRadius: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  circle: {
+    width: 110,
+    height: 110,
+    lineHeight: '110px',
+    display: 'block',
+    background: 'white',
+    borderRadius: '100%',
+    verticalAlign: 'middle',
+    fontSize: '1.2em',
+    color: '#05b515',
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 }));
 
 
 class Score extends React.Component {
   static propTypes = {
-    textReadedFeedback: PropTypes.array.isRequired,
-    displayScore: PropTypes.bool.isRequired
+    textReadedFeedback: PropTypes.array.isRequired
   };
 
   constructor(props) {
@@ -57,10 +83,13 @@ class Score extends React.Component {
   }
 
   calculateScores(textReadedFeedback) {
-    const score = _.sum(textReadedFeedback.map(phrase => phrase.similarity)) / textReadedFeedback.length;
-    const rate = RATES.find((rate, index) => {
-      return between(score, rate.min, rate.max);
-    }) || {};
+    textReadedFeedback.filter(phrase => phrase.value !== ' ');
+    let score = 0;
+    if (textReadedFeedback.length > 0) {
+      const phrasesSimilarity = _.sum(textReadedFeedback.map(phrase => phrase.similarity));
+      score = phrasesSimilarity / textReadedFeedback.length;
+    }
+    const rate = RATES.find((rate, index) => between(score, rate.min, rate.max)) || {};
     const verboseScore = rate.result;
     return [verboseScore, score];
   }
@@ -76,24 +105,18 @@ class Score extends React.Component {
 
   render() {
     const classes = this.props.classes;
-    const [verboseScore, score] = this.calculateScores(this.props.textReadedFeedback);
+    let [verboseScore, score] = this.calculateScores(this.props.textReadedFeedback);
     const color = this.getColor(score);
-    const style = {
-      color: `#${color}`
-    };
-
-    if (!this.props.displayScore) {
-      return null;
-    }
-
+    score = Math.floor(score * 100);
     return (
-      <div className={classes.score}>
-        <span style={style} className=
-          {classes.scoreResult}>{verboseScore}
-          {` (${score * 100} %)`}
-        </span>
+      <div className={classes.scoreContainer}>
+        {score < 100 ?
+          <CirclePie width={140} height={140} strokeWidth={15} percent={score} strokeColor={`#${color}`} labelColor={`#${color}`}/> :
+          <span className={classes.circleContainer}><span className={classes.circle}>100%</span></span>
+        }        
+        <Typography type='headline' className={classes.scoreTitle}>{verboseScore}</Typography>
+        <Share />
       </div>
-
     );
   }
 }

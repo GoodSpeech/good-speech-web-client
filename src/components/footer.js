@@ -35,7 +35,7 @@ class Footer extends React.Component {
     const classes = this.props.classes;
     return (
       <div>
-        <Share />
+        {this.props.displayShareButtons ? <Share /> : null}
         <Card className={classes.card}>
           <CardContent className={classes.cardContent}>
             <Chip

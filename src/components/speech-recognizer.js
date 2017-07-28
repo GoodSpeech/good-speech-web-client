@@ -29,24 +29,24 @@ const isChrome = window.chrome && window.chrome.webstore;
 
 class SpeechRecognizer extends React.Component {
 
-  readingTimeout: null;
+  readingTimeout = null;
 
   static propTypes = {
     onSpeech: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
     langCode: PropTypes.string.isRequired,
     onReset: PropTypes.func.isRequired,
+    onStartTalking: PropTypes.func.isRequired,
+    onStopTalking: PropTypes.func.isRequired,
+    talking: PropTypes.bool,
     displayResetButton: PropTypes.bool.isRequired
   };
 
   constructor(props) {
     super(props);
-    this.state = {
-      reading: false
-    }
     this.initSpeechRecognition(props);
-    this.startReading = this.startReading.bind(this);
-    this.stopReading = this.stopReading.bind(this);
+    this.startTalking = this.startTalking.bind(this);
+    this.stopTalking = this.stopTalking.bind(this);
   }
 
   initSpeechRecognition(props) {
@@ -69,21 +69,17 @@ class SpeechRecognizer extends React.Component {
 
   handleSpeech(transcriptions) {
     clearTimeout(this.readingTimeout);
-    this.readingTimeout = setTimeout(this.stopReading, 5000);
+    this.readingTimeout = setTimeout(this.stopTalking, 5000);
     this.props.onSpeech(transcriptions);
   }
 
-  startReading() {
-    this.setState({
-      reading: true
-    });
+  startTalking() {
+    this.props.onStartTalking();
     speechRecognition.start();
   }
 
-  stopReading() {
-    this.setState({
-      reading: false
-    });
+  stopTalking() {
+    this.props.onStopTalking();
     speechRecognition.stop();
   }
 
@@ -101,10 +97,10 @@ class SpeechRecognizer extends React.Component {
       );
     }
 
-    if (this.state.reading) {
+    if (this.props.talking) {
       return (
         <div className={classes.center}>
-          <Button raised color='accent' onClick={this.stopReading}>
+          <Button raised color='accent' onClick={this.stopTalking}>
             <i className='material-icons'>mic_off</i> Stop reading
           </Button>
         </div>
@@ -117,7 +113,7 @@ class SpeechRecognizer extends React.Component {
           <Button onClick={this.props.onReset}>
             <i className='material-icons'>replay</i> Reset
           </Button>
-          <Button raised color='primary' onClick={this.startReading}>
+          <Button raised color='primary' onClick={this.startTalking}>
             <i className='material-icons'>mic</i> Continue reading
           </Button>
         </div>
@@ -126,7 +122,7 @@ class SpeechRecognizer extends React.Component {
 
     return (
       <div className={classes.center}>
-        <Button raised color='primary' onClick={this.startReading}>
+        <Button raised color='primary' onClick={this.startTalking}>
           <i className='material-icons'>mic</i> Start reading
         </Button>
       </div>
