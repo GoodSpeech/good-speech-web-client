@@ -85,7 +85,7 @@ class Score extends React.Component {
   }
 
   calculateScores(textReadedFeedback) {
-    textReadedFeedback.filter(phrase => phrase.value !== ' ');
+    textReadedFeedback = textReadedFeedback.filter(phrase => phrase.value !== ' ');
     let score = 0;
     if (textReadedFeedback.length > 0) {
       const phrasesSimilarity = _.sum(textReadedFeedback.map(phrase => phrase.similarity));

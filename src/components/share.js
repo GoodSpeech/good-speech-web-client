@@ -50,7 +50,7 @@ class Share extends Component {
   render() {
     const classes = this.props.classes;
     const shareUrl = window.location.href;
-    const picture = `${String(window.location)}/good-speech.com.png`;
+    const picture = `${String(window.location)}/share.png`;
 
     return (
       <div className={classes.buttons}>

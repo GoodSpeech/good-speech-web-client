@@ -91,7 +91,7 @@ class SpeechRecognizer extends React.Component {
         <div className={classes.center}>
           <Button raised color='accent' onClick={this.openGoogleChrome}>
             <img alt='Google Chrome' src='/chrome.svg' className={classes.chrome}/>
-            <span className={classes.chromeLegend}>Speech recognition is only supported by Google Chrome</span>
+            <span className={classes.chromeLegend}>Speech recognition is only supported by Google Chrome Desktop</span>
           </Button>
         </div>
       );
