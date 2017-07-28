@@ -41,6 +41,8 @@ class TextFeedback extends React.Component {
     super(props);
     this.redToGreen = new Rainbow();
     this.redToGreen.setSpectrum('red', 'orange', 'green');
+    this.onBlur = this.onBlur.bind(this);
+    this.onPaste = this.onPaste.bind(this);
   }
 
   getInterimTextRange(textReadedFeedback) {
@@ -72,6 +74,15 @@ class TextFeedback extends React.Component {
       });
   }
 
+  onBlur(event) {
+    this.props.onTextToReadChange(event.currentTarget.innerText)
+  }
+
+  onPaste(event) {
+    event.preventDefault();
+    this.props.onTextToReadChange(event.clipboardData.getData('text/plain'))
+  }
+
   render() {
     const classes = this.props.classes;
     const textReadedFeedback = this.props.textReadedFeedback;
@@ -82,7 +93,8 @@ class TextFeedback extends React.Component {
         contentEditable
         suppressContentEditableWarning
         onFocus={this.props.onEditTextToRead}
-        onBlur={el => this.props.onTextToReadChange(el.currentTarget.innerText)}
+        onPaste={this.onPaste}
+        onBlur={this.onBlur}
         className={classes.text}>
         {this.renderTextReadedFeedback(textReadedFeedback)}
         <TextSpeak className={classes.readed}

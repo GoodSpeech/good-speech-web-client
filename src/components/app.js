@@ -225,7 +225,9 @@ class App extends React.Component {
               langCode={this.state.lang.code} />
 
             {displayScore ?
-              <Score textReadedFeedback={this.state.textReadedFeedback}/> : null}
+              <Score
+                textReadedFeedback={this.state.textReadedFeedback}
+                language={this.state.lang.englishName}/> : null}
           </Grid>
           {this.state.displayTextReadedBox ?
             (<Grid item xs={12} sm={12} lg={6}>

@@ -71,7 +71,9 @@ const styleSheet = createStyleSheet('Score', theme => ({
 
 class Score extends React.Component {
   static propTypes = {
-    textReadedFeedback: PropTypes.array.isRequired
+    classes: PropTypes.object.isRequired,
+    textReadedFeedback: PropTypes.array.isRequired,
+    language: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -107,6 +109,7 @@ class Score extends React.Component {
     const classes = this.props.classes;
     let [verboseScore, score] = this.calculateScores(this.props.textReadedFeedback);
     const color = this.getColor(score);
+    const lang = this.props.language.split(' (')[0];
     score = Math.floor(score * 100);
     return (
       <div className={classes.scoreContainer}>
@@ -115,7 +118,7 @@ class Score extends React.Component {
           <span className={classes.circleContainer}><span className={classes.circle}>100%</span></span>
         }        
         <Typography type='headline' className={classes.scoreTitle}>{verboseScore}</Typography>
-        <Share />
+        <Share title={`My ${lang} speech level is ${verboseScore} (${score}%). What's yours?. Practice your speech level in any language.`}/>
       </div>
     );
   }
