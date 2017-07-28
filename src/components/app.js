@@ -94,6 +94,8 @@ class App extends React.Component {
     this.onInterimTextReadedChange = this.onInterimTextReadedChange.bind(this);
     this.resetSpeech = this.resetSpeech.bind(this);
     this.updateState = this.updateState.bind(this);
+    this.onStartTalking = this.onStartTalking.bind(this);
+    this.onStopTalking = this.onStopTalking.bind(this);
   }
 
   updateState(updater) {
@@ -131,7 +133,7 @@ class App extends React.Component {
         interimText: ''
       });
     } else {
-      this.setState({
+      this.updateState({
         interimText: text
       });
     }
@@ -159,16 +161,26 @@ class App extends React.Component {
   }
 
   onInterimTextReadedChange(event) {
-    this.setState({interimText: event.currentTarget.innerText});
+    this.updateState({interimText: event.currentTarget.innerText});
   }
 
   toggleShowTextReaded() {
     localStorage.setItem('displayTextReadedBox', !this.state.displayTextReadedBox);
-    this.setState({displayTextReadedBox: !this.state.displayTextReadedBox});
+    this.updateState({displayTextReadedBox: !this.state.displayTextReadedBox});
+  }
+
+  onStartTalking() {
+    this.updateState({talking: true});
+  }
+
+  onStopTalking() {
+    this.updateState({talking: false});
   }
 
   render() {
     const classes = this.props.classes;
+    const displayScore = !this.state.talking && this.state.textReadedFeedback.length > 0;
+    const displayShareButtons = !displayScore;
 
     return (
       <div className={classes.root}>
@@ -206,12 +218,14 @@ class App extends React.Component {
             <SpeechRecognizer
               onSpeech={this.handleSpeech}
               onReset={this.resetSpeech}
+              onStartTalking={this.onStartTalking}
+              onStopTalking={this.onStopTalking}
+              talking={this.state.talking}
               displayResetButton={!!this.state.textReaded || !!this.state.interimText}
               langCode={this.state.lang.code} />
 
-            <Score textReadedFeedback={this.state.textReadedFeedback}
-                   displayScore={!!this.state.textReaded && !this.state.interimText} />
-
+            {displayScore ?
+              <Score textReadedFeedback={this.state.textReadedFeedback}/> : null}
           </Grid>
           {this.state.displayTextReadedBox ?
             (<Grid item xs={12} sm={12} lg={6}>
@@ -239,7 +253,7 @@ class App extends React.Component {
             </Grid>) : null
           }
         </Grid>
-        <Footer/>
+        <Footer displayShareButtons={displayShareButtons}/>
       </div>
     );
   }
