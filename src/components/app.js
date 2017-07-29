@@ -23,8 +23,9 @@ const styleSheet = createStyleSheet('App', theme => ({
     alignItems: 'center'
   },
   logo: {
-    marginRight: '0.5em',
-    verticalAlign: 'bottom'
+    height: '1em',
+    verticalAlign: 'middle',
+    marginRight: '0.5em'
   },
   grid: {
     justifyContent: 'center',
@@ -187,7 +188,7 @@ class App extends React.Component {
         <AppBar position='static'>
           <Toolbar>
             <Typography type='title' color='inherit'>
-              <i className={`material-icons ${classes.logo}`}>record_voice_over</i>
+              <img src='/icon.svg' alt='good speech icon' className={classes.logo}/>
               Good Speech
             </Typography>
           </Toolbar>
