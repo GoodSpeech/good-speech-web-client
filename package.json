@@ -26,7 +26,8 @@
     "start": "yarn && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "trans": "./trans"
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
@@ -35,6 +36,7 @@
     "eslint-plugin-flowtype": "2.33.0",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "5.0.1",
-    "eslint-plugin-react": "7.0.1"
+    "eslint-plugin-react": "7.0.1",
+    "google-translate-api": "^2.3.0"
   }
 }

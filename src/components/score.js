@@ -5,7 +5,10 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Rainbow from 'rainbowvis.js';
 import { CirclePie } from 'salad-ui.chart'
 import Typography from 'material-ui/Typography';
+
 import Share from './share';
+import { i18n } from '../services/i18n';
+
 
 const between = (x, min, max) => {
   return x >= min && x <= max;
@@ -13,22 +16,22 @@ const between = (x, min, max) => {
 
 const RATES = [
   {
-    result: 'Bad',
+    result: () => i18n`Bad`,
     min: 0,
     max: 0.4
   },
   {
-    result: 'Regular',
+    result: () => i18n`Regular`,
     min: 0.4,
     max: 0.6
   },
   {
-    result: 'Good',
+    result: () => i18n`Good`,
     min: 0.6,
     max: 0.85
   },
   {
-    result: 'Excellent',
+    result: () => i18n`Excellent`,
     min: 0.85,
     max: 1
   }
@@ -92,7 +95,7 @@ class Score extends React.Component {
       score = phrasesSimilarity / textReadedFeedback.length;
     }
     const rate = RATES.find((rate, index) => between(score, rate.min, rate.max)) || {};
-    const verboseScore = rate.result;
+    const verboseScore = rate.result();
     return [verboseScore, score];
   }
 
@@ -116,9 +119,9 @@ class Score extends React.Component {
         {score < 100 ?
           <CirclePie width={140} height={140} strokeWidth={15} percent={score} strokeColor={`#${color}`} labelColor={`#${color}`}/> :
           <span className={classes.circleContainer}><span className={classes.circle}>100%</span></span>
-        }        
+        }
         <Typography type='headline' className={classes.scoreTitle}>{verboseScore}</Typography>
-        <Share title={`My ${lang} speech level is ${verboseScore} (${score}%). What's yours?. Practice your speech level in any language.`}/>
+        <Share title={i18n`My ${lang} speech level is ${verboseScore} (${score}%). What's yours?. Practice your speech level in any language.`}/>
       </div>
     );
   }

@@ -16,6 +16,8 @@ import LanguagePicker from './language-picker';
 import Footer from './footer';
 import { supportedLanguages, defaultTexts } from '../services/supported-languages';
 import Feedback from '../services/feedback';
+import { i18n } from '../services/i18n';
+
 
 const styleSheet = createStyleSheet('App', theme => ({
   root: {
@@ -66,9 +68,7 @@ const styleSheet = createStyleSheet('App', theme => ({
   }
 }));
 
-
 const defaultLanguage = 'en-US';
-const defaultTextToRead = 'The mouse is under the table. The table has a strange color, he said.';
 const defaultDisplayTextReadedBox = false;
 
 class App extends React.Component {
@@ -118,7 +118,7 @@ class App extends React.Component {
   }
 
   getDefaultTextToRead() {
-    return localStorage.getItem('textToRead') || defaultTextToRead;
+    return localStorage.getItem('textToRead') || defaultTexts['en'];
   }
 
   getDefaultDisplayTextReadedBox() {
@@ -200,8 +200,8 @@ class App extends React.Component {
                 <Button
                   className={classes.showTextReadedButton}
                   onClick={this.toggleShowTextReaded}>
-                  {this.state.displayTextReadedBox ? 'Hide ' : 'Show '}
-                  text read
+                  {this.state.displayTextReadedBox ?
+                    i18n`Hide text read` : i18n`Show text read`}
                 </Button>
                 <LanguagePicker lang={this.state.lang} onChange={this.onLanguageChange} />
               </CardActions>
@@ -233,9 +233,9 @@ class App extends React.Component {
           {this.state.displayTextReadedBox ?
             (<Grid item xs={12} sm={12} lg={6}>
               <Card className={classes.card}>
-                <CardHeader title='Text read'></CardHeader>
+                <CardHeader title={i18n`Text read`}></CardHeader>
                 <CardContent>
-                  <h5>Final text</h5>
+                  <h5>{ i18n`Final text` }</h5>
                   <p
                     contentEditable
                     suppressContentEditableWarning
@@ -243,7 +243,7 @@ class App extends React.Component {
                     className={classes.text}>
                     {this.state.textReaded}
                   </p>
-                  <h5>Interim text</h5>
+                  <h5>{ i18n`Interim text` }</h5>
                   <p
                     contentEditable
                     suppressContentEditableWarning

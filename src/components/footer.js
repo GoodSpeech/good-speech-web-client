@@ -3,7 +3,10 @@ import Avatar from 'material-ui/Avatar';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
+
 import Share from './share';
+import { i18n } from '../services/i18n';
+
 
 const styleSheet = createStyleSheet('Footer', theme => ({
   chip: {
@@ -36,7 +39,7 @@ class Footer extends React.Component {
     return (
       <div>
         {this.props.displayShareButtons ?
-          <Share title='Practice your speech level in any language. good-speech.com' /> : null}
+          <Share title={i18n`Practice your speech level in any language. good-speech.com`} /> : null}
         <Card className={classes.card}>
           <CardContent className={classes.cardContent}>
             <Chip
