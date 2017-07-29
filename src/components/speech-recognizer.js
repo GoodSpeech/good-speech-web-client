@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
+import { i18n } from '../services/i18n';
 import speechRecognition from '../services/speech-recognition';
 
 
@@ -91,7 +92,7 @@ class SpeechRecognizer extends React.Component {
         <div className={classes.center}>
           <Button raised color='accent' onClick={this.openGoogleChrome}>
             <img alt='Google Chrome' src='/chrome.svg' className={classes.chrome}/>
-            <span className={classes.chromeLegend}>Speech recognition is only supported by Google Chrome Desktop</span>
+            <span className={classes.chromeLegend}>{i18n`Speech recognition is only supported by Google Chrome Desktop`}</span>
           </Button>
         </div>
       );
@@ -101,7 +102,7 @@ class SpeechRecognizer extends React.Component {
       return (
         <div className={classes.center}>
           <Button raised color='accent' onClick={this.stopTalking}>
-            <i className='material-icons'>mic_off</i> Stop reading
+            <i className='material-icons'>mic_off</i> {i18n`Stop reading`}
           </Button>
         </div>
       );
@@ -111,10 +112,10 @@ class SpeechRecognizer extends React.Component {
       return (
         <div className={classes.twoColumns}>
           <Button onClick={this.props.onReset}>
-            <i className='material-icons'>replay</i> Reset
+            <i className='material-icons'>replay</i> {i18n`Reset`}
           </Button>
           <Button raised color='primary' onClick={this.startTalking}>
-            <i className='material-icons'>mic</i> Continue reading
+            <i className='material-icons'>mic</i> {i18n`Continue reading`}
           </Button>
         </div>
       );
@@ -123,7 +124,7 @@ class SpeechRecognizer extends React.Component {
     return (
       <div className={classes.center}>
         <Button raised color='primary' onClick={this.startTalking}>
-          <i className='material-icons'>mic</i> Start reading
+          <i className='material-icons'>mic</i> {i18n`Start reading`}
         </Button>
       </div>
     );

@@ -41,7 +41,6 @@ function categorizeAndSequenceDiff(diffed){
   }, [[], [], []]);
 }
 
-
 function getAddedItemsWindow(addedItems, basePoint, size) {
   let start = Math.floor(addedItems.length * basePoint);
   if (start - 1 >= 0) {
@@ -73,7 +72,6 @@ function getSimilarity(removedItems, addedItems) {
     return [itemRemoved, similarity];
   });
 }
-
 
 /**
  * Returns value from the text to read
@@ -109,7 +107,7 @@ function getTextReadedDiff(original, readed) {
 
   const lastPartMentionedIsBeforeLast = lastPartMentioned + 1 === diff.length - 1;
   const lastPart = diff[diff.length - 1];
-  
+
   if (lastPartMentionedIsBeforeLast && lastPart.removed) {
     const lastPartSpacesCount = lastPart.value.split(' ').length;
     if (lastPartSpacesCount <= 4) {
@@ -119,7 +117,6 @@ function getTextReadedDiff(original, readed) {
 
   return diff.slice(0, lastPartMentioned + 1);
 }
-
 
 /**
  * @param  {string} original

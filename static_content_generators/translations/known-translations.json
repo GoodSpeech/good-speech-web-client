@@ -1,0 +1,41 @@
+{
+  "es": {
+    "Speech recognition is only supported by Google Chrome Desktop": "El reconocimiento de voz sólo es compatible con Google Chrome Desktop",
+    "Reset": "Reiniciar",
+    "My {0} speech level is {1} ({2}%). What's yours?. Practice your speech level in any language.": "Mi nivel de conversación en {0} es {1} ({2}%). ¿Y el tuyo?. Practique su pronunciación en cualquier idioma.",
+    "Stop reading": "Detener lectura",
+    "Good": "Bueno",
+    "Continue reading": "Continuar leyendo",
+    "Excellent": "Excelente",
+    "Start reading": "Comenzar a leer",
+    "Practice your speech level in any language. good-speech.com": "Practique su nivel de pronunciación en cualquier idioma. Good-speech.com",
+    "Regular": "Regular",
+    "Bad": "Malo"
+  },
+  "it": {
+    "Start reading": "Inizia a leggere",
+    "My {0} speech level is {1} ({2}%). What's yours?. Practice your speech level in any language.": "Il mio livello di discorso {0} è {1} ({2}%). Qual è il tuo?. Praticate il livello di discorso in qualsiasi lingua.",
+    "Excellent": "Eccellente",
+    "Continue reading": "Continua a leggere",
+    "Practice your speech level in any language. good-speech.com": "Praticate il livello di discorso in qualsiasi lingua. good-speech.com",
+    "Stop reading": "Ferma la lettura",
+    "Reset": "Reset",
+    "Good": "Buona",
+    "Regular": "Regolare",
+    "Speech recognition is only supported by Google Chrome Desktop": "Il riconoscimento vocale è supportato solo da Google Chrome Desktop",
+    "Bad": "Cattivo"
+  },
+  "pt": {
+    "Practice your speech level in any language. good-speech.com": "Pratique o seu nível de pronúncia em qualquer idioma. Good-speech.com",
+    "Regular": "Regular",
+    "Good": "Bom",
+    "Start reading": "Começar a ler",
+    "My {0} speech level is {1} ({2}%). What's yours?. Practice your speech level in any language.": "O meu nível de pronúncia em {0} é {1} ({2}%). E o teu?. Pratique o seu nível de pronúncia em qualquer idioma.",
+    "Excellent": "Excelente",
+    "Reset": "Restabelecer",
+    "Bad": "Mau",
+    "Stop reading": "Deixar de ler",
+    "Continue reading": "Continue lendo",
+    "Speech recognition is only supported by Google Chrome Desktop": "O reconhecimento de voz só é suportado pelo Google Chrome Desktop"
+  }
+}
