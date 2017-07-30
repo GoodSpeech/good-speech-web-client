@@ -6,7 +6,6 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import { i18n } from '../services/i18n';
 import speechRecognition from '../services/speech-recognition';
 
-
 const styleSheet = createStyleSheet('SpeechRecognizer', theme => ({
   center: {
     textAlign: 'center'
@@ -26,7 +25,7 @@ const styleSheet = createStyleSheet('SpeechRecognizer', theme => ({
   }
 }));
 
-const isChrome = window.chrome && window.chrome.webstore;
+const isChrome = !!(window.chrome && window.chrome.webstore);
 
 class SpeechRecognizer extends React.Component {
 
@@ -40,8 +39,15 @@ class SpeechRecognizer extends React.Component {
     onStartTalking: PropTypes.func.isRequired,
     onStopTalking: PropTypes.func.isRequired,
     talking: PropTypes.bool,
-    displayResetButton: PropTypes.bool.isRequired
+    displayResetButton: PropTypes.bool.isRequired,
+    speechRecognitionSupported: PropTypes.bool,
+    speechRecognition: PropTypes.object
   };
+
+  static defaultProps = {
+    speechRecognitionSupported: isChrome,
+    speechRecognition: speechRecognition
+  }
 
   constructor(props) {
     super(props);
@@ -51,7 +57,7 @@ class SpeechRecognizer extends React.Component {
   }
 
   initSpeechRecognition(props) {
-    speechRecognition.init({
+    props.speechRecognition.init({
       interimResults: true,
       lang: props.langCode,
       onSpeech: this.handleSpeech.bind(this)
@@ -70,24 +76,24 @@ class SpeechRecognizer extends React.Component {
 
   handleSpeech(transcriptions) {
     clearTimeout(this.readingTimeout);
-    this.readingTimeout = setTimeout(this.stopTalking, 5000);
+    this.readingTimeout = setTimeout(this.stopTalking, 4000);
     this.props.onSpeech(transcriptions);
   }
 
   startTalking() {
     this.props.onStartTalking();
-    speechRecognition.start();
+    this.props.speechRecognition.start();
   }
 
   stopTalking() {
     this.props.onStopTalking();
-    speechRecognition.stop();
+    this.props.speechRecognition.stop();
   }
 
   render() {
     const classes = this.props.classes;
 
-    if (!isChrome) {
+    if (!this.props.speechRecognitionSupported) {
       return (
         <div className={classes.center}>
           <Button raised color='accent' onClick={this.openGoogleChrome}>
@@ -130,6 +136,5 @@ class SpeechRecognizer extends React.Component {
     );
   }
 }
-
 
 export default withStyles(styleSheet)(SpeechRecognizer);

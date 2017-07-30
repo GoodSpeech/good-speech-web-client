@@ -1,0 +1,309 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextSpeak component Should apply hover style when hover a sentence 1`] = `
+<span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "borderRadius": 3,
+        "boxShadow": "inset 0 0 2px 2px #ccc",
+        "color": "red",
+        "cursor": "pointer",
+      }
+    }
+  >
+    The cat,
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     is under.
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     The table;
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     he said
+  </span>
+</span>
+`;
+
+exports[`TextSpeak component Should apply hover style when hover a sentence 2`] = `
+<span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+    The cat,
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     is under.
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     The table;
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     he said
+  </span>
+</span>
+`;
+
+exports[`TextSpeak component Should apply hover style when hover a sentence 3`] = `
+<span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+    The cat,
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     is under.
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     The table;
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     he said
+  </span>
+</span>
+`;
+
+exports[`TextSpeak component Should call speechSynthesis.speak(text) when click a sentence 1`] = `
+<span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+    The cat,
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     is under.
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     The table;
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     he said
+  </span>
+</span>
+`;
+
+exports[`TextSpeak component Should display text sentences 1`] = `
+<span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+    The cat,
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     is under.
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     The table;
+  </span>
+  <span
+    className={undefined}
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+     he said
+  </span>
+</span>
+`;

@@ -27,16 +27,25 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "trans": "./trans"
+    "translate": "./translate",
+    "debug": "echo 'Important: Execute node-inspector in another terminal' && node --debug-brk ./node_modules/.bin/jest --runInBand --env=jsdom",
+    "coverage": "react-scripts test --env=jsdom --coverage"
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
+    "babel-jest": "^20.0.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "eslint": "3.19.0",
     "eslint-config-react-app": "^1.0.5",
     "eslint-plugin-flowtype": "2.33.0",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "5.0.1",
     "eslint-plugin-react": "7.0.1",
-    "google-translate-api": "^2.3.0"
+    "google-translate-api": "^2.3.0",
+    "jest": "^20.0.4",
+    "node-inspector": "^1.1.1",
+    "react-test-renderer": "^15.6.1"
   }
 }

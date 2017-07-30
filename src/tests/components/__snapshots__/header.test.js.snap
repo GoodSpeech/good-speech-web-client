@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component Should be rendered as expected 1`] = `
+<header
+  className="MuiPaper-root-2758040674 MuiPaper-shadow4-941451405 MuiAppBar-root-2668177540 MuiAppBar-positionStatic-30597966 MuiAppBar-colorPrimary-15947162"
+>
+  <div
+    className="MuiToolbar-root-1760419744 MuiToolbar-gutters-344431791"
+  >
+    <h2
+      className="MuiTypography-root-233331062 MuiTypography-title-2106356098 MuiTypography-colorInherit-1808780954"
+    >
+      <img
+        alt="good speech icon"
+        className="Header-logo-1434838936"
+        src="/icon.svg"
+      />
+      Good Speech
+    </h2>
+  </div>
+</header>
+`;

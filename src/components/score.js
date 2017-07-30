@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
@@ -9,33 +8,27 @@ import Typography from 'material-ui/Typography';
 import Share from './share';
 import { i18n } from '../services/i18n';
 
-
-const between = (x, min, max) => {
-  return x >= min && x <= max;
-}
-
-const RATES = [
-  {
-    result: () => i18n`Bad`,
-    min: 0,
-    max: 0.4
-  },
-  {
-    result: () => i18n`Regular`,
-    min: 0.4,
-    max: 0.6
-  },
-  {
-    result: () => i18n`Good`,
-    min: 0.6,
-    max: 0.85
-  },
-  {
-    result: () => i18n`Excellent`,
-    min: 0.85,
-    max: 1
-  }
-];
+const RATES = [{
+  result: i18n`Bad`,
+  min: 0,
+  max: 39
+}, {
+  result: i18n`Regular`,
+  min: 40,
+  max: 59
+}, {
+  result: i18n`Good`,
+  min: 60,
+  max: 84
+}, {
+  result: i18n`Excellent`,
+  min: 85,
+  max: 99
+}, {
+  result: i18n`Perfect`,
+  min: 100,
+  max: 100
+}];
 
 const styleSheet = createStyleSheet('Score', theme => ({
   scoreContainer: {
@@ -75,7 +68,7 @@ const styleSheet = createStyleSheet('Score', theme => ({
 class Score extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    textReadedFeedback: PropTypes.array.isRequired,
+    score: PropTypes.number.isRequired,
     language: PropTypes.string.isRequired,
   };
 
@@ -83,45 +76,27 @@ class Score extends React.Component {
     super(props);
     this.redToGreen = new Rainbow();
     this.redToGreen.setSpectrum('red', '#ffac0a', '#bbc60c', '#76c60c', '#05b515');
-    this.calculateScores = this.calculateScores.bind(this);
-    this.getColor = this.getColor.bind(this);
   }
-
-  calculateScores(textReadedFeedback) {
-    textReadedFeedback = textReadedFeedback.filter(phrase => phrase.value !== ' ');
-    let score = 0;
-    if (textReadedFeedback.length > 0) {
-      const phrasesSimilarity = _.sum(textReadedFeedback.map(phrase => phrase.similarity));
-      score = phrasesSimilarity / textReadedFeedback.length;
-    }
-    const rate = RATES.find((rate, index) => between(score, rate.min, rate.max)) || {};
-    const verboseScore = rate.result();
-    return [verboseScore, score];
-  }
-
-  getColor(score) {
-    score = score || null;
-    if (!_.isNumber(score)) {
-      return '';
-    }
-    const color = this.redToGreen.colourAt(score * 100);
-    return color;
+  
+  getScoreName(score) {
+    return RATES
+      .find((rate, index) => score >= rate.min && score <= rate.max)
+      .result;
   }
 
   render() {
     const classes = this.props.classes;
-    let [verboseScore, score] = this.calculateScores(this.props.textReadedFeedback);
-    const color = this.getColor(score);
+    const scoreName = this.getScoreName(this.props.score);
+    const color = this.redToGreen.colourAt(this.props.score);
     const lang = this.props.language.split(' (')[0];
-    score = Math.floor(score * 100);
     return (
       <div className={classes.scoreContainer}>
-        {score < 100 ?
-          <CirclePie width={140} height={140} strokeWidth={15} percent={score} strokeColor={`#${color}`} labelColor={`#${color}`}/> :
+        {this.props.score < 100 ?
+          <CirclePie width={140} height={140} strokeWidth={15} percent={this.props.score} strokeColor={`#${color}`} labelColor={`#${color}`}/> :
           <span className={classes.circleContainer}><span className={classes.circle}>100%</span></span>
         }
-        <Typography type='headline' className={classes.scoreTitle}>{verboseScore}</Typography>
-        <Share title={i18n`My ${lang} speech level is ${verboseScore} (${score}%). What's yours?. Practice your speech level in any language.`}/>
+        <Typography type='headline' className={classes.scoreTitle}>{scoreName}</Typography>
+        <Share title={i18n`My ${lang} speech level is ${scoreName} (${this.props.score}%). What's yours?. Practice your speech level in any language.`}/>
       </div>
     );
   }

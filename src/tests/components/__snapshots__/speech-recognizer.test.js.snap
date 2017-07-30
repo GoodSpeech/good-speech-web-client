@@ -1,0 +1,192 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SpeechRecognizer component Should display Reset and Continue reading button 1`] = `
+<div
+  className="SpeechRecognizer-twoColumns-1496308324"
+>
+  <button
+    className="MuiButtonBase-root-3177716317 MuiButton-root-325725483"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchStart={[Function]}
+    role="button"
+    tabIndex="0"
+    type="button"
+  >
+    <span
+      className="MuiButton-label-49836587"
+    >
+      <i
+        className="material-icons"
+      >
+        replay
+      </i>
+       
+      Reset
+    </span>
+    <span
+      className="MuiTouchRipple-root-3868442396"
+    />
+  </button>
+  <button
+    className="MuiButtonBase-root-3177716317 MuiButton-root-325725483 MuiButton-raised-1110834863 MuiButton-raisedPrimary-1770427211"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchStart={[Function]}
+    role="button"
+    tabIndex="0"
+    type="button"
+  >
+    <span
+      className="MuiButton-label-49836587"
+    >
+      <i
+        className="material-icons"
+      >
+        mic
+      </i>
+       
+      Continue reading
+    </span>
+    <span
+      className="MuiTouchRipple-root-3868442396"
+    />
+  </button>
+</div>
+`;
+
+exports[`SpeechRecognizer component Should display Start reading button 1`] = `
+<div
+  className="SpeechRecognizer-center-345123901"
+>
+  <button
+    className="MuiButtonBase-root-3177716317 MuiButton-root-325725483 MuiButton-raised-1110834863 MuiButton-raisedPrimary-1770427211"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchStart={[Function]}
+    role="button"
+    tabIndex="0"
+    type="button"
+  >
+    <span
+      className="MuiButton-label-49836587"
+    >
+      <i
+        className="material-icons"
+      >
+        mic
+      </i>
+       
+      Start reading
+    </span>
+    <span
+      className="MuiTouchRipple-root-3868442396"
+    />
+  </button>
+</div>
+`;
+
+exports[`SpeechRecognizer component Should display Stop reading button 1`] = `
+<div
+  className="SpeechRecognizer-center-345123901"
+>
+  <button
+    className="MuiButtonBase-root-3177716317 MuiButton-root-325725483 MuiButton-raised-1110834863 MuiButton-raisedAccent-3091640292"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchStart={[Function]}
+    role="button"
+    tabIndex="0"
+    type="button"
+  >
+    <span
+      className="MuiButton-label-49836587"
+    >
+      <i
+        className="material-icons"
+      >
+        mic_off
+      </i>
+       
+      Stop reading
+    </span>
+    <span
+      className="MuiTouchRipple-root-3868442396"
+    />
+  </button>
+</div>
+`;
+
+exports[`SpeechRecognizer component Should display unsupported message 1`] = `
+<div
+  className="SpeechRecognizer-center-345123901"
+>
+  <button
+    className="MuiButtonBase-root-3177716317 MuiButton-root-325725483 MuiButton-raised-1110834863 MuiButton-raisedAccent-3091640292"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchStart={[Function]}
+    role="button"
+    tabIndex="0"
+    type="button"
+  >
+    <span
+      className="MuiButton-label-49836587"
+    >
+      <img
+        alt="Google Chrome"
+        className="SpeechRecognizer-chrome-3731373374"
+        src="/chrome.svg"
+      />
+      <span
+        className="SpeechRecognizer-chromeLegend-250355635"
+      >
+        Speech recognition is only supported by Google Chrome Desktop
+      </span>
+    </span>
+    <span
+      className="MuiTouchRipple-root-3868442396"
+    />
+  </button>
+</div>
+`;

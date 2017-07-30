@@ -31,7 +31,7 @@ function categorizeAndSequenceDiff(diffed){
 
     // The diff library is poorly designed so this check is necessary
     if (isUnchangedPart(part)) {
-      unchanged.push(item);
+      unchanged.push({...item, similarity: 1});
     } else if (isAddedPart(part)) {
       added.push(item);
     } else if (isRemovedPart(part)) {
@@ -136,6 +136,25 @@ function compute(original, readed) {
   return sorted;
 }
 
+function getScore(computedFeedback) {
+  const similarityByWord = computedFeedback.reduce((sentences, sentence) => {
+    if (sentence.value !== ' ') {
+      const wordsSimilarity = sentence.value.split(' ')
+        .filter(word => word !== ' ' && word !== '')
+        .map(() => sentence.similarity);
+      return sentences.concat(wordsSimilarity);
+    }
+    return sentences;
+  }, [])
+
+  let score = 0;
+  if (computedFeedback.length > 0) {
+    score = _.sum(similarityByWord) / similarityByWord.length;
+  }
+  return Math.floor(score * 100);
+}
+
 export default {
-  compute
+  compute,
+  getScore
 };

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguagePicker component Should render default settings 1`] = `
+<span>
+  <button
+    aria-owns="pick-language"
+    className="MuiButtonBase-root-3177716317 MuiButton-root-325725483"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchStart={[Function]}
+    role="button"
+    tabIndex="0"
+    type="button"
+  >
+    <span
+      className="MuiButton-label-49836587"
+    >
+      <span
+        className="LanguagePicker-flag-4218349970 flag-icon flag-icon-ar"
+      />
+      Spanish
+      <i
+        className="material-icons"
+      >
+        keyboard_arrow_down
+      </i>
+    </span>
+    <span
+      className="MuiTouchRipple-root-3868442396"
+    />
+  </button>
+</span>
+`;

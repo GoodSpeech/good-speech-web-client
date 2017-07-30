@@ -7,7 +7,6 @@ import 'flag-icon-css/css/flag-icon.min.css';
 
 import languages from '../services/supported-languages';
 
-
 const styleSheet = createStyleSheet('LanguagePicker', theme => ({
   flag: {
     marginRight: '0.5em'
@@ -18,7 +17,10 @@ class LanguagePicker extends React.Component {
 
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    lang: PropTypes.object.isRequired,
+    lang: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired,
+    }).isRequired,
     onChange: PropTypes.func.isRequired
   };
 

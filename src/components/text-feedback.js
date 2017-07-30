@@ -87,7 +87,6 @@ class TextFeedback extends React.Component {
     const classes = this.props.classes;
     const textReadedFeedback = this.props.textReadedFeedback;
     const interimTextRange = this.getInterimTextRange(textReadedFeedback);
-
     return (
       <p
         contentEditable
@@ -97,12 +96,13 @@ class TextFeedback extends React.Component {
         onBlur={this.onBlur}
         className={classes.text}>
         {this.renderTextReadedFeedback(textReadedFeedback)}
-        <TextSpeak className={classes.readed}
-                   text={this.props.textToRead.slice(interimTextRange.start, interimTextRange.end)}
-                   lang={this.props.lang}/>
+        <TextSpeak
+          className={classes.readed}
+          text={this.props.textToRead.slice(interimTextRange.start, interimTextRange.end)}
+          lang={this.props.lang}/>
         <TextSpeak className={classes.unreaded}
-                   text={this.props.textToRead.slice(interimTextRange.end)}
-                   lang={this.props.lang}/>
+          text={this.props.textToRead.slice(interimTextRange.end)}
+          lang={this.props.lang}/>
       </p>
     );
   }
