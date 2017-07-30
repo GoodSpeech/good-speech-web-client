@@ -852,13 +852,13 @@ exports[`TextSpeak component Should display score 1`] = `
           <path
             d="M 10.558967731552904 89.31356214843422 A 62.5 62.5 0 1 0 70 7.5"
             fill="none"
-            stroke="#05b515"
+            stroke="#84c60c"
             strokeWidth={15}
           />
           <text
             dx="-0.95em"
             dy=".35em"
-            fill="#05b515"
+            fill="#84c60c"
             fontSize="1.2em"
             fontWeight="bold"
             x={70}
