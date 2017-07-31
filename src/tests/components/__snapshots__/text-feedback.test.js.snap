@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextFeedbak component Should display unsupported message 1`] = `
+<p
+  className="TextFeedback-text-2644886862"
+  contentEditable={true}
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onPaste={[Function]}
+  suppressContentEditableWarning={true}
+>
+  <span>
+    <span
+      className={undefined}
+      onClick={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={
+        Object {
+          "color": "#999600",
+        }
+      }
+    >
+      The
+    </span>
+  </span>
+  <span>
+    <span
+      className={undefined}
+      onClick={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={
+        Object {
+          "color": "#008000",
+        }
+      }
+    >
+       cat is
+    </span>
+  </span>
+  <span>
+    <span
+      className="TextFeedback-readed-604330111"
+      onClick={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={Object {}}
+    >
+       under the
+    </span>
+  </span>
+  <span>
+    <span
+      className="TextFeedback-unreaded-1813682287"
+      onClick={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={Object {}}
+    >
+       table.
+    </span>
+  </span>
+</p>
+`;

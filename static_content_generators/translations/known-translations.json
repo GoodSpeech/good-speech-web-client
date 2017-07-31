@@ -5,6 +5,7 @@
     "My {0} speech level is {1} ({2}%). What's yours?. Practice your speech level in any language.": "Mi nivel de conversación en {0} es {1} ({2}%). ¿Y el tuyo?. Practique su pronunciación en cualquier idioma.",
     "Stop reading": "Detener lectura",
     "Good": "Bueno",
+    "Perfect": "Perfecto",
     "Continue reading": "Continuar leyendo",
     "Excellent": "Excelente",
     "Start reading": "Comenzar a leer",
@@ -21,6 +22,7 @@
     "Stop reading": "Ferma la lettura",
     "Reset": "Reset",
     "Good": "Buona",
+    "Perfect": "Perfetto",
     "Regular": "Regolare",
     "Speech recognition is only supported by Google Chrome Desktop": "Il riconoscimento vocale è supportato solo da Google Chrome Desktop",
     "Bad": "Cattivo"
@@ -34,6 +36,7 @@
     "Excellent": "Excelente",
     "Reset": "Restabelecer",
     "Bad": "Mau",
+    "Perfect": "Perfeito",
     "Stop reading": "Deixar de ler",
     "Continue reading": "Continue lendo",
     "Speech recognition is only supported by Google Chrome Desktop": "O reconhecimento de voz só é suportado pelo Google Chrome Desktop"

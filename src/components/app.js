@@ -1,10 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
 import Card, { CardContent, CardActions, CardHeader } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
@@ -17,17 +14,12 @@ import Footer from './footer';
 import { supportedLanguages, defaultTexts } from '../services/supported-languages';
 import Feedback from '../services/feedback';
 import { i18n } from '../services/i18n';
-
+import Header from './header';
 
 const styleSheet = createStyleSheet('App', theme => ({
   root: {
     flexGrow: 1,
     alignItems: 'center'
-  },
-  logo: {
-    height: '1em',
-    verticalAlign: 'middle',
-    marginRight: '0.5em'
   },
   grid: {
     justifyContent: 'center',
@@ -74,19 +66,33 @@ const defaultDisplayTextReadedBox = false;
 class App extends React.Component {
 
   static propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    textReaded: PropTypes.string,
+    interimText: PropTypes.string,
+    talking: PropTypes.bool,
+    score: PropTypes.number,
+    textReadedFeedback: PropTypes.array,
+    textToRead: PropTypes.string,
+    lang: PropTypes.object,
+    displayTextReadedBox: PropTypes.bool
+  };
+
+  static defaultProps = {
+    textReaded: '',
+    interimText: '',
+    score: 0,
+    talking: false,
+    textReadedFeedback: []
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      textReaded: '',
-      interimText: '',
-      textReadedFeedback: [],
-      textToRead: this.getDefaultTextToRead(),
-      lang: this.getDefaultLanguage(),
-      displayTextReadedBox: this.getDefaultDisplayTextReadedBox()
-    }
+      ...props,
+      textToRead: props.textToRead || this.getDefaultTextToRead(),
+      lang: props.lang || this.getDefaultLanguage(),
+      displayTextReadedBox: 'displayTextReadedBox' in props ? props.displayTextReadedBox : this.getDefaultDisplayTextReadedBox()
+    };
     this.handleSpeech = this.handleSpeech.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
     this.onTextToReadChange = this.onTextToReadChange.bind(this);
@@ -108,6 +114,7 @@ class App extends React.Component {
         textReadedFeedback = Feedback.compute(textToRead, textReaded);
       }
       updater.textReadedFeedback = textReadedFeedback;
+      updater.score = Feedback.getScore(textReadedFeedback);
     }
     this.setState(updater);
   }
@@ -185,14 +192,7 @@ class App extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position='static'>
-          <Toolbar>
-            <Typography type='title' color='inherit'>
-              <img src='/icon.svg' alt='good speech icon' className={classes.logo}/>
-              Good Speech
-            </Typography>
-          </Toolbar>
-        </AppBar>
+        <Header/>
         <Grid container gutter={8} className={classes.grid} >
           <Grid item xs={12} sm={12} lg={6}>
             <Card className={classes.textToReadCard}>
@@ -227,7 +227,7 @@ class App extends React.Component {
 
             {displayScore ?
               <Score
-                textReadedFeedback={this.state.textReadedFeedback}
+                score={this.state.score}
                 language={this.state.lang.englishName}/> : null}
           </Grid>
           {this.state.displayTextReadedBox ?

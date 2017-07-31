@@ -4,16 +4,19 @@ import PropTypes from 'prop-types';
 
 import SpeechSynthesis from '../services/text-to-speech';
 
-
 class TextSpeak extends React.Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
     style: PropTypes.object,
-    lang: PropTypes.string.isRequired
+    lang: PropTypes.string.isRequired,
+    speechSynthesis: PropTypes.shape({
+      speak: PropTypes.func.isRequired
+    })
   };
 
   static defaultProps = {
-    style: {}
+    style: {},
+    speechSynthesis: SpeechSynthesis
   };
 
   constructor(props) {
@@ -28,7 +31,7 @@ class TextSpeak extends React.Component {
   }
 
   speak(phrase) {
-    SpeechSynthesis.speak(phrase, this.props.lang);
+    this.props.speechSynthesis.speak(phrase, this.props.lang);
   }
 
   onMouseEnter(index, event) {
