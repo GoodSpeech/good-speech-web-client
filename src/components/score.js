@@ -9,23 +9,23 @@ import Share from './share';
 import { i18n } from '../services/i18n';
 
 const RATES = [{
-  result: i18n`Bad`,
+  result: () => i18n`Bad`,
   min: 0,
   max: 39
 }, {
-  result: i18n`Regular`,
+  result: () => i18n`Regular`,
   min: 40,
   max: 59
 }, {
-  result: i18n`Good`,
+  result: () => i18n`Good`,
   min: 60,
   max: 84
 }, {
-  result: i18n`Excellent`,
+  result: () => i18n`Excellent`,
   min: 85,
   max: 99
 }, {
-  result: i18n`Perfect`,
+  result: () => i18n`Perfect`,
   min: 100,
   max: 100
 }];
@@ -81,7 +81,7 @@ class Score extends React.Component {
   getScoreName(score) {
     return RATES
       .find((rate, index) => score >= rate.min && score <= rate.max)
-      .result;
+      .result();
   }
 
   render() {
