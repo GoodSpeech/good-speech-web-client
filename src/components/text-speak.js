@@ -9,6 +9,7 @@ class TextSpeak extends React.Component {
     text: PropTypes.string.isRequired,
     style: PropTypes.object,
     lang: PropTypes.string.isRequired,
+    onHover: PropTypes.func.isRequired,
     speechSynthesis: PropTypes.shape({
       speak: PropTypes.func.isRequired
     })
@@ -38,6 +39,7 @@ class TextSpeak extends React.Component {
     this.setState({
       hover: index
     });
+    this.props.onHover(true);
     event.stopPropagation();
     event.preventDefault();
   }
@@ -46,6 +48,7 @@ class TextSpeak extends React.Component {
     this.setState({
       hover: null
     });
+    this.props.onHover(false);
     event.stopPropagation();
     event.preventDefault();
   }

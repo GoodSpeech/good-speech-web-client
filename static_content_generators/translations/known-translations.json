@@ -11,7 +11,8 @@
     "Start reading": "Comenzar a leer",
     "Practice your speech level in any language. good-speech.com": "Practique su nivel de pronunciación en cualquier idioma. Good-speech.com",
     "Regular": "Regular",
-    "Bad": "Malo"
+    "Bad": "Malo",
+    "Edit": "Editar"
   },
   "it": {
     "Start reading": "Inizia a leggere",
@@ -25,7 +26,8 @@
     "Perfect": "Perfetto",
     "Regular": "Regolare",
     "Speech recognition is only supported by Google Chrome Desktop": "Il riconoscimento vocale è supportato solo da Google Chrome Desktop",
-    "Bad": "Cattivo"
+    "Bad": "Cattivo",
+    "Edit": "Modifica"
   },
   "pt": {
     "Practice your speech level in any language. good-speech.com": "Pratique o seu nível de pronúncia em qualquer idioma. Good-speech.com",
@@ -39,6 +41,7 @@
     "Perfect": "Perfeito",
     "Stop reading": "Deixar de ler",
     "Continue reading": "Continue lendo",
-    "Speech recognition is only supported by Google Chrome Desktop": "O reconhecimento de voz só é suportado pelo Google Chrome Desktop"
+    "Speech recognition is only supported by Google Chrome Desktop": "O reconhecimento de voz só é suportado pelo Google Chrome Desktop",
+    "Edit": "Editar"
   }
 }
