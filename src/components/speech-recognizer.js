@@ -6,6 +6,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import { i18n } from '../services/i18n';
 import speechRecognition from '../services/speech-recognition';
 
+
 const styleSheet = createStyleSheet('SpeechRecognizer', theme => ({
   center: {
     textAlign: 'center'

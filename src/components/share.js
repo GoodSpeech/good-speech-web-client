@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { ShareButtons,  generateShareIcon } from 'react-share';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import PropTypes from 'prop-types';
 
 const {
   FacebookShareButton,

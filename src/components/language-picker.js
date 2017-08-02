@@ -1,11 +1,12 @@
 import React from 'react';
+import Button from 'material-ui/Button';
 import PropTypes from 'prop-types';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import Button from 'material-ui/Button';
 import 'flag-icon-css/css/flag-icon.min.css';
 
 import languages from '../services/supported-languages';
+
 
 const styleSheet = createStyleSheet('LanguagePicker', theme => ({
   flag: {

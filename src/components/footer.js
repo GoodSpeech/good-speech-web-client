@@ -1,8 +1,8 @@
+import Chip from 'material-ui/Chip';
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
-import Chip from 'material-ui/Chip';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 import Share from './share';
 import { i18n } from '../services/i18n';

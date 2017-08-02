@@ -3,8 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Rainbow from 'rainbowvis.js';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import { i18n } from '../services/i18n';
 
+import { i18n } from '../services/i18n';
 import TextSpeak from './text-speak';
 
 
