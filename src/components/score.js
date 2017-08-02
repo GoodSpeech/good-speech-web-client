@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Rainbow from 'rainbowvis.js';
-import { CirclePie } from 'salad-ui.chart'
 import Typography from 'material-ui/Typography';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { CirclePie } from 'salad-ui.chart'
 
 import Share from './share';
 import { i18n } from '../services/i18n';
+
 
 const RATES = [{
   result: () => i18n`Bad`,
@@ -77,7 +78,7 @@ class Score extends React.Component {
     this.redToGreen = new Rainbow();
     this.redToGreen.setSpectrum('red', '#ffac0a', '#bbc60c', '#76c60c', '#05b515');
   }
-  
+
   getScoreName(score) {
     return RATES
       .find((rate, index) => score >= rate.min && score <= rate.max)

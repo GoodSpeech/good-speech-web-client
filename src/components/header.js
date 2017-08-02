@@ -1,8 +1,9 @@
 import React from 'react';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+
 
 const styleSheet = createStyleSheet('Header', theme => ({
   logo: {

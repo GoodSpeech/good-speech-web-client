@@ -2,19 +2,21 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
-import Card, { CardContent, CardActions, CardHeader } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
+import Card, { CardContent, CardActions, CardHeader } from 'material-ui/Card';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
+import Header from './header';
 import SpeechRecognizer from './speech-recognizer';
 import TextFeedback from './text-feedback';
 import Score from './score';
 import LanguagePicker from './language-picker';
 import Footer from './footer';
-import { supportedLanguages, defaultTexts } from '../services/supported-languages';
 import Feedback from '../services/feedback';
+import getRandomText from '../services/get-udhr-random-text';
+import { supportedLanguages } from '../services/supported-languages';
 import { i18n } from '../services/i18n';
-import Header from './header';
+
 
 const styleSheet = createStyleSheet('App', theme => ({
   root: {
@@ -125,7 +127,8 @@ class App extends React.Component {
   }
 
   getDefaultTextToRead() {
-    return localStorage.getItem('textToRead') || defaultTexts['en'];
+    const lang = localStorage.getItem('lang') || 'en';
+    return getRandomText(lang);
   }
 
   getDefaultDisplayTextReadedBox() {
@@ -152,8 +155,7 @@ class App extends React.Component {
   }
 
   onLanguageChange(lang) {
-    const langPrefix = lang.code.split('-')[0];
-    const textToRead = defaultTexts[langPrefix] || 'Introduce the text you want to read';
+    const textToRead = getRandomText(lang.code);
     localStorage.setItem('lang', lang.code);
     localStorage.setItem('textToRead', textToRead);
     this.updateState({lang, textToRead, textReaded: '', interimText: ''});
