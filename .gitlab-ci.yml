@@ -8,15 +8,15 @@ image: node:latest
 cache:
   paths:
   - node_modules/
-  - .yarn
+  - .yarn/
 
 before_script:
   - apt-get update -qq && apt-get install -qy libelf1
 
 test_core:
   script:
+   - yarn global add node-gyp node-pre-gyp
    - yarn config set cache-folder .yarn
-   - yarn global add node-gyp
    - yarn
-   - npm run test
+   - npm test
 
