@@ -25,14 +25,14 @@ describe('TextFeedbak component', () => {
   it('Should call onEditTextToRead when focus content editable element', () => {
     const onEditTextToRead = jest.fn();
     const component = render(TextFeedbak, defaultProps, {onEditTextToRead});
-    component.toJSON().props.onFocus();
+    component.toJSON().children[0].props.onFocus();
     expect(onEditTextToRead).toBeCalled();
   });
 
   it('Should call onTextToReadChange when blur content editable element', () => {
     const onTextToReadChange = jest.fn();
     const component = render(TextFeedbak, defaultProps, {onTextToReadChange});
-    component.toJSON().props.onBlur({
+    component.toJSON().children[0].props.onBlur({
       currentTarget: {
         innerText: 'foo'
       }
@@ -43,7 +43,7 @@ describe('TextFeedbak component', () => {
   it('Should call onTextToReadChange when paste text in content editable element', () => {
     const onTextToReadChange = jest.fn();
     const component = render(TextFeedbak, defaultProps, {onTextToReadChange});
-    component.toJSON().props.onPaste({
+    component.toJSON().children[0].props.onPaste({
       preventDefault: () => {},
       clipboardData: {
         getData: () => 'bar'
@@ -51,4 +51,13 @@ describe('TextFeedbak component', () => {
     });
     expect(onTextToReadChange).toBeCalledWith('bar');
   });
+
+  it('Should add hover styles when the mouse enter to the content editor', () => {
+    const component = render(TextFeedbak, defaultProps);
+    component.toJSON().children[0].props.onMouseEnter();
+    expect(component.toJSON()).toMatchSnapshot();
+    component.toJSON().children[0].props.onMouseLeave();
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
 });

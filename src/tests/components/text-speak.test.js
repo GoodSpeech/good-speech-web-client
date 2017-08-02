@@ -9,7 +9,8 @@ const defaultProps = {
   lang: 'es-AR',
   speechSynthesis: {
     speak: () => {}
-  }
+  },
+  onHover: () => {}
 };
 
 describe('TextSpeak component', () => {

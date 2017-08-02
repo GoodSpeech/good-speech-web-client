@@ -101,44 +101,53 @@ exports[`TextSpeak component Should display default state 1`] = `
         <div
           className="MuiCardContent-root-741240096"
         >
-          <p
-            className="TextFeedback-text-2644886862"
-            contentEditable={true}
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onPaste={[Function]}
-            suppressContentEditableWarning={true}
+          <div
+            className="TextFeedback-container-2211185196"
           >
-            <span>
-              <span
-                className={undefined}
-                onClick={[Function]}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "color": "#999600",
+            <p
+              className="TextFeedback-text-3056024988"
+              contentEditable={true}
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onPaste={[Function]}
+              suppressContentEditableWarning={true}
+            >
+              <span>
+                <span
+                  className={undefined}
+                  onClick={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={
+                    Object {
+                      "color": "#999600",
+                    }
                   }
-                }
-              >
-                The cat is
+                >
+                  The cat is
+                </span>
               </span>
-            </span>
-            <span />
-            <span>
-              <span
-                className="TextFeedback-unreaded-1813682287"
-                onClick={[Function]}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={Object {}}
-              >
-                 under the table
+              <span />
+              <span>
+                <span
+                  className="TextFeedback-unreaded-1813682287"
+                  onClick={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={Object {}}
+                >
+                   under the table
+                </span>
               </span>
-            </span>
-          </p>
+            </p>
+            <div
+              className="TextFeedback-editContainer-2585465578"
+            />
+          </div>
         </div>
       </div>
       <div
@@ -748,44 +757,53 @@ exports[`TextSpeak component Should display score 1`] = `
         <div
           className="MuiCardContent-root-741240096"
         >
-          <p
-            className="TextFeedback-text-2644886862"
-            contentEditable={true}
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onPaste={[Function]}
-            suppressContentEditableWarning={true}
+          <div
+            className="TextFeedback-container-2211185196"
           >
-            <span>
-              <span
-                className={undefined}
-                onClick={[Function]}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "color": "#999600",
+            <p
+              className="TextFeedback-text-3056024988"
+              contentEditable={true}
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onPaste={[Function]}
+              suppressContentEditableWarning={true}
+            >
+              <span>
+                <span
+                  className={undefined}
+                  onClick={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={
+                    Object {
+                      "color": "#999600",
+                    }
                   }
-                }
-              >
-                The cat is
+                >
+                  The cat is
+                </span>
               </span>
-            </span>
-            <span />
-            <span>
-              <span
-                className="TextFeedback-unreaded-1813682287"
-                onClick={[Function]}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={Object {}}
-              >
-                 under the table
+              <span />
+              <span>
+                <span
+                  className="TextFeedback-unreaded-1813682287"
+                  onClick={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={Object {}}
+                >
+                   under the table
+                </span>
               </span>
-            </span>
-          </p>
+            </p>
+            <div
+              className="TextFeedback-editContainer-2585465578"
+            />
+          </div>
         </div>
       </div>
       <div
@@ -1441,44 +1459,53 @@ exports[`TextSpeak component Should display text read box 1`] = `
         <div
           className="MuiCardContent-root-741240096"
         >
-          <p
-            className="TextFeedback-text-2644886862"
-            contentEditable={true}
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onPaste={[Function]}
-            suppressContentEditableWarning={true}
+          <div
+            className="TextFeedback-container-2211185196"
           >
-            <span>
-              <span
-                className={undefined}
-                onClick={[Function]}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "color": "#999600",
+            <p
+              className="TextFeedback-text-3056024988"
+              contentEditable={true}
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onPaste={[Function]}
+              suppressContentEditableWarning={true}
+            >
+              <span>
+                <span
+                  className={undefined}
+                  onClick={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={
+                    Object {
+                      "color": "#999600",
+                    }
                   }
-                }
-              >
-                The cat is
+                >
+                  The cat is
+                </span>
               </span>
-            </span>
-            <span />
-            <span>
-              <span
-                className="TextFeedback-unreaded-1813682287"
-                onClick={[Function]}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={Object {}}
-              >
-                 under the table
+              <span />
+              <span>
+                <span
+                  className="TextFeedback-unreaded-1813682287"
+                  onClick={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={Object {}}
+                >
+                   under the table
+                </span>
               </span>
-            </span>
-          </p>
+            </p>
+            <div
+              className="TextFeedback-editContainer-2585465578"
+            />
+          </div>
         </div>
       </div>
       <div
