@@ -11,7 +11,8 @@ cache:
   - .yarn/
 
 before_script:
-  - apt-get update -qq && apt-get install -qy libelf1
+  - apt-get update -qq && apt-get install -qy libelf1 gcc build-essential pkg-config g++ gyp
+  - rm -rf $HOME/.node-gyp
 
 test_core:
   script:
