@@ -6361,9 +6361,9 @@ test-exclude@^4.1.1:
     read-pkg-up "^1.0.1"
     require-main-filename "^1.0.1"
 
-text-sound-similarity@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/text-sound-similarity/-/text-sound-similarity-1.0.1.tgz#f17e62e8e5b4c1fa15427d9aea4d1f10b6f714e5"
+text-sound-similarity@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/text-sound-similarity/-/text-sound-similarity-1.0.2.tgz#5f8a671359afedefefe9f9a16b42b1fe8a57beb3"
   dependencies:
     lodash "^4.17.4"
     metaphone "^1.0.1"

@@ -1,7 +1,7 @@
 # This file is a template, and might need editing before it works on your project.
 # Official framework image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/node/tags/
-image: node:latest
+image: node:7.10
 
 # This folder is cached between builds
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
@@ -11,13 +11,14 @@ cache:
   - .yarn/
 
 before_script:
-  - apt-get update -qq && apt-get install -qy libelf1 gcc build-essential pkg-config g++ gyp
-  - rm -rf $HOME/.node-gyp
+  - yarn
 
-test_core:
+stages:
+  - build
+
+buildTask:
+  stage: build
   script:
-   - yarn global add node-gyp node-pre-gyp node-inspector
-   - yarn config set cache-folder .yarn
-   - yarn 
-   - yarn coverage
-
+    - yarn coverage
+    - yarn build
+    
