@@ -15,14 +15,10 @@ before_script:
 
 stages:
   - build
-  - test
 
 buildTask:
   stage: build
   script:
-    - yarn build
-
-testTask:
-  stage: test
-  script:
     - yarn coverage
+    - yarn build
+    
