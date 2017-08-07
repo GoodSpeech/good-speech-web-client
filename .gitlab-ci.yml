@@ -15,10 +15,20 @@ before_script:
 
 stages:
   - build
+  - test
+  - deploy
 
-buildTask:
+build:
   stage: build
   script:
-    - yarn coverage
     - yarn build
-    
+
+test:
+  stage: test
+  script:
+    - yarn coverage
+
+deploy:
+  stage: deploy
+  script:
+    - echo "it will be great if you do not doing this step manually :monkey-life:"
