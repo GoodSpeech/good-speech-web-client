@@ -13,7 +13,7 @@ import Score from './score';
 import LanguagePicker from './language-picker';
 import Footer from './footer';
 import Feedback from '../services/feedback';
-import getRandomText from '../services/get-udhr-random-text';
+import getRandomText from '../services/get-content';
 import { supportedLanguages } from '../services/supported-languages';
 import { i18n } from '../services/i18n';
 
