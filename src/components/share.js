@@ -56,8 +56,7 @@ class Share extends Component {
       <div className={classes.buttons}>
         <FacebookShareButton
           url={shareUrl}
-          title={this.props.title}
-          picture={picture}
+          quote={this.props.title}
           className={`shareButton ${classes.button}`}>
           <FacebookIcon
             size={32}

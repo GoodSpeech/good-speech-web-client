@@ -17,7 +17,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.10",
-    "react-share": "^1.15.0",
+    "react-share": "1.15.1",
     "salad-ui.chart": "^1.1.50",
     "text-sound-similarity": "1.0.2",
     "udhr": "^3.0.0",
