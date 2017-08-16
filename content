@@ -1,0 +1,3 @@
+#!/bin/bash
+node static_content_generators/texts
+mv content.js src/i18n/

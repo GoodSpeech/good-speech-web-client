@@ -29,6 +29,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "translate": "./translate",
+    "content": "./content",
     "debug": "echo 'Important: Execute node-inspector in another terminal' && node --debug-brk ./node_modules/.bin/jest --runInBand --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage"
   },
