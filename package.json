@@ -28,8 +28,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "translate": "./translate",
-    "content": "./content",
+    "generate:translate": "node static_content_generators/translations && mv translations.js src/i18n/",
+    "generate:content": "node static_content_generators/texts && mv content.js src/i18n/",
     "debug": "echo 'Important: Execute node-inspector in another terminal' && node --debug-brk ./node_modules/.bin/jest --runInBand --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage"
   },
