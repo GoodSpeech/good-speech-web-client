@@ -43,3 +43,10 @@ You can translate the app to hundred of languages running
 ```
 yarn translate
 ````
+
+### App commands
+
+| Command | Description |
+| --- | --- |
+| `generate:translate` | Translations for the web application in every available language |
+| `generate:content` | Random content used as text to read by the user. Currently based in the Universal Declaration of Human Rights |
