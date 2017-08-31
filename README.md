@@ -42,5 +42,5 @@ yarn coverage
 
 | Command | Description |
 | --- | --- |
-| `yarn generate:translate` | Translations for the web application in every available language |
+| `yarn generate:translation` | Translations for the web application in every available language |
 | `yarn generate:content` | Random content used as text to read by the user. Currently based in the Universal Declaration of Human Rights |
