@@ -14,7 +14,7 @@ import LanguagePicker from './language-picker';
 import Footer from './footer';
 import Feedback from '../services/feedback';
 import getRandomText from '../services/get-content';
-import { supportedLanguages } from '../services/supported-languages';
+import supportedLanguages from '../i18n/langs';
 import { i18n } from '../services/i18n';
 
 
