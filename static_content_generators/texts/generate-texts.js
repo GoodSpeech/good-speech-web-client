@@ -1,6 +1,5 @@
-// const langs = require('google-translate-api/languages');
 const getTexts = require('./get-texts');
-const supportedLanguages = require('./supported-languages');
+const supportedLanguages = require('../../src/i18n/langs');
 const fs = require('fs');
 
 function getLangs(langs) {

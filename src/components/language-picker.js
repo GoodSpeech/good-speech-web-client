@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import 'flag-icon-css/css/flag-icon.min.css';
-
-import languages from '../services/supported-languages';
+import languages from '../i18n/langs';
 
 
 const styleSheet = createStyleSheet('LanguagePicker', theme => ({
