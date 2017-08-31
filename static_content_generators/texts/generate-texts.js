@@ -1,16 +1,10 @@
-const langs = require('google-translate-api/languages');
+// const langs = require('google-translate-api/languages');
 const getTexts = require('./get-texts');
-const extend = require('util')._extend;
+const supportedLanguages = require('./supported-languages');
 const fs = require('fs');
 
-
 function getLangs(langs) {
-  let _langs = extend({}, langs);
-
-  delete _langs['auto'];
-  delete _langs['isSupported'];
-  delete _langs['getCode'];
-  return _langs;
+  return langs.map(l => l.code);
 }
 
 function save(obj) {
@@ -29,8 +23,8 @@ function save(obj) {
 
 function generateTexts() {
     process.stdout.write('[GENERATION] Starting...!\n');
-    const langCodes = getLangs(langs);
-    const texts = Object.keys(langCodes).reduce((acc, code) => {
+    const langCodes = getLangs(supportedLanguages);
+    const texts = langCodes.reduce((acc, code) => {
         acc[code] = getTexts(code);
         return acc;
     }, {});
