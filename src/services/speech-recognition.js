@@ -55,8 +55,10 @@ function delayedStartSpeechRecognizer() {
 
 
 function stopSpeakRecognizer() {
-  audioStream.getTracks().forEach(track => track.stop());
-  audioStreamSpeechEvents.stop();
+  if (audioStream && audioStream.getTracks) {
+    audioStream.getTracks().forEach(track => track.stop());
+    audioStreamSpeechEvents.stop();
+  }
 }
 
 function handleOnEnd() {
@@ -136,13 +138,15 @@ function handleAudioStream(stream) {
 }
 
 function startSpeakRecognizer() {
-  navigator.mediaDevices
-    .getUserMedia({
-      audio: true,
-      video: false
-    })
-    .then(handleAudioStream)
-    .catch(err => log.error(err));
+  if (window.navigator && window.navigator.mediaDevices) {
+    window.navigator.mediaDevices
+      .getUserMedia({
+        audio: true,
+        video: false
+      })
+      .then(handleAudioStream)
+      .catch(err => log.error(err));
+  }
 }
 
 function startSpeechRecognizer() {
@@ -167,34 +171,29 @@ function initSpeechRecognition({lang, continuous, interimResults, maxAlternative
     speechRecognizer.onstart = handleOnStart;
     speechRecognizer.onresult = handleResult;
     speechRecognizer.onerror = handleError;
-    speechRecognizer.onend = handleOnEnd;  
+    speechRecognizer.onend = handleOnEnd;
+    return speechRecognizer;
   }
 }
 
-function init(config) {
+export function init(config) {
   const updatedConfig = {
     ...defaultConfig,
     ...config
   };
   currentConfig = updatedConfig;
-  initSpeechRecognition(updatedConfig);
+  return initSpeechRecognition(updatedConfig);
 }
 
-function start() {
+export function start() {
   stopped = false;
   startSpeakRecognizer();
   startSpeechRecognizer();
 }
 
-function stop() {
+export function stop() {
   stopped = true;
   clearAllTimeouts();
   stopSpeakRecognizer();
   stopSpeechRecognizer();
 }
-
-export default {
-  init,
-  start,
-  stop
-};

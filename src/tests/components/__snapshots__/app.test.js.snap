@@ -130,7 +130,18 @@ exports[`TextSpeak component Should display default state 1`] = `
                   The cat is
                 </span>
               </span>
-              <span />
+              <span>
+                <span
+                  className="TextFeedback-readed-604330111"
+                  onClick={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={Object {}}
+                >
+                   under the tabl
+                </span>
+              </span>
               <span>
                 <span
                   className="TextFeedback-unreaded-1813682287"
@@ -140,7 +151,7 @@ exports[`TextSpeak component Should display default state 1`] = `
                   onMouseLeave={[Function]}
                   style={Object {}}
                 >
-                   under the table
+                  e
                 </span>
               </span>
             </p>
@@ -786,7 +797,18 @@ exports[`TextSpeak component Should display score 1`] = `
                   The cat is
                 </span>
               </span>
-              <span />
+              <span>
+                <span
+                  className="TextFeedback-readed-604330111"
+                  onClick={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={Object {}}
+                >
+                   under the tabl
+                </span>
+              </span>
               <span>
                 <span
                   className="TextFeedback-unreaded-1813682287"
@@ -796,7 +818,7 @@ exports[`TextSpeak component Should display score 1`] = `
                   onMouseLeave={[Function]}
                   style={Object {}}
                 >
-                   under the table
+                  e
                 </span>
               </span>
             </p>
@@ -1488,7 +1510,18 @@ exports[`TextSpeak component Should display text read box 1`] = `
                   The cat is
                 </span>
               </span>
-              <span />
+              <span>
+                <span
+                  className="TextFeedback-readed-604330111"
+                  onClick={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={Object {}}
+                >
+                   under the tabl
+                </span>
+              </span>
               <span>
                 <span
                   className="TextFeedback-unreaded-1813682287"
@@ -1498,7 +1531,7 @@ exports[`TextSpeak component Should display text read box 1`] = `
                   onMouseLeave={[Function]}
                   style={Object {}}
                 >
-                   under the table
+                  e
                 </span>
               </span>
             </p>
@@ -1593,7 +1626,7 @@ exports[`TextSpeak component Should display text read box 1`] = `
             onBlur={[Function]}
             suppressContentEditableWarning={true}
           >
-            
+            The cat is under
           </p>
         </div>
       </div>

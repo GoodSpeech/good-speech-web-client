@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Text to speech speak should call speak method 1`] = `
+Array [
+  Array [
+     {
+      "lang": "es-AR",
+      "onend": [Function],
+      "onerror": [Function],
+      "onstart": [Function],
+      "pitch": 1,
+      "rate": 1,
+      "text": "hello world",
+      "voiceURI": "native",
+      "volume": 1,
+    },
+  ],
+]
+`;

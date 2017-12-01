@@ -2,8 +2,10 @@ import App from '../../components/app';
 import { render } from '../test-utils';
 
 const defaultProps = {
+  classes: {},
   textReaded: 'The cat is',
   textToRead: 'The cat is under the table',
+  interimText: 'The cat is under',
   lang:  {
     name: 'Español (Argentina)',
     code: 'es-AR',
@@ -14,7 +16,14 @@ const defaultProps = {
     value: 'The cat is',
     similarity: 0.7
   }],
-  talking: true
+  displayTextReadedBox: false,
+  talking: true,
+  toggleDisplayTextReadedBox: () => {},
+  onUpdateTextToRead: () => {},
+  onUpdateTextReaded: () => {},
+  onUpdateInterimText: () => {},
+  onUpdateLang: () => {},
+  onUpdateTalking: () => {},
 };
 
 window.localStorage = {
@@ -41,4 +50,12 @@ describe('TextSpeak component', () => {
     });
     expect(component.toJSON()).toMatchSnapshot();
   });
+
+  //TODO
+  it('Should call onUpdateTalking when stop talking');
+  it('Should call onInterimTextReadedChange when add some text into interim text box');
+  it('Should call onUpdateTextReaded when add some text into readed text box');
+  it('Should erase the texts when the reset button is pushed');
+  it('Should update the text properly when the receive final transcriptions');
+  it('Should update the text properly when the receive temporal transcriptions');
 });

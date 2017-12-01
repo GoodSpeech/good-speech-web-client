@@ -85,8 +85,7 @@ function serializeSimilarityArray(items) {
     return {
       value: textToReadItem.value,
       position: textToReadItem.position,
-      similarity: item[1],
-      __backup: item
+      similarity: item[1]
     }
   });
 }
@@ -123,20 +122,20 @@ function getTextReadedDiff(original, readed) {
  * @param  {string} readed
  * @return {array}
  */
-function compute(original, readed) {
-  let diff, unchanged, added, removed, similarity, merged, serializedSimilarity, sorted;
+export function compute(original, readed) {
+  let unchanged, added, removed;
 
-  diff = getTextReadedDiff(original, readed);
+  const diff = getTextReadedDiff(original, readed);
   [unchanged, added, removed] = categorizeAndSequenceDiff(diff);
-  similarity = getSimilarity(removed, added);
-  serializedSimilarity = serializeSimilarityArray(similarity);
-  merged = _.concat(unchanged, serializedSimilarity)
-  sorted = _.sortBy(merged, ['position']);
+  const similarity = getSimilarity(removed, added);
+  const serializedSimilarity = serializeSimilarityArray(similarity);
+  const merged = _.concat(unchanged, serializedSimilarity)
+  const sorted = _.sortBy(merged, ['position']);
 
   return sorted;
 }
 
-function getScore(computedFeedback) {
+export function getScore(computedFeedback) {
   const similarityByWord = computedFeedback.reduce((sentences, sentence) => {
     if (sentence.value !== ' ') {
       const wordsSimilarity = sentence.value.split(' ')
@@ -153,8 +152,3 @@ function getScore(computedFeedback) {
   }
   return Math.floor(score * 100);
 }
-
-export default {
-  compute,
-  getScore
-};

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
@@ -12,11 +11,7 @@ import TextFeedback from './text-feedback';
 import Score from './score';
 import LanguagePicker from './language-picker';
 import Footer from './footer';
-import Feedback from '../services/feedback';
-import getRandomText from '../services/get-content';
-import supportedLanguages from '../i18n/langs';
 import { i18n } from '../services/i18n';
-
 
 const styleSheet = createStyleSheet('App', theme => ({
   root: {
@@ -62,134 +57,61 @@ const styleSheet = createStyleSheet('App', theme => ({
   }
 }));
 
-const defaultLanguage = 'en-US';
-const defaultDisplayTextReadedBox = false;
-
 class App extends React.Component {
 
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    textReaded: PropTypes.string,
-    interimText: PropTypes.string,
-    talking: PropTypes.bool,
-    score: PropTypes.number,
-    textReadedFeedback: PropTypes.array,
-    textToRead: PropTypes.string,
-    lang: PropTypes.object,
-    displayTextReadedBox: PropTypes.bool
-  };
-
-  static defaultProps = {
-    textReaded: '',
-    interimText: '',
-    score: 0,
-    talking: false,
-    textReadedFeedback: []
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...props,
-      textToRead: props.textToRead || this.getDefaultTextToRead(),
-      lang: props.lang || this.getDefaultLanguage(),
-      displayTextReadedBox: 'displayTextReadedBox' in props ? props.displayTextReadedBox : this.getDefaultDisplayTextReadedBox()
-    };
-    this.handleSpeech = this.handleSpeech.bind(this);
-    this.onLanguageChange = this.onLanguageChange.bind(this);
-    this.onTextToReadChange = this.onTextToReadChange.bind(this);
-    this.onTextReadedChange = this.onTextReadedChange.bind(this);
-    this.toggleShowTextReaded = this.toggleShowTextReaded.bind(this);
-    this.onInterimTextReadedChange = this.onInterimTextReadedChange.bind(this);
-    this.resetSpeech = this.resetSpeech.bind(this);
-    this.updateState = this.updateState.bind(this);
-    this.onStartTalking = this.onStartTalking.bind(this);
-    this.onStopTalking = this.onStopTalking.bind(this);
+    textReaded: PropTypes.string.isRequired,
+    interimText: PropTypes.string.isRequired,
+    textToRead: PropTypes.string.isRequired,
+    talking: PropTypes.bool.isRequired,
+    score: PropTypes.number.isRequired,
+    textReadedFeedback: PropTypes.array.isRequired,
+    lang: PropTypes.object.isRequired,
+    displayTextReadedBox: PropTypes.bool.isRequired,
+    onUpdateTextToRead: PropTypes.func.isRequired,
+    onUpdateTextReaded: PropTypes.func.isRequired,
+    onUpdateInterimText: PropTypes.func.isRequired,
+    onUpdateLang: PropTypes.func.isRequired,
+    toggleDisplayTextReadedBox: PropTypes.func.isRequired,
+    onUpdateTalking: PropTypes.func.isRequired
   }
 
-  updateState(updater) {
-    if (_.has(updater, 'textReaded') || _.has(updater, 'textToRead')) {
-      const textReaded =  _.has(updater, 'textReaded') ? updater.textReaded : this.state.textReaded;
-      const textToRead =  _.has(updater, 'textToRead') ? updater.textToRead : this.state.textToRead;
-      let textReadedFeedback = [];
-      if (textReaded && textToRead) {
-        textReadedFeedback = Feedback.compute(textToRead, textReaded);
-      }
-      updater.textReadedFeedback = textReadedFeedback;
-      updater.score = Feedback.getScore(textReadedFeedback);
-    }
-    this.setState(updater);
-  }
-
-  getDefaultLanguage() {
-    const code = localStorage.getItem('lang') || defaultLanguage;
-    return supportedLanguages.find(lang => lang.code === code);
-  }
-
-  getDefaultTextToRead() {
-    const lang = localStorage.getItem('lang') || 'en';
-    return getRandomText(lang);
-  }
-
-  getDefaultDisplayTextReadedBox() {
-    return localStorage.getItem('displayTextReadedBox') === 'true' || defaultDisplayTextReadedBox;
-  }
-
-  handleSpeech(transcriptions) {
+  handleSpeech = (transcriptions) => {
     const text = transcriptions.text[0].text;
 
     if (transcriptions.final) {
-      this.updateState({
-        textReaded: `${this.state.textReaded} ${text.trim()}`,
-        interimText: ''
-      });
+      this.props.onUpdateTextReaded(`${this.props.textReaded} ${text.trim()}`);
+      this.props.onUpdateInterimText('');
     } else {
-      this.updateState({
-        interimText: text
-      });
+      this.props.onUpdateInterimText(text);
     }
   }
 
-  resetSpeech() {
-    this.updateState({textReaded: '', interimText: ''});
+  resetSpeech = () => {
+    this.props.onUpdateTextReaded('');
+    this.props.onUpdateInterimText('');
   }
 
-  onLanguageChange(lang) {
-    const textToRead = getRandomText(lang.code);
-    localStorage.setItem('lang', lang.code);
-    localStorage.setItem('textToRead', textToRead);
-    this.updateState({lang, textToRead, textReaded: '', interimText: ''});
+  onTextReadedChange = (event) => {
+    this.props.onUpdateTextReaded(event.currentTarget.innerText);
   }
 
-  onTextToReadChange(textToRead) {
-    localStorage.setItem('textToRead', textToRead);
-    this.updateState({textToRead});
+  onInterimTextReadedChange = (event) => {
+    this.props.onUpdateInterimText(event.currentTarget.innerText);
   }
 
-  onTextReadedChange(event) {
-    this.updateState({textReaded: event.currentTarget.innerText});
+  onStartTalking = () => {
+    this.props.onUpdateTalking(true);
   }
 
-  onInterimTextReadedChange(event) {
-    this.updateState({interimText: event.currentTarget.innerText});
-  }
-
-  toggleShowTextReaded() {
-    localStorage.setItem('displayTextReadedBox', !this.state.displayTextReadedBox);
-    this.updateState({displayTextReadedBox: !this.state.displayTextReadedBox});
-  }
-
-  onStartTalking() {
-    this.updateState({talking: true});
-  }
-
-  onStopTalking() {
-    this.updateState({talking: false});
+  onStopTalking = () => {
+    this.props.onUpdateTalking(false);
   }
 
   render() {
     const classes = this.props.classes;
-    const displayScore = !this.state.talking && this.state.textReadedFeedback.length > 0;
+    const displayScore = !this.props.talking && this.props.textReadedFeedback.length > 0;
     const displayShareButtons = !displayScore;
 
     return (
@@ -201,20 +123,21 @@ class App extends React.Component {
               <CardActions className={classes.cardActions}>
                 <Button
                   className={classes.showTextReadedButton}
-                  onClick={this.toggleShowTextReaded}>
-                  {this.state.displayTextReadedBox ?
+                  onClick={this.props.toggleDisplayTextReadedBox}>
+                  {this.props.displayTextReadedBox ?
                     i18n`Hide text read` : i18n`Show text read`}
                 </Button>
-                <LanguagePicker lang={this.state.lang} onChange={this.onLanguageChange} />
+                <LanguagePicker lang={this.props.lang} onChange={this.props.onUpdateLang} />
               </CardActions>
               <CardContent>
                 <TextFeedback
-                  textReadedFeedback={this.state.textReadedFeedback}
-                  textToRead={this.state.textToRead}
-                  textReaded={this.state.textReaded}
-                  interimText={this.state.interimText}
-                  lang={this.state.lang.code}
-                  onTextToReadChange={this.onTextToReadChange}
+                  key={this.props.textToRead}
+                  textReadedFeedback={this.props.textReadedFeedback}
+                  textToRead={this.props.textToRead}
+                  textReaded={this.props.textReaded}
+                  interimText={this.props.interimText}
+                  lang={this.props.lang.code}
+                  onTextToReadChange={this.props.onUpdateTextToRead}
                   onEditTextToRead={this.resetSpeech} />
               </CardContent>
             </Card>
@@ -223,16 +146,16 @@ class App extends React.Component {
               onReset={this.resetSpeech}
               onStartTalking={this.onStartTalking}
               onStopTalking={this.onStopTalking}
-              talking={this.state.talking}
-              displayResetButton={!!this.state.textReaded || !!this.state.interimText}
-              langCode={this.state.lang.code} />
+              talking={this.props.talking}
+              displayResetButton={!!this.props.textReaded || !!this.props.interimText}
+              langCode={this.props.lang.code} />
 
             {displayScore ?
               <Score
-                score={this.state.score}
-                language={this.state.lang.englishName}/> : null}
+                score={this.props.score}
+                language={this.props.lang.englishName}/> : null}
           </Grid>
-          {this.state.displayTextReadedBox ?
+          {this.props.displayTextReadedBox ?
             (<Grid item xs={12} sm={12} lg={6}>
               <Card className={classes.card}>
                 <CardHeader title={i18n`Text read`}></CardHeader>
@@ -243,7 +166,7 @@ class App extends React.Component {
                     suppressContentEditableWarning
                     onBlur={this.onTextReadedChange}
                     className={classes.text}>
-                    {this.state.textReaded}
+                    {this.props.textReaded}
                   </p>
                   <h5>{ i18n`Interim text` }</h5>
                   <p
@@ -251,7 +174,7 @@ class App extends React.Component {
                     suppressContentEditableWarning
                     onBlur={this.onInterimTextReadedChange}
                     className={classes.text}>
-                    {this.state.interimText}
+                    {this.props.interimText}
                   </p>
                 </CardContent>
               </Card>
