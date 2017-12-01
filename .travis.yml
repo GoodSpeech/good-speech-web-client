@@ -2,5 +2,6 @@ language: node_js
 node_js:
   - "lts/*"
 script:
-  - yarn test
+  - yarn coverage
+  - codecov
   - yarn build
