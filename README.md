@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/GoodSpeech/good-speech-web-client.svg?branch=master)](https://travis-ci.org/GoodSpeech/good-speech-web-client)
+[![Build Status](https://travis-ci.org/GoodSpeech/good-speech-web-client.svg?branch=master)](https://travis-ci.org/GoodSpeech/good-speech-web-client) [![codecov](https://codecov.io/gh/GoodSpeech/good-speech-web-client/branch/master/graph/badge.svg)](https://codecov.io/gh/GoodSpeech/good-speech-web-client)
 
 # Good Speech
 
