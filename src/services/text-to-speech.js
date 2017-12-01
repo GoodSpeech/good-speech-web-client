@@ -1,27 +1,24 @@
 import log from 'loglevel';
 
-const speechSynthesis = window.speechSynthesis;
-const SpeechSynthesisUtterance = window.SpeechSynthesisUtterance
-
-function pause() {
-  speechSynthesis.pause();
+export function pause() {
+  window.speechSynthesis.pause();
 }
 
-function resume() {
-  speechSynthesis.resume();
+export function resume() {
+  window.speechSynthesis.resume();
 }
 
-function cancel() {
-  speechSynthesis.cancel();
+export function cancel() {
+  window.speechSynthesis.cancel();
 }
 
 /**
  * @param  {string} text - Must have at least one word.
  * @return {string} Speech result
  */
-function speak(text, langCode='en-US') {
+export function speak(text, langCode='en-US') {
   cancel();
-  const msg = new SpeechSynthesisUtterance();
+  const msg = new window.SpeechSynthesisUtterance();
   msg.text = text;
   msg.lang = langCode;
   msg.voiceURI = 'native';
@@ -38,12 +35,5 @@ function speak(text, langCode='en-US') {
   msg.onerror = (evt) => {
     log.error(evt);
   };
-  speechSynthesis.speak(msg);
+  window.speechSynthesis.speak(msg);
 }
-
-export default {
-  speak,
-  pause,
-  cancel,
-  resume
-};

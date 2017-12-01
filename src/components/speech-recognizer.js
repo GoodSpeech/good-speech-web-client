@@ -4,7 +4,7 @@ import Button from 'material-ui/Button';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 import { i18n } from '../services/i18n';
-import speechRecognition from '../services/speech-recognition';
+import * as speechRecognition from '../services/speech-recognition';
 
 
 const styleSheet = createStyleSheet('SpeechRecognizer', theme => ({
@@ -53,11 +53,9 @@ class SpeechRecognizer extends React.Component {
   constructor(props) {
     super(props);
     this.initSpeechRecognition(props);
-    this.startTalking = this.startTalking.bind(this);
-    this.stopTalking = this.stopTalking.bind(this);
   }
 
-  initSpeechRecognition(props) {
+  initSpeechRecognition = (props) => {
     props.speechRecognition.init({
       interimResults: true,
       lang: props.langCode,
@@ -65,28 +63,28 @@ class SpeechRecognizer extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps = (nextProps) => {
     if (nextProps.langCode !== this.props.langCode) {
       this.initSpeechRecognition(nextProps);
     }
   }
 
-  openGoogleChrome() {
+  openGoogleChrome = () => {
     window.open('https://www.google.com/chrome/index.html', '_blank').focus();
   }
 
-  handleSpeech(transcriptions) {
+  handleSpeech = (transcriptions) => {
     clearTimeout(this.readingTimeout);
     this.readingTimeout = setTimeout(this.stopTalking, 4000);
     this.props.onSpeech(transcriptions);
   }
 
-  startTalking() {
+  startTalking = () => {
     this.props.onStartTalking();
     this.props.speechRecognition.start();
   }
 
-  stopTalking() {
+  stopTalking = () => {
     this.props.onStopTalking();
     this.props.speechRecognition.stop();
   }

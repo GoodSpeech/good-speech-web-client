@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feedback compute should bring some results 1`] = `
+Array [
+  Object {
+    "position": 0,
+    "similarity": 0,
+    "value": "foo",
+  },
+]
+`;
+
+exports[`Feedback compute should bring some results 2`] = `
+Array [
+  Object {
+    "position": 0,
+    "similarity": 1,
+    "value": "A similar ",
+  },
+  Object {
+    "position": 1,
+    "similarity": 0,
+    "value": "approach",
+  },
+  Object {
+    "position": 3,
+    "similarity": 1,
+    "value": " ",
+  },
+  Object {
+    "position": 4,
+    "similarity": 0,
+    "value": "can",
+  },
+  Object {
+    "position": 6,
+    "similarity": 1,
+    "value": " be taken when it ",
+  },
+  Object {
+    "position": 7,
+    "similarity": 0,
+    "value": "comes",
+  },
+  Object {
+    "position": 9,
+    "similarity": 1,
+    "value": " to ",
+  },
+  Object {
+    "position": 10,
+    "similarity": 0.25,
+    "value": "testing",
+  },
+  Object {
+    "position": 12,
+    "similarity": 1,
+    "value": " your React components.",
+  },
+]
+`;

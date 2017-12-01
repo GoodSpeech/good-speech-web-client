@@ -8,7 +8,6 @@ import { CirclePie } from 'salad-ui.chart'
 import Share from './share';
 import { i18n } from '../services/i18n';
 
-
 const RATES = [{
   result: () => i18n`Bad`,
   min: 0,

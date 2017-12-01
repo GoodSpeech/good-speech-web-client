@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpeechSynthesis from '../services/text-to-speech';
+import * as SpeechSynthesis from '../services/text-to-speech';
 
 class TextSpeak extends React.Component {
   static propTypes = {
@@ -20,22 +20,15 @@ class TextSpeak extends React.Component {
     speechSynthesis: SpeechSynthesis
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      hover: null
-    };
-    this.speak = this.speak.bind(this);
-    this.onMouseEnter = this.onMouseEnter.bind(this);
-    this.onMouseLeave = this.onMouseLeave.bind(this);
-    this.onMouseDown = this.onMouseDown.bind(this);
+  state = {
+    hover: null
   }
 
-  speak(phrase) {
+  speak = (phrase) => {
     this.props.speechSynthesis.speak(phrase, this.props.lang);
   }
 
-  onMouseEnter(index, event) {
+  onMouseEnter = (index, event) => {
     this.setState({
       hover: index
     });
@@ -44,7 +37,7 @@ class TextSpeak extends React.Component {
     event.preventDefault();
   }
 
-  onMouseLeave(event) {
+  onMouseLeave = (event) => {
     this.setState({
       hover: null
     });
@@ -53,12 +46,12 @@ class TextSpeak extends React.Component {
     event.preventDefault();
   }
 
-  onMouseDown(event) {
+  onMouseDown = (event) => {
     event.stopPropagation();
     event.preventDefault();
   }
 
-  getSentences(text) {
+  getSentences = (text) => {
     const sentences = [];
     let charIndex = 0;
     while(charIndex < text.length) {

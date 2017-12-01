@@ -2,10 +2,9 @@ import sample from 'lodash/sample';
 
 import defaultTexts from '../i18n/content';
 
-
 function getRandomText(lang, isMobile=false) {
     const texts = defaultTexts[lang];
-    if (texts.length === 0) {
+    if (!texts || texts.length === 0) {
         return '';
     }
     if (isMobile) {

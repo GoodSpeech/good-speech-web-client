@@ -2,6 +2,7 @@ import Score from '../../components/score';
 import { render } from '../test-utils';
 
 const defaultProps = {
+  classes: {},
   language: 'Spanish (Argentina)',
   score: 0
 }

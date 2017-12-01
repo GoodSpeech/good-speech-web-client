@@ -2,6 +2,7 @@ import LanguagePicker from '../../components/language-picker';
 import { render } from '../test-utils';
 
 const defaultProps = {
+  classes: {},
   lang: {
     name: 'Spanish',
     code: 'es-AR'

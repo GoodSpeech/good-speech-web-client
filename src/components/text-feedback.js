@@ -46,6 +46,7 @@ const styleSheet = createStyleSheet('TextFeedback', theme => ({
 class TextFeedback extends React.Component {
 
   static propTypes = {
+    classes: PropTypes.object.isRequired,
     textReadedFeedback: PropTypes.array.isRequired,
     textToRead: PropTypes.string.isRequired,
     textReaded: PropTypes.string.isRequired,
@@ -62,14 +63,9 @@ class TextFeedback extends React.Component {
     };
     this.redToGreen = new Rainbow();
     this.redToGreen.setSpectrum('red', 'orange', 'green');
-    this.onBlur = this.onBlur.bind(this);
-    this.onPaste = this.onPaste.bind(this);
-    this.onMouseEnter = this.onMouseEnter.bind(this);
-    this.onMouseLeave = this.onMouseLeave.bind(this);
-    this.onTextSpeakHover = this.onTextSpeakHover.bind(this);
   }
 
-  getInterimTextRange(textReadedFeedback) {
+  getInterimTextRange = (textReadedFeedback) => {
     const start = textReadedFeedback.map(item => item.value).join('').length;
 
     let interimTextEnd = start;
@@ -82,7 +78,7 @@ class TextFeedback extends React.Component {
     };
   }
 
-  renderTextReadedFeedback(textReadedFeedback) {
+  renderTextReadedFeedback = (textReadedFeedback) => {
     const lang = this.props.lang;
     return textReadedFeedback
       .map((part, index) => {
@@ -106,28 +102,28 @@ class TextFeedback extends React.Component {
       });
   }
 
-  onBlur(event) {
-    this.props.onTextToReadChange(event.currentTarget.innerText)
+  onBlur = (event) => {
+    this.props.onTextToReadChange(event.currentTarget.innerText);
   }
 
-  onPaste(event) {
+  onPaste = (event) => {
     event.preventDefault();
     this.props.onTextToReadChange(event.clipboardData.getData('text/plain'))
   }
 
-  onMouseEnter() {
+  onMouseEnter = () => {
     this.setState({
       hover: true
     });
   }
 
-  onMouseLeave() {
+  onMouseLeave = () => {
     this.setState({
       hover: false
     });
   }
 
-  onTextSpeakHover(hover) {
+  onTextSpeakHover = (hover) => {
     this.setState({hover: !hover});
   }
 

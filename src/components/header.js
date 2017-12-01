@@ -1,6 +1,7 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
+import PropTypes from 'prop-types';
 import Typography from 'material-ui/Typography';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
@@ -14,6 +15,9 @@ const styleSheet = createStyleSheet('Header', theme => ({
 }));
 
 class Header extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired
+  };
 
   render() {
     const classes = this.props.classes;
