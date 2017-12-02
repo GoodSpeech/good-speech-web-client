@@ -1,7 +1,6 @@
 {
   "name": "good-talk",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "diff": "^3.3.0",
     "flag-icon-css": "^2.8.0",
@@ -34,10 +33,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "generate:translations": "node node_scripts/translations && mv translations.js src/i18n/",
-    "generate:content": "node node_scripts/texts && mv content.js src/i18n/",
     "debug": "echo 'Important: Execute node-inspector in another terminal' && node --debug-brk ./node_modules/.bin/jest --runInBand --env=jsdom",
-    "coverage": "react-scripts test --env=jsdom --coverage"
+    "coverage": "react-scripts test --env=jsdom --coverage",
+    "generate:content": "node node_scripts/texts && mv content.js src/i18n/",
+    "generate:translations": "node node_scripts/translations && mv translations.js src/i18n/"
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
@@ -54,7 +53,6 @@
     "eslint-plugin-react": "7.0.1",
     "google-translate-api": "^2.3.0",
     "jest": "^20.0.4",
-    "node-inspector": "^1.1.1",
     "react-test-renderer": "^15.6.1"
   }
 }
