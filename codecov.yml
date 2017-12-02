@@ -1,0 +1,2 @@
+ignore:
+  - "src/services/register-service-worker.js"
