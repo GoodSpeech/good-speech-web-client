@@ -5,7 +5,7 @@ import {
 import getRandomText from '../services/get-content';
 
 const defaultState = {
-  textToRead: getRandomText((window.localStorage && window.localStorage.getItem('lang')) || 'en'),
+  textToRead: getRandomText((window.localStorage && window.localStorage.getItem('lang')) || 'en-US'),
   textReaded: '',
   interimText: ''
 };
