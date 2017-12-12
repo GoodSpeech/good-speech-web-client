@@ -23,7 +23,7 @@ describe('Texts Reducers', () => {
   });
 
   it('should update the text to read properly', () => {
-    expect(store.getState().textToRead).toEqual('');
+    expect(store.getState().textToRead.length).toBeGreaterThan(0);
     store.dispatch(_updateTextToRead('foo'));
     expect(store.getState().textToRead).toEqual('foo');
   });
