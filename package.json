@@ -36,7 +36,8 @@
     "debug": "echo 'Important: Execute node-inspector in another terminal' && node --debug-brk ./node_modules/.bin/jest --runInBand --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "generate:content": "node node_scripts/texts && mv content.js src/i18n/",
-    "generate:translations": "node node_scripts/translations && mv translations.js src/i18n/"
+    "generate:translations": "node node_scripts/translations && mv translations.js src/i18n/",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
@@ -51,8 +52,21 @@
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "5.0.1",
     "eslint-plugin-react": "7.0.1",
+    "gh-pages": "^2.0.0",
     "google-translate-api": "^2.3.0",
     "jest": "^20.0.4",
     "react-test-renderer": "^15.6.1"
-  }
+  },
+  "homepage": "https://GoodSpeech.github.io/good-speech-web-client",
+  "license": "MIT",
+  "repository": "https://github.com/GoodSpeech/good-speech-web-client",
+  "keywords": [
+    "react",
+    "speech",
+    "recognition",
+    "languages",
+    "practice",
+    "redux",
+    "pronunciation"
+  ]
 }

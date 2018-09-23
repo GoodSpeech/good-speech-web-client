@@ -6,7 +6,7 @@
 
 Practice your speech level in any language
 
-Live example: [www.good-speech.com](https://www.good-speech.com)
+Live example: [goodspeech.github.io/good-speech-web-client](https://GoodSpeech.github.io/good-speech-web-client)
 
 
 ![](./docs/imgs/usage.gif)
