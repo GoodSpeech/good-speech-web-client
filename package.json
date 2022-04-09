@@ -10,7 +10,7 @@
     "loglevel": "^1.4.1",
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-alpha.19",
-    "moment": "^2.18.1",
+    "moment": "^2.29.2",
     "prop-types": "^15.5.10",
     "rainbowvis.js": "^1.0.1",
     "react": "^15.6.1",
